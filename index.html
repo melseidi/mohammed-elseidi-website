@@ -2097,6 +2097,377 @@
                 grid-template-columns: 1fr;
             }
         }
+
+        /* ===== Clawdbot Chatbot Widget ===== */
+        .clawdbot-widget {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            z-index: 9999;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+        }
+
+        .clawdbot-toggle {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: var(--gradient-3);
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 20px rgba(13, 148, 136, 0.4);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .clawdbot-toggle::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: var(--gradient-1);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .clawdbot-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 30px rgba(13, 148, 136, 0.5);
+        }
+
+        .clawdbot-toggle:hover::before {
+            opacity: 1;
+        }
+
+        .clawdbot-toggle svg {
+            width: 28px;
+            height: 28px;
+            fill: white;
+            position: relative;
+            z-index: 1;
+            transition: transform 0.3s ease;
+        }
+
+        .clawdbot-toggle.active svg {
+            transform: rotate(90deg);
+        }
+
+        .clawdbot-toggle .close-icon {
+            display: none;
+        }
+
+        .clawdbot-toggle.active .chat-icon {
+            display: none;
+        }
+
+        .clawdbot-toggle.active .close-icon {
+            display: block;
+        }
+
+        .clawdbot-pulse {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: var(--primary);
+            animation: clawdbotPulse 2s infinite;
+            z-index: -1;
+        }
+
+        @keyframes clawdbotPulse {
+            0% { transform: scale(1); opacity: 0.5; }
+            100% { transform: scale(1.8); opacity: 0; }
+        }
+
+        .clawdbot-container {
+            position: absolute;
+            bottom: 80px;
+            right: 0;
+            width: 380px;
+            max-width: calc(100vw - 48px);
+            height: 520px;
+            max-height: calc(100vh - 150px);
+            background: var(--white);
+            border-radius: 20px;
+            box-shadow: 0 10px 50px rgba(0, 0, 0, 0.2);
+            display: flex;
+            flex-direction: column;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px) scale(0.95);
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+
+        .clawdbot-container.active {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0) scale(1);
+        }
+
+        .clawdbot-header {
+            background: var(--gradient-2);
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .clawdbot-avatar {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: var(--gradient-3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            box-shadow: 0 4px 15px rgba(13, 148, 136, 0.3);
+        }
+
+        .clawdbot-header-info h3 {
+            color: var(--white);
+            font-size: 1.1rem;
+            margin: 0;
+            font-weight: 600;
+        }
+
+        .clawdbot-header-info p {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.8rem;
+            margin: 2px 0 0;
+        }
+
+        .clawdbot-status {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            color: var(--accent);
+            font-size: 0.75rem;
+        }
+
+        .clawdbot-status-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--accent);
+            border-radius: 50%;
+            animation: statusPulse 1.5s infinite;
+        }
+
+        @keyframes statusPulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .clawdbot-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%);
+        }
+
+        .clawdbot-messages::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .clawdbot-messages::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .clawdbot-messages::-webkit-scrollbar-thumb {
+            background: rgba(13, 148, 136, 0.3);
+            border-radius: 3px;
+        }
+
+        .clawdbot-message {
+            max-width: 85%;
+            animation: messageSlide 0.3s ease;
+        }
+
+        @keyframes messageSlide {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .clawdbot-message.bot {
+            align-self: flex-start;
+        }
+
+        .clawdbot-message.user {
+            align-self: flex-end;
+        }
+
+        .clawdbot-message-content {
+            padding: 12px 16px;
+            border-radius: 18px;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .clawdbot-message.bot .clawdbot-message-content {
+            background: var(--white);
+            color: var(--text);
+            border-bottom-left-radius: 4px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .clawdbot-message.user .clawdbot-message-content {
+            background: var(--gradient-3);
+            color: var(--white);
+            border-bottom-right-radius: 4px;
+        }
+
+        .clawdbot-message-content a {
+            color: var(--primary);
+            text-decoration: underline;
+        }
+
+        .clawdbot-message.user .clawdbot-message-content a {
+            color: var(--white);
+        }
+
+        .clawdbot-typing {
+            display: flex;
+            gap: 4px;
+            padding: 12px 16px;
+            background: var(--white);
+            border-radius: 18px;
+            border-bottom-left-radius: 4px;
+            width: fit-content;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .clawdbot-typing span {
+            width: 8px;
+            height: 8px;
+            background: var(--primary);
+            border-radius: 50%;
+            animation: typingBounce 1.4s infinite;
+        }
+
+        .clawdbot-typing span:nth-child(2) { animation-delay: 0.2s; }
+        .clawdbot-typing span:nth-child(3) { animation-delay: 0.4s; }
+
+        @keyframes typingBounce {
+            0%, 60%, 100% { transform: translateY(0); }
+            30% { transform: translateY(-6px); }
+        }
+
+        .clawdbot-suggestions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 8px;
+        }
+
+        .clawdbot-suggestion {
+            background: rgba(13, 148, 136, 0.1);
+            border: 1px solid rgba(13, 148, 136, 0.3);
+            color: var(--primary);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .clawdbot-suggestion:hover {
+            background: var(--primary);
+            color: var(--white);
+        }
+
+        .clawdbot-input-area {
+            padding: 16px;
+            border-top: 1px solid rgba(0, 0, 0, 0.08);
+            background: var(--white);
+        }
+
+        .clawdbot-input-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: #f1f5f9;
+            border-radius: 25px;
+            padding: 8px 16px;
+            transition: all 0.2s ease;
+        }
+
+        .clawdbot-input-container:focus-within {
+            background: #e2e8f0;
+            box-shadow: 0 0 0 2px rgba(13, 148, 136, 0.2);
+        }
+
+        .clawdbot-input {
+            flex: 1;
+            border: none;
+            background: transparent;
+            padding: 8px 0;
+            font-size: 0.9rem;
+            outline: none;
+            color: var(--text);
+        }
+
+        .clawdbot-input::placeholder {
+            color: var(--text-light);
+        }
+
+        .clawdbot-send {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background: var(--gradient-3);
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+        }
+
+        .clawdbot-send:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 15px rgba(13, 148, 136, 0.3);
+        }
+
+        .clawdbot-send:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .clawdbot-send svg {
+            width: 18px;
+            height: 18px;
+            fill: white;
+        }
+
+        @media (max-width: 480px) {
+            .clawdbot-widget {
+                bottom: 16px;
+                right: 16px;
+            }
+
+            .clawdbot-container {
+                width: calc(100vw - 32px);
+                height: calc(100vh - 120px);
+                bottom: 70px;
+                right: -8px;
+            }
+
+            .clawdbot-toggle {
+                width: 54px;
+                height: 54px;
+            }
+
+            .clawdbot-pulse {
+                width: 54px;
+                height: 54px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -3095,6 +3466,47 @@
         </div>
     </footer>
 
+    <!-- Clawdbot Chat Widget -->
+    <div class="clawdbot-widget">
+        <div class="clawdbot-pulse"></div>
+        <button class="clawdbot-toggle" onclick="toggleClawdbot()" aria-label="Open chat assistant">
+            <svg class="chat-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 2C6.48 2 2 6.48 2 12c0 1.85.5 3.58 1.37 5.07L2 22l4.93-1.37C8.42 21.5 10.15 22 12 22c5.52 0 10-4.48 10-10S17.52 2 12 2zm-1 15h-2v-2h2v2zm2.07-7.75l-.9.92C11.45 10.9 11 11.5 11 13h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H6c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z"/>
+            </svg>
+            <svg class="close-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+            </svg>
+        </button>
+        <div class="clawdbot-container" id="clawdbotContainer">
+            <div class="clawdbot-header">
+                <div class="clawdbot-avatar">
+                    <i class="fas fa-robot" style="color: white;"></i>
+                </div>
+                <div class="clawdbot-header-info">
+                    <h3>Clawdbot</h3>
+                    <p>Dr. Elseidi's AI Assistant</p>
+                    <div class="clawdbot-status">
+                        <span class="clawdbot-status-dot"></span>
+                        Online
+                    </div>
+                </div>
+            </div>
+            <div class="clawdbot-messages" id="clawdbotMessages">
+                <!-- Messages will be added here dynamically -->
+            </div>
+            <div class="clawdbot-input-area">
+                <div class="clawdbot-input-container">
+                    <input type="text" class="clawdbot-input" id="clawdbotInput" placeholder="Ask me about Dr. Elseidi..." autocomplete="off">
+                    <button class="clawdbot-send" onclick="sendClawdbotMessage()" aria-label="Send message">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
         function toggleNav() {
             document.getElementById('navLinks').classList.toggle('active');
@@ -3190,6 +3602,308 @@
         document.querySelector('.pdf-modal-body').addEventListener('contextmenu', function(e) {
             e.preventDefault();
             return false;
+        });
+
+        // ===== Clawdbot Chatbot Functions =====
+        let clawdbotOpen = false;
+        let clawdbotInitialized = false;
+
+        const clawdbotKnowledge = {
+            name: "Dr. Mohammed Elseidi",
+            title: "Assistant Professor of Statistics",
+            institution: "Umm Al-Quwain University, UAE",
+            email: "drmohammed.elseidi@uaqu.ac.ae",
+            phone: "(+971) 502526435",
+            address: "P.O.Box: 536, Umm Al-Quwain University, UAE",
+            specialization: "Statistical forecasting, time series analysis, machine learning, deep learning, and environmental data science",
+            education: {
+                phd: "PhD in Economics and Econometrics from University of Padova, Italy (2016-2020)",
+                master: "Master in Economics and Econometrics from University of Padova, Italy (2013-2015)",
+                bachelor: "Bachelor in Commerce with Major in Applied Statistics from Mansoura University, Egypt (ranked 1st in department)"
+            },
+            research: [
+                "MSTL-NNAR: Machine learning and time series decomposition for wind speed forecasting",
+                "STR-NBEATS: Deep learning framework for temperature forecasting",
+                "Facebook Prophet-ARIMA: Hybrid framework for temperature data",
+                "Quantile regression-based seasonal adjustment",
+                "Environmental data science and climate prediction"
+            ],
+            publications: {
+                count: "Multiple Q1 journal publications",
+                fwci: "1.84 (citation rate 84% above world average)",
+                notable: [
+                    "MSTL-NNAR model for wind speed forecasting (Stochastic Environmental Research and Risk Assessment)",
+                    "STR-NBEATS framework for temperature forecasting (Modeling Earth Systems and Environment)",
+                    "Crime prediction using AI models (International Journal of Data and Network Science)"
+                ]
+            },
+            awards: [
+                "Second Place in Wellbeing Economy Award 2024/2025 by Greenpeace MENA",
+                "Google Scholarship Program - Data Analytics (2021)",
+                "Doctoral Scholarship from University of Padova (2016)"
+            ],
+            skills: ["R", "Python", "MATLAB", "SPSS", "Advanced LaTeX", "Machine Learning", "Deep Learning", "Time Series Analysis"],
+            links: {
+                linkedin: "https://www.linkedin.com/in/mohammed-elseidi-7a3288154/",
+                researchgate: "https://www.researchgate.net/profile/Mohammed-Elseidi-2",
+                frontiers: "https://loop.frontiersin.org/people/2758882/overview"
+            }
+        };
+
+        function toggleClawdbot() {
+            clawdbotOpen = !clawdbotOpen;
+            const container = document.getElementById('clawdbotContainer');
+            const toggle = document.querySelector('.clawdbot-toggle');
+
+            container.classList.toggle('active', clawdbotOpen);
+            toggle.classList.toggle('active', clawdbotOpen);
+
+            if (clawdbotOpen && !clawdbotInitialized) {
+                initializeClawdbot();
+            }
+        }
+
+        function initializeClawdbot() {
+            clawdbotInitialized = true;
+            const welcomeMessage = `Hello! I'm Clawdbot, Dr. Mohammed Elseidi's AI assistant. I can help you learn about his research, publications, expertise, and how to get in touch. What would you like to know?`;
+
+            addBotMessage(welcomeMessage, [
+                "Tell me about his research",
+                "Publications",
+                "How to contact him",
+                "His education"
+            ]);
+        }
+
+        function addBotMessage(text, suggestions = []) {
+            const messagesContainer = document.getElementById('clawdbotMessages');
+
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'clawdbot-message bot';
+
+            let html = `<div class="clawdbot-message-content">${text}</div>`;
+
+            if (suggestions.length > 0) {
+                html += '<div class="clawdbot-suggestions">';
+                suggestions.forEach(s => {
+                    html += `<button class="clawdbot-suggestion" onclick="handleSuggestion('${s.replace(/'/g, "\\'")}')">${s}</button>`;
+                });
+                html += '</div>';
+            }
+
+            messageDiv.innerHTML = html;
+            messagesContainer.appendChild(messageDiv);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+
+        function addUserMessage(text) {
+            const messagesContainer = document.getElementById('clawdbotMessages');
+
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'clawdbot-message user';
+            messageDiv.innerHTML = `<div class="clawdbot-message-content">${text}</div>`;
+
+            messagesContainer.appendChild(messageDiv);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+
+        function showTypingIndicator() {
+            const messagesContainer = document.getElementById('clawdbotMessages');
+            const typingDiv = document.createElement('div');
+            typingDiv.className = 'clawdbot-message bot';
+            typingDiv.id = 'clawdbotTyping';
+            typingDiv.innerHTML = `<div class="clawdbot-typing"><span></span><span></span><span></span></div>`;
+            messagesContainer.appendChild(typingDiv);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+
+        function removeTypingIndicator() {
+            const typing = document.getElementById('clawdbotTyping');
+            if (typing) typing.remove();
+        }
+
+        function handleSuggestion(suggestion) {
+            addUserMessage(suggestion);
+            processUserInput(suggestion);
+        }
+
+        function sendClawdbotMessage() {
+            const input = document.getElementById('clawdbotInput');
+            const text = input.value.trim();
+
+            if (!text) return;
+
+            addUserMessage(text);
+            input.value = '';
+            processUserInput(text);
+        }
+
+        function processUserInput(input) {
+            showTypingIndicator();
+
+            setTimeout(() => {
+                removeTypingIndicator();
+                const response = generateResponse(input.toLowerCase());
+                addBotMessage(response.text, response.suggestions);
+            }, 800 + Math.random() * 500);
+        }
+
+        function generateResponse(input) {
+            const k = clawdbotKnowledge;
+
+            // Greetings
+            if (input.match(/^(hi|hello|hey|greetings|good morning|good afternoon|good evening)/i)) {
+                return {
+                    text: `Hello! Welcome to Dr. Mohammed Elseidi's website. I'm here to help you learn about his research, publications, and expertise. What would you like to know?`,
+                    suggestions: ["Research areas", "Publications", "Contact info"]
+                };
+            }
+
+            // Contact information
+            if (input.match(/(contact|email|phone|reach|get in touch|address|location)/i)) {
+                return {
+                    text: `You can reach Dr. Elseidi through:<br><br>
+                    <strong>Email:</strong> <a href="mailto:${k.email}">${k.email}</a><br>
+                    <strong>Phone:</strong> ${k.phone}<br>
+                    <strong>Address:</strong> ${k.address}<br><br>
+                    You can also connect on <a href="${k.links.linkedin}" target="_blank">LinkedIn</a> or <a href="${k.links.researchgate}" target="_blank">ResearchGate</a>.`,
+                    suggestions: ["Research areas", "Publications", "Education"]
+                };
+            }
+
+            // Research
+            if (input.match(/(research|work|study|focus|speciali|area|interest|field|expertise)/i)) {
+                return {
+                    text: `Dr. Elseidi specializes in <strong>${k.specialization}</strong>.<br><br>
+                    Key research contributions include:<br>
+                    - <strong>MSTL-NNAR model</strong>: Hybrid machine learning for wind speed forecasting<br>
+                    - <strong>STR-NBEATS framework</strong>: Deep learning for temperature prediction<br>
+                    - <strong>Prophet-ARIMA</strong>: Hybrid forecasting for climate data<br>
+                    - Environmental data science applications`,
+                    suggestions: ["Publications", "Awards", "Skills"]
+                };
+            }
+
+            // Publications
+            if (input.match(/(publication|paper|journal|article|publish|cite|citation|academic)/i)) {
+                return {
+                    text: `Dr. Elseidi has ${k.publications.count} with a Field-Weighted Citation Impact (FWCI) of <strong>${k.publications.fwci}</strong>.<br><br>
+                    Notable publications include:<br>
+                    - MSTL-NNAR for wind speed forecasting (Q1, WoS)<br>
+                    - STR-NBEATS for temperature forecasting (Q1, Scopus)<br>
+                    - AI models for crime prediction (Q1 in AI)<br>
+                    - Facebook Prophet-ARIMA hybrid framework<br><br>
+                    Check the <a href="#publications">Publications section</a> for full details.`,
+                    suggestions: ["Research areas", "Awards", "Contact"]
+                };
+            }
+
+            // Education
+            if (input.match(/(education|degree|university|phd|doctorate|master|bachelor|study|studied|academic background)/i)) {
+                return {
+                    text: `Dr. Elseidi's academic background:<br><br>
+                    <strong>PhD</strong> - Economics & Econometrics<br>
+                    University of Padova, Italy (2016-2020)<br><br>
+                    <strong>Master's</strong> - Economics & Econometrics<br>
+                    University of Padova, Italy (2013-2015)<br><br>
+                    <strong>Bachelor's</strong> - Applied Statistics (Ranked 1st)<br>
+                    Mansoura University, Egypt`,
+                    suggestions: ["Experience", "Research", "Publications"]
+                };
+            }
+
+            // Awards
+            if (input.match(/(award|honor|prize|recognition|achievement|scholarship)/i)) {
+                return {
+                    text: `Dr. Elseidi has received several honors:<br><br>
+                    - <strong>Second Place</strong> in "Wellbeing Economy Award" 2024/2025 by Greenpeace MENA<br>
+                    - <strong>Google Scholarship</strong> for Data Analytics (2021)<br>
+                    - <strong>Doctoral Scholarship</strong> from University of Padova (2016)<br><br>
+                    He also ranked 1st in his department during his bachelor's degree.`,
+                    suggestions: ["Publications", "Research", "Education"]
+                };
+            }
+
+            // Skills
+            if (input.match(/(skill|tool|software|program|language|technolog|python|matlab|spss)/i)) {
+                return {
+                    text: `Dr. Elseidi's technical skills include:<br><br>
+                    <strong>Programming:</strong> R, Python, MATLAB<br>
+                    <strong>Statistical Software:</strong> SPSS, Statgraphics, JMP<br>
+                    <strong>Writing:</strong> Advanced LaTeX, Microsoft Office<br>
+                    <strong>Expertise:</strong> Machine Learning, Deep Learning, Time Series Analysis`,
+                    suggestions: ["Research", "Publications", "Contact"]
+                };
+            }
+
+            // Experience/Position
+            if (input.match(/(experience|position|job|work|career|employ|professor|teach)/i)) {
+                return {
+                    text: `Dr. Elseidi is currently an <strong>Assistant Professor of Statistics</strong> at Umm Al-Quwain University, UAE.<br><br>
+                    He has extensive academic experience including:<br>
+                    - University teaching and research<br>
+                    - Editorial and review roles for academic journals<br>
+                    - Leadership in university committees<br>
+                    - Membership in international statistical associations`,
+                    suggestions: ["Research", "Publications", "Contact"]
+                };
+            }
+
+            // Seminars
+            if (input.match(/(seminar|presentation|talk|workshop|lecture|video|youtube)/i)) {
+                return {
+                    text: `Dr. Elseidi actively presents his research:<br><br>
+                    - <strong>YouTube Workshop:</strong> "Leveraging AI Tools in Academic Publishing" (Nov 2025)<br>
+                    - <strong>LinkedIn Workshop:</strong> "Introduction to Data Analysis in R"<br>
+                    - Scientific seminars on MSTL-NNAR forecasting models<br><br>
+                    Visit the <a href="#seminars">Seminars section</a> to watch recordings.`,
+                    suggestions: ["Publications", "Research", "Contact"]
+                };
+            }
+
+            // Who is / About
+            if (input.match(/(who is|about|tell me about|introduce|overview|bio|biography)/i)) {
+                return {
+                    text: `<strong>Dr. Mohammed Elseidi</strong> is an Assistant Professor of Statistics at Umm Al-Quwain University, UAE.<br><br>
+                    He specializes in statistical forecasting, machine learning, and environmental data science. His research has been published in top Q1 journals with citations 84% above world average.<br><br>
+                    Dr. Elseidi holds a PhD from the University of Padova, Italy, and has received multiple awards including the Wellbeing Economy Award from Greenpeace MENA.`,
+                    suggestions: ["Research areas", "Publications", "Contact"]
+                };
+            }
+
+            // Thanks
+            if (input.match(/(thank|thanks|appreciate|helpful)/i)) {
+                return {
+                    text: `You're welcome! I'm happy to help. If you have any more questions about Dr. Elseidi's work or how to get in touch, feel free to ask!`,
+                    suggestions: ["Research", "Contact", "Publications"]
+                };
+            }
+
+            // Goodbye
+            if (input.match(/(bye|goodbye|see you|later|quit|exit)/i)) {
+                return {
+                    text: `Goodbye! Thank you for visiting Dr. Elseidi's website. Don't hesitate to come back if you have more questions!`,
+                    suggestions: []
+                };
+            }
+
+            // Default response
+            return {
+                text: `I can help you learn about Dr. Mohammed Elseidi. Try asking about:<br><br>
+                - His <strong>research</strong> in forecasting and machine learning<br>
+                - His <strong>publications</strong> in Q1 journals<br>
+                - How to <strong>contact</strong> him<br>
+                - His <strong>education</strong> and background<br>
+                - His <strong>awards</strong> and achievements`,
+                suggestions: ["Research areas", "Publications", "Contact", "Education"]
+            };
+        }
+
+        // Handle Enter key for sending messages
+        document.getElementById('clawdbotInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                sendClawdbotMessage();
+            }
         });
     </script>
 </body>
