@@ -879,6 +879,26 @@
         }
 
         /* ===== Seminars & Presentations Section ===== */
+        .linkedin-embed-card {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .linkedin-embed-wrapper {
+            background: var(--off-white);
+            border-radius: 12px 12px 0 0;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+        }
+
+        .linkedin-embed-wrapper iframe {
+            width: 100%;
+            max-width: 504px;
+            border: 0;
+            display: block;
+        }
+
         .seminars-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
@@ -2803,6 +2823,48 @@
                         </div>
                         <a href="https://www.linkedin.com/feed/update/urn:li:activity:7320413594913783809/" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="margin-top: 1rem; display: inline-flex; align-items: center; gap: 0.5rem; background: linear-gradient(135deg, #0077b5, #00a0dc);">
                             <i class="fab fa-linkedin"></i> Watch on LinkedIn
+                        </a>
+                    </div>
+                </div>
+
+                <!-- LinkedIn Embedded Workshop Post -->
+                <div class="seminar-card linkedin-embed-card">
+                    <div class="linkedin-embed-wrapper">
+                        <iframe src="https://www.linkedin.com/embed/feed/update/urn:li:share:7451342247712833536?collapsed=1"
+                                width="100%"
+                                height="669"
+                                frameborder="0"
+                                allowfullscreen
+                                title="Embedded LinkedIn workshop post"
+                                loading="lazy"></iframe>
+                    </div>
+                    <div class="seminar-info">
+                        <span class="seminar-badge" style="background: linear-gradient(135deg, #0077b5, #00a0dc);"><i class="fab fa-linkedin"></i> LinkedIn</span>
+                        <h3>Workshop Highlight from LinkedIn</h3>
+                        <p style="color: var(--text-light); font-size: 0.95rem; margin: 0.5rem 0;">Latest workshop update shared on LinkedIn</p>
+                        <a href="https://www.linkedin.com/feed/update/urn:li:share:7451342247712833536/" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="margin-top: 1rem; display: inline-flex; align-items: center; gap: 0.5rem; background: linear-gradient(135deg, #0077b5, #00a0dc);">
+                            <i class="fab fa-linkedin"></i> View on LinkedIn
+                        </a>
+                    </div>
+                </div>
+
+                <!-- LinkedIn Embedded Workshop Post #2 -->
+                <div class="seminar-card linkedin-embed-card">
+                    <div class="linkedin-embed-wrapper">
+                        <iframe src="https://www.linkedin.com/embed/feed/update/urn:li:share:7453320220955303937?collapsed=1"
+                                width="100%"
+                                height="633"
+                                frameborder="0"
+                                allowfullscreen
+                                title="Embedded LinkedIn workshop post"
+                                loading="lazy"></iframe>
+                    </div>
+                    <div class="seminar-info">
+                        <span class="seminar-badge" style="background: linear-gradient(135deg, #0077b5, #00a0dc);"><i class="fab fa-linkedin"></i> LinkedIn</span>
+                        <h3>Workshop Highlight from LinkedIn</h3>
+                        <p style="color: var(--text-light); font-size: 0.95rem; margin: 0.5rem 0;">Latest workshop update shared on LinkedIn</p>
+                        <a href="https://www.linkedin.com/feed/update/urn:li:share:7453320220955303937/" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="margin-top: 1rem; display: inline-flex; align-items: center; gap: 0.5rem; background: linear-gradient(135deg, #0077b5, #00a0dc);">
+                            <i class="fab fa-linkedin"></i> View on LinkedIn
                         </a>
                     </div>
                 </div>
