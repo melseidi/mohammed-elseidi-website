@@ -1,0 +1,1603 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Creative Universe | Dr. Mohammed Elseidi</title>
+    <meta name="description" content="The Creative Universe of Dr. Mohammed Elseidi — nature photography, AI-composed music, and creative experiments where data science meets art.">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* ===== Root Variables - Creative Theme ===== */
+        :root {
+            --c-violet: #8b5cf6;
+            --c-pink: #ec4899;
+            --c-magenta: #f0abfc;
+            --c-amber: #fbbf24;
+            --c-orange: #f97316;
+            --c-teal: #14b8a6;
+            --c-emerald: #34d399;
+            --c-sky: #38bdf8;
+            --c-night: #060814;
+            --c-night-2: #0f172a;
+            --c-night-3: #1a0b2e;
+            --c-text: #e5e7eb;
+            --c-text-dim: rgba(229, 231, 235, 0.7);
+            --c-text-faint: rgba(229, 231, 235, 0.5);
+            --c-glass: rgba(255, 255, 255, 0.05);
+            --c-glass-border: rgba(255, 255, 255, 0.1);
+            --c-aurora: linear-gradient(135deg, #f0abfc 0%, #fde68a 50%, #34d399 100%);
+            --c-fire: linear-gradient(135deg, #ec4899 0%, #8b5cf6 50%, #14b8a6 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            line-height: 1.7;
+            color: var(--c-text);
+            background: var(--c-night);
+            overflow-x: hidden;
+        }
+
+        a {
+            text-decoration: none;
+            color: var(--c-magenta);
+            transition: all 0.3s ease;
+        }
+
+        a:hover {
+            color: var(--c-amber);
+        }
+
+        /* ===== Navigation ===== */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(6, 8, 20, 0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            padding: 1rem 0;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .nav-back {
+            color: var(--c-text);
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            font-size: 0.95rem;
+            padding: 0.5rem 1rem;
+            border-radius: 999px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            transition: all 0.3s ease;
+        }
+
+        .nav-back:hover {
+            border-color: var(--c-magenta);
+            color: var(--c-magenta);
+            transform: translateX(-3px);
+        }
+
+        .nav-logo {
+            font-size: 1rem;
+            font-weight: 700;
+            background: var(--c-aurora);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: 0.04em;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 0.4rem;
+        }
+
+        .nav-links a {
+            color: var(--c-text);
+            padding: 0.5rem 1rem;
+            border-radius: 999px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            background: rgba(236, 72, 153, 0.12);
+            color: var(--c-magenta);
+            border-color: rgba(236, 72, 153, 0.4);
+        }
+
+        .nav-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+        }
+
+        .nav-toggle span {
+            width: 25px;
+            height: 3px;
+            background: var(--c-text);
+            border-radius: 2px;
+            transition: 0.3s;
+        }
+
+        /* ===== Hero ===== */
+        .hero {
+            min-height: 90vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 140px 2rem 80px;
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse at top, var(--c-night-3) 0%, var(--c-night-2) 50%, var(--c-night) 100%);
+            z-index: -2;
+        }
+
+        .aurora {
+            position: absolute;
+            inset: 0;
+            overflow: hidden;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .aurora span {
+            position: absolute;
+            display: block;
+            border-radius: 50%;
+            filter: blur(100px);
+            opacity: 0.45;
+            animation: auroraDrift 24s ease-in-out infinite;
+        }
+
+        .aurora span:nth-child(1) { width: 480px; height: 480px; background: var(--c-violet); top: -120px; left: -60px; }
+        .aurora span:nth-child(2) { width: 420px; height: 420px; background: var(--c-pink); top: 30%; right: -100px; animation-delay: -8s; }
+        .aurora span:nth-child(3) { width: 380px; height: 380px; background: var(--c-teal); bottom: -100px; left: 30%; animation-delay: -16s; opacity: 0.3; }
+        .aurora span:nth-child(4) { width: 300px; height: 300px; background: var(--c-amber); top: 20%; left: 40%; animation-delay: -4s; opacity: 0.25; }
+
+        @keyframes auroraDrift {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(50px, -40px) scale(1.1); }
+            66% { transform: translate(-40px, 30px) scale(0.92); }
+        }
+
+        .stars {
+            position: absolute;
+            inset: 0;
+            overflow: hidden;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .stars i {
+            position: absolute;
+            display: block;
+            width: 2px;
+            height: 2px;
+            background: var(--c-text);
+            border-radius: 50%;
+            opacity: 0;
+            animation: twinkle 4s ease-in-out infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0; transform: scale(0.6); }
+            50% { opacity: 0.8; transform: scale(1.2); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 900px;
+        }
+
+        .hero-eyebrow {
+            display: inline-block;
+            padding: 0.55rem 1.4rem;
+            border-radius: 999px;
+            background: rgba(244, 114, 182, 0.08);
+            border: 1px solid rgba(244, 114, 182, 0.35);
+            color: var(--c-magenta);
+            font-size: 0.78rem;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            font-weight: 600;
+            margin-bottom: 1.75rem;
+        }
+
+        .hero-title {
+            font-size: clamp(2.5rem, 6vw, 4.75rem);
+            font-weight: 800;
+            line-height: 1.05;
+            margin-bottom: 1.5rem;
+            background: var(--c-aurora);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-title .accent {
+            background: linear-gradient(135deg, var(--c-pink), var(--c-amber));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-sub {
+            font-size: 1.15rem;
+            color: var(--c-text-dim);
+            max-width: 680px;
+            margin: 0 auto 2.5rem;
+            line-height: 1.8;
+        }
+
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            flex-wrap: wrap;
+            margin-top: 3rem;
+        }
+
+        .hero-stat {
+            text-align: center;
+        }
+
+        .hero-stat-num {
+            font-size: 2.25rem;
+            font-weight: 800;
+            background: var(--c-aurora);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: block;
+            line-height: 1;
+        }
+
+        .hero-stat-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.18em;
+            color: var(--c-text-faint);
+            margin-top: 0.5rem;
+            display: block;
+        }
+
+        .scroll-cue {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            color: var(--c-text-faint);
+            font-size: 0.75rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.6rem;
+            animation: scrollBounce 2.4s ease-in-out infinite;
+        }
+
+        .scroll-cue::after {
+            content: '';
+            width: 1px;
+            height: 32px;
+            background: linear-gradient(to bottom, var(--c-text-faint), transparent);
+        }
+
+        @keyframes scrollBounce {
+            0%, 100% { transform: translate(-50%, 0); opacity: 0.7; }
+            50% { transform: translate(-50%, 8px); opacity: 1; }
+        }
+
+        /* ===== Filter Tabs ===== */
+        .tabs-wrap {
+            position: sticky;
+            top: 70px;
+            z-index: 20;
+            padding: 1.25rem 1rem;
+            background: rgba(6, 8, 20, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .tabs {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            background: transparent;
+            color: var(--c-text-dim);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 0.65rem 1.5rem;
+            border-radius: 999px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.55rem;
+            font-family: inherit;
+        }
+
+        .tab-btn:hover {
+            color: var(--c-text);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .tab-btn.active {
+            background: var(--c-fire);
+            color: var(--c-text);
+            border-color: transparent;
+            box-shadow: 0 8px 24px rgba(236, 72, 153, 0.3);
+        }
+
+        /* ===== Section Layout ===== */
+        .section {
+            padding: 5rem 2rem;
+            position: relative;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3.5rem;
+        }
+
+        .section-title h2 {
+            font-size: clamp(1.85rem, 3.5vw, 2.75rem);
+            font-weight: 800;
+            margin-bottom: 0.75rem;
+            background: var(--c-aurora);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: inline-block;
+        }
+
+        .section-title p {
+            color: var(--c-text-dim);
+            font-size: 1.05rem;
+            max-width: 620px;
+            margin: 0 auto;
+        }
+
+        .section-title .label {
+            display: inline-block;
+            font-size: 0.72rem;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: var(--c-magenta);
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+        }
+
+        .creative-area.hidden {
+            display: none;
+        }
+
+        /* ===== Photography Masonry ===== */
+        .gallery {
+            column-count: 3;
+            column-gap: 1.25rem;
+        }
+
+        .photo-card {
+            break-inside: avoid;
+            margin-bottom: 1.25rem;
+            border-radius: 18px;
+            overflow: hidden;
+            position: relative;
+            cursor: pointer;
+            background: var(--c-glass);
+            border: 1px solid var(--c-glass-border);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            display: block;
+        }
+
+        .photo-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+        }
+
+        .photo-thumb {
+            width: 100%;
+            display: block;
+            aspect-ratio: var(--ratio, 4 / 3);
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            transition: transform 0.6s ease;
+        }
+
+        .photo-card:hover .photo-thumb {
+            transform: scale(1.05);
+        }
+
+        .photo-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(6, 8, 20, 0.9) 0%, rgba(6, 8, 20, 0.3) 50%, transparent 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 1.25rem;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .photo-card:hover .photo-overlay {
+            opacity: 1;
+        }
+
+        .photo-overlay h4 {
+            color: var(--c-text);
+            font-size: 1.05rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .photo-overlay span {
+            color: var(--c-text-faint);
+            font-size: 0.8rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .photo-tag {
+            position: absolute;
+            top: 0.85rem;
+            left: 0.85rem;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            padding: 0.3rem 0.7rem;
+            border-radius: 999px;
+            background: rgba(6, 8, 20, 0.6);
+            backdrop-filter: blur(8px);
+            color: var(--c-text);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .photo-card:hover .photo-tag {
+            opacity: 1;
+        }
+
+        @media (max-width: 1024px) {
+            .gallery { column-count: 2; }
+        }
+
+        @media (max-width: 640px) {
+            .gallery { column-count: 1; }
+        }
+
+        /* ===== Lightbox ===== */
+        .lightbox {
+            position: fixed;
+            inset: 0;
+            background: rgba(6, 8, 20, 0.95);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            z-index: 2000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .lightbox.active {
+            display: flex;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .lightbox-content {
+            max-width: 1200px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.25rem;
+        }
+
+        .lightbox-img {
+            width: 100%;
+            max-height: 75vh;
+            border-radius: 16px;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            aspect-ratio: 16 / 10;
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6);
+        }
+
+        .lightbox-meta {
+            text-align: center;
+        }
+
+        .lightbox-meta h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.25rem;
+            color: var(--c-text);
+        }
+
+        .lightbox-meta p {
+            color: var(--c-text-dim);
+            font-size: 0.95rem;
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: var(--c-text);
+            font-size: 1.25rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .lightbox-close:hover {
+            background: var(--c-pink);
+            transform: rotate(90deg);
+        }
+
+        .lightbox-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: var(--c-text);
+            font-size: 1.25rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .lightbox-nav:hover {
+            background: var(--c-pink);
+            border-color: var(--c-pink);
+        }
+
+        .lightbox-prev { left: 1.5rem; }
+        .lightbox-next { right: 1.5rem; }
+
+        /* ===== Music Section ===== */
+        .music-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+        }
+
+        .track-card {
+            background: var(--c-glass);
+            border: 1px solid var(--c-glass-border);
+            border-radius: 22px;
+            padding: 1.75rem;
+            display: flex;
+            gap: 1.5rem;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.4s ease, border-color 0.4s ease;
+        }
+
+        .track-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: var(--cover, linear-gradient(135deg, #8b5cf6, #ec4899));
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .track-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .track-card:hover::before {
+            opacity: 0.08;
+        }
+
+        .track-cover {
+            flex-shrink: 0;
+            width: 120px;
+            height: 120px;
+            border-radius: 16px;
+            background: var(--cover);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+        }
+
+        .track-cover::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.2) 0%, transparent 60%);
+        }
+
+        .track-cover i {
+            font-size: 2.5rem;
+            color: rgba(255, 255, 255, 0.85);
+            position: relative;
+            z-index: 1;
+            text-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+        }
+
+        .track-card.playing .track-cover {
+            animation: spinSlow 8s linear infinite;
+        }
+
+        @keyframes spinSlow {
+            to { transform: rotate(360deg); }
+        }
+
+        .track-info {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+            position: relative;
+            z-index: 1;
+        }
+
+        .track-genre {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.18em;
+            color: var(--c-magenta);
+            font-weight: 700;
+            margin-bottom: 0.4rem;
+        }
+
+        .track-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--c-text);
+            margin-bottom: 0.25rem;
+        }
+
+        .track-desc {
+            font-size: 0.85rem;
+            color: var(--c-text-dim);
+            margin-bottom: 1rem;
+            line-height: 1.5;
+        }
+
+        .track-controls {
+            margin-top: auto;
+            display: flex;
+            align-items: center;
+            gap: 0.85rem;
+        }
+
+        .track-play {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--c-fire);
+            border: none;
+            color: var(--c-text);
+            font-size: 0.9rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            flex-shrink: 0;
+            box-shadow: 0 6px 20px rgba(236, 72, 153, 0.4);
+        }
+
+        .track-play:hover {
+            transform: scale(1.08);
+            box-shadow: 0 10px 28px rgba(236, 72, 153, 0.55);
+        }
+
+        .track-progress {
+            flex-grow: 1;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 3px;
+            overflow: hidden;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .track-progress-fill {
+            position: absolute;
+            inset: 0;
+            background: var(--c-fire);
+            transform-origin: left;
+            transform: scaleX(0);
+            transition: transform 0.1s linear;
+            border-radius: 3px;
+        }
+
+        .track-time {
+            font-size: 0.75rem;
+            color: var(--c-text-faint);
+            font-variant-numeric: tabular-nums;
+            min-width: 70px;
+            text-align: right;
+        }
+
+        .track-wave {
+            display: flex;
+            align-items: center;
+            gap: 2px;
+            height: 24px;
+            margin-top: 0.5rem;
+            opacity: 0.45;
+            transition: opacity 0.3s ease;
+        }
+
+        .track-card.playing .track-wave {
+            opacity: 1;
+        }
+
+        .track-wave span {
+            display: block;
+            width: 3px;
+            background: var(--c-fire);
+            border-radius: 2px;
+            height: 6px;
+        }
+
+        .track-card.playing .track-wave span {
+            animation: trackWave 0.9s ease-in-out infinite;
+        }
+
+        .track-wave span:nth-child(1) { animation-delay: 0s; }
+        .track-wave span:nth-child(2) { animation-delay: 0.07s; }
+        .track-wave span:nth-child(3) { animation-delay: 0.14s; }
+        .track-wave span:nth-child(4) { animation-delay: 0.21s; }
+        .track-wave span:nth-child(5) { animation-delay: 0.28s; }
+        .track-wave span:nth-child(6) { animation-delay: 0.35s; }
+        .track-wave span:nth-child(7) { animation-delay: 0.42s; }
+        .track-wave span:nth-child(8) { animation-delay: 0.49s; }
+        .track-wave span:nth-child(9) { animation-delay: 0.56s; }
+        .track-wave span:nth-child(10) { animation-delay: 0.63s; }
+        .track-wave span:nth-child(11) { animation-delay: 0.70s; }
+        .track-wave span:nth-child(12) { animation-delay: 0.77s; }
+        .track-wave span:nth-child(13) { animation-delay: 0.84s; }
+        .track-wave span:nth-child(14) { animation-delay: 0.91s; }
+        .track-wave span:nth-child(15) { animation-delay: 0.98s; }
+
+        @keyframes trackWave {
+            0%, 100% { height: 4px; }
+            50% { height: 22px; }
+        }
+
+        @media (max-width: 768px) {
+            .music-grid { grid-template-columns: 1fr; }
+            .track-card { flex-direction: column; }
+            .track-cover { width: 100%; height: 180px; }
+        }
+
+        /* ===== Creations Grid ===== */
+        .creations-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .creation-card {
+            background: var(--c-glass);
+            border: 1px solid var(--c-glass-border);
+            border-radius: 22px;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.4s ease, border-color 0.4s ease;
+            min-height: 240px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .creation-card:hover {
+            transform: translateY(-6px);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .creation-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: var(--accent-glow);
+            opacity: 0.1;
+            mask: linear-gradient(180deg, black 0%, transparent 70%);
+            -webkit-mask: linear-gradient(180deg, black 0%, transparent 70%);
+            pointer-events: none;
+            transition: opacity 0.4s ease;
+        }
+
+        .creation-card:hover::before {
+            opacity: 0.2;
+        }
+
+        .creation-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            color: var(--c-text);
+            margin-bottom: 1.25rem;
+            background: var(--accent-glow);
+            box-shadow: 0 8px 22px rgba(0, 0, 0, 0.35);
+            position: relative;
+            z-index: 1;
+        }
+
+        .creation-card h3 {
+            font-size: 1.2rem;
+            color: var(--c-text);
+            margin-bottom: 0.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .creation-card p {
+            color: var(--c-text-dim);
+            font-size: 0.9rem;
+            line-height: 1.6;
+            position: relative;
+            z-index: 1;
+            flex-grow: 1;
+        }
+
+        .creation-tag {
+            display: inline-block;
+            margin-top: 1rem;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.18em;
+            color: var(--c-text-faint);
+            font-weight: 600;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Quote / poem card variant */
+        .creation-quote {
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.12), rgba(236, 72, 153, 0.08));
+        }
+
+        .creation-quote .creation-text {
+            font-family: 'Georgia', serif;
+            font-style: italic;
+            font-size: 1.05rem;
+            color: var(--c-text);
+            line-height: 1.7;
+            position: relative;
+            padding-left: 1.5rem;
+            border-left: 3px solid var(--c-magenta);
+        }
+
+        .creation-quote .creation-author {
+            margin-top: 1rem;
+            font-size: 0.8rem;
+            color: var(--c-magenta);
+            letter-spacing: 0.12em;
+        }
+
+        /* ===== Footer ===== */
+        .footer-c {
+            background: var(--c-night);
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            padding: 3rem 2rem 2rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .footer-c h4 {
+            font-size: 1.1rem;
+            background: var(--c-aurora);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-c p {
+            color: var(--c-text-faint);
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-back {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            padding: 0.75rem 1.75rem;
+            background: var(--c-fire);
+            color: var(--c-text);
+            border-radius: 999px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .footer-back:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 14px 35px rgba(236, 72, 153, 0.4);
+            color: var(--c-text);
+        }
+
+        .footer-copy {
+            margin-top: 2rem;
+            font-size: 0.8rem;
+            color: var(--c-text-faint);
+        }
+
+        /* ===== Responsive ===== */
+        @media (max-width: 768px) {
+            .nav-toggle { display: flex; }
+
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: rgba(6, 8, 20, 0.97);
+                flex-direction: column;
+                padding: 1rem 2rem;
+                border-top: 1px solid rgba(255, 255, 255, 0.06);
+            }
+
+            .nav-links.active { display: flex; }
+
+            .hero-stats { gap: 1.5rem; }
+
+            .hero-stat-num { font-size: 1.75rem; }
+
+            .lightbox-nav { width: 42px; height: 42px; }
+            .lightbox-prev { left: 0.75rem; }
+            .lightbox-next { right: 0.75rem; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-back">
+                <i class="fas fa-arrow-left"></i>
+                <span>Back to Profile</span>
+            </a>
+            <span class="nav-logo">Creative Universe</span>
+            <div class="nav-toggle" onclick="toggleNav()">
+                <span></span><span></span><span></span>
+            </div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#photography" class="nav-anchor">Photography</a></li>
+                <li><a href="#music" class="nav-anchor">Music</a></li>
+                <li><a href="#creations" class="nav-anchor">Creations</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="hero-bg"></div>
+        <div class="aurora">
+            <span></span><span></span><span></span><span></span>
+        </div>
+        <div class="stars" id="stars"></div>
+
+        <div class="hero-content">
+            <span class="hero-eyebrow">✦ Where Data Meets Imagination</span>
+            <h1 class="hero-title">A Creative <span class="accent">Universe</span><br>Beyond the Equations</h1>
+            <p class="hero-sub">Statistics teaches us to see patterns; art teaches us to feel them. Welcome to the place where I let curiosity wander — through forests, into melodies, and across every quiet experiment that doesn't fit on a research paper.</p>
+
+            <div class="hero-stats">
+                <div class="hero-stat">
+                    <span class="hero-stat-num" data-count="36">0</span>
+                    <span class="hero-stat-label">Photographs</span>
+                </div>
+                <div class="hero-stat">
+                    <span class="hero-stat-num" data-count="12">0</span>
+                    <span class="hero-stat-label">AI Tracks</span>
+                </div>
+                <div class="hero-stat">
+                    <span class="hero-stat-num" data-count="8">0</span>
+                    <span class="hero-stat-label">Experiments</span>
+                </div>
+                <div class="hero-stat">
+                    <span class="hero-stat-num">∞</span>
+                    <span class="hero-stat-label">Curiosity</span>
+                </div>
+            </div>
+        </div>
+
+        <span class="scroll-cue">Scroll to explore</span>
+    </section>
+
+    <!-- Tabs -->
+    <div class="tabs-wrap">
+        <div class="tabs" role="tablist">
+            <button class="tab-btn active" data-filter="all">
+                <i class="fas fa-asterisk"></i> All
+            </button>
+            <button class="tab-btn" data-filter="photography">
+                <i class="fas fa-camera-retro"></i> Photography
+            </button>
+            <button class="tab-btn" data-filter="music">
+                <i class="fas fa-music"></i> Music
+            </button>
+            <button class="tab-btn" data-filter="creations">
+                <i class="fas fa-palette"></i> Creations
+            </button>
+        </div>
+    </div>
+
+    <!-- Photography -->
+    <section class="section creative-area" id="photography" data-area="photography">
+        <div class="container">
+            <div class="section-title">
+                <span class="label">Through the Lens</span>
+                <h2>Nature Photography</h2>
+                <p>Frames where light, time and the wild collaborate. Click any image to view it in full.</p>
+            </div>
+
+            <div class="gallery" id="gallery">
+                <!-- Photos use Picsum Photos as placeholders. Replace `data-img` with your own photo URLs. -->
+                <a class="photo-card" data-img="https://picsum.photos/seed/forest1/1200/900" data-title="Morning Mist" data-meta="Atlas Mountains · 2024" style="--ratio: 4/3;">
+                    <div class="photo-thumb" style="background-image: url('https://picsum.photos/seed/forest1/800/600');"></div>
+                    <span class="photo-tag">Forest</span>
+                    <div class="photo-overlay"><h4>Morning Mist</h4><span><i class="fas fa-map-marker-alt"></i> Atlas Mountains</span></div>
+                </a>
+                <a class="photo-card" data-img="https://picsum.photos/seed/desert1/1200/1500" data-title="Dunes at Dusk" data-meta="Liwa Desert · UAE" style="--ratio: 3/4;">
+                    <div class="photo-thumb" style="background-image: url('https://picsum.photos/seed/desert1/800/1000');"></div>
+                    <span class="photo-tag">Desert</span>
+                    <div class="photo-overlay"><h4>Dunes at Dusk</h4><span><i class="fas fa-map-marker-alt"></i> Liwa Desert</span></div>
+                </a>
+                <a class="photo-card" data-img="https://picsum.photos/seed/ocean1/1200/800" data-title="Tidal Whisper" data-meta="Adriatic Coast" style="--ratio: 3/2;">
+                    <div class="photo-thumb" style="background-image: url('https://picsum.photos/seed/ocean1/800/520');"></div>
+                    <span class="photo-tag">Ocean</span>
+                    <div class="photo-overlay"><h4>Tidal Whisper</h4><span><i class="fas fa-map-marker-alt"></i> Adriatic Coast</span></div>
+                </a>
+                <a class="photo-card" data-img="https://picsum.photos/seed/mountain2/1200/1400" data-title="Sky Cathedral" data-meta="Italian Dolomites" style="--ratio: 6/7;">
+                    <div class="photo-thumb" style="background-image: url('https://picsum.photos/seed/mountain2/800/950');"></div>
+                    <span class="photo-tag">Mountains</span>
+                    <div class="photo-overlay"><h4>Sky Cathedral</h4><span><i class="fas fa-map-marker-alt"></i> Italian Dolomites</span></div>
+                </a>
+                <a class="photo-card" data-img="https://picsum.photos/seed/macro1/1200/900" data-title="Petals of Light" data-meta="Garden study" style="--ratio: 4/3;">
+                    <div class="photo-thumb" style="background-image: url('https://picsum.photos/seed/macro1/800/600');"></div>
+                    <span class="photo-tag">Macro</span>
+                    <div class="photo-overlay"><h4>Petals of Light</h4><span><i class="fas fa-map-marker-alt"></i> Garden study</span></div>
+                </a>
+                <a class="photo-card" data-img="https://picsum.photos/seed/river1/1200/1500" data-title="River's Memory" data-meta="Veneto, Italy" style="--ratio: 4/5;">
+                    <div class="photo-thumb" style="background-image: url('https://picsum.photos/seed/river1/800/1000');"></div>
+                    <span class="photo-tag">Water</span>
+                    <div class="photo-overlay"><h4>River's Memory</h4><span><i class="fas fa-map-marker-alt"></i> Veneto, Italy</span></div>
+                </a>
+                <a class="photo-card" data-img="https://picsum.photos/seed/sky1/1600/900" data-title="The Quiet Hour" data-meta="Padova at dawn" style="--ratio: 16/9;">
+                    <div class="photo-thumb" style="background-image: url('https://picsum.photos/seed/sky1/1000/560');"></div>
+                    <span class="photo-tag">Sky</span>
+                    <div class="photo-overlay"><h4>The Quiet Hour</h4><span><i class="fas fa-map-marker-alt"></i> Padova at dawn</span></div>
+                </a>
+                <a class="photo-card" data-img="https://picsum.photos/seed/forest2/1200/1500" data-title="Verdant Path" data-meta="Northern woods" style="--ratio: 4/5;">
+                    <div class="photo-thumb" style="background-image: url('https://picsum.photos/seed/forest2/800/1000');"></div>
+                    <span class="photo-tag">Forest</span>
+                    <div class="photo-overlay"><h4>Verdant Path</h4><span><i class="fas fa-map-marker-alt"></i> Northern woods</span></div>
+                </a>
+                <a class="photo-card" data-img="https://picsum.photos/seed/wildlife1/1200/900" data-title="Patient Wings" data-meta="Wetlands study" style="--ratio: 4/3;">
+                    <div class="photo-thumb" style="background-image: url('https://picsum.photos/seed/wildlife1/800/600');"></div>
+                    <span class="photo-tag">Wildlife</span>
+                    <div class="photo-overlay"><h4>Patient Wings</h4><span><i class="fas fa-map-marker-alt"></i> Wetlands study</span></div>
+                </a>
+                <a class="photo-card" data-img="https://picsum.photos/seed/sunset1/1600/1000" data-title="Burning Horizon" data-meta="Gulf coast" style="--ratio: 8/5;">
+                    <div class="photo-thumb" style="background-image: url('https://picsum.photos/seed/sunset1/1000/620');"></div>
+                    <span class="photo-tag">Sunset</span>
+                    <div class="photo-overlay"><h4>Burning Horizon</h4><span><i class="fas fa-map-marker-alt"></i> Gulf coast</span></div>
+                </a>
+                <a class="photo-card" data-img="https://picsum.photos/seed/winter1/1200/1500" data-title="Silent Snow" data-meta="Alpine retreat" style="--ratio: 4/5;">
+                    <div class="photo-thumb" style="background-image: url('https://picsum.photos/seed/winter1/800/1000');"></div>
+                    <span class="photo-tag">Winter</span>
+                    <div class="photo-overlay"><h4>Silent Snow</h4><span><i class="fas fa-map-marker-alt"></i> Alpine retreat</span></div>
+                </a>
+                <a class="photo-card" data-img="https://picsum.photos/seed/oasis1/1200/900" data-title="Oasis Mirror" data-meta="Al Ain, UAE" style="--ratio: 4/3;">
+                    <div class="photo-thumb" style="background-image: url('https://picsum.photos/seed/oasis1/800/600');"></div>
+                    <span class="photo-tag">Oasis</span>
+                    <div class="photo-overlay"><h4>Oasis Mirror</h4><span><i class="fas fa-map-marker-alt"></i> Al Ain, UAE</span></div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Music -->
+    <section class="section creative-area" id="music" data-area="music">
+        <div class="container">
+            <div class="section-title">
+                <span class="label">Generative Soundscapes</span>
+                <h2>AI-Composed Music</h2>
+                <p>A small collection of original tracks I compose in collaboration with generative-AI models — exploring how statistics can learn to sing.</p>
+            </div>
+
+            <div class="music-grid">
+                <article class="track-card" style="--cover: linear-gradient(135deg, #8b5cf6, #ec4899);" data-duration="218">
+                    <div class="track-cover"><i class="fas fa-cloud-moon"></i></div>
+                    <div class="track-info">
+                        <span class="track-genre">Ambient · Cinematic</span>
+                        <h3 class="track-title">Stardust Equations</h3>
+                        <p class="track-desc">A drifting ambient piece born from random walks — strings, breath, and slow gravity.</p>
+                        <div class="track-controls">
+                            <button class="track-play" aria-label="Play"><i class="fas fa-play"></i></button>
+                            <div class="track-progress"><div class="track-progress-fill"></div></div>
+                            <span class="track-time">0:00 / 3:38</span>
+                        </div>
+                        <div class="track-wave">
+                            <span></span><span></span><span></span><span></span><span></span>
+                            <span></span><span></span><span></span><span></span><span></span>
+                            <span></span><span></span><span></span><span></span><span></span>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="track-card" style="--cover: linear-gradient(135deg, #14b8a6, #22c55e);" data-duration="194">
+                    <div class="track-cover"><i class="fas fa-leaf"></i></div>
+                    <div class="track-info">
+                        <span class="track-genre">Lo-Fi · Nature</span>
+                        <h3 class="track-title">Forest Residuals</h3>
+                        <p class="track-desc">Lo-fi beat woven with field recordings — rain, leaves, and a slow heartbeat of bass.</p>
+                        <div class="track-controls">
+                            <button class="track-play" aria-label="Play"><i class="fas fa-play"></i></button>
+                            <div class="track-progress"><div class="track-progress-fill"></div></div>
+                            <span class="track-time">0:00 / 3:14</span>
+                        </div>
+                        <div class="track-wave">
+                            <span></span><span></span><span></span><span></span><span></span>
+                            <span></span><span></span><span></span><span></span><span></span>
+                            <span></span><span></span><span></span><span></span><span></span>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="track-card" style="--cover: linear-gradient(135deg, #f97316, #fbbf24);" data-duration="246">
+                    <div class="track-cover"><i class="fas fa-sun"></i></div>
+                    <div class="track-info">
+                        <span class="track-genre">Electronic · Synthwave</span>
+                        <h3 class="track-title">Solar Forecast</h3>
+                        <p class="track-desc">Pulsing synths and arpeggios riding a confidence band — energetic, optimistic, alive.</p>
+                        <div class="track-controls">
+                            <button class="track-play" aria-label="Play"><i class="fas fa-play"></i></button>
+                            <div class="track-progress"><div class="track-progress-fill"></div></div>
+                            <span class="track-time">0:00 / 4:06</span>
+                        </div>
+                        <div class="track-wave">
+                            <span></span><span></span><span></span><span></span><span></span>
+                            <span></span><span></span><span></span><span></span><span></span>
+                            <span></span><span></span><span></span><span></span><span></span>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="track-card" style="--cover: linear-gradient(135deg, #0ea5e9, #14b8a6);" data-duration="172">
+                    <div class="track-cover"><i class="fas fa-water"></i></div>
+                    <div class="track-info">
+                        <span class="track-genre">Neo-Classical · Piano</span>
+                        <h3 class="track-title">Tidal Theorem</h3>
+                        <p class="track-desc">Piano motifs trained on ocean rhythms — a quiet conversation between math and tide.</p>
+                        <div class="track-controls">
+                            <button class="track-play" aria-label="Play"><i class="fas fa-play"></i></button>
+                            <div class="track-progress"><div class="track-progress-fill"></div></div>
+                            <span class="track-time">0:00 / 2:52</span>
+                        </div>
+                        <div class="track-wave">
+                            <span></span><span></span><span></span><span></span><span></span>
+                            <span></span><span></span><span></span><span></span><span></span>
+                            <span></span><span></span><span></span><span></span><span></span>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="track-card" style="--cover: linear-gradient(135deg, #6366f1, #0ea5e9);" data-duration="208">
+                    <div class="track-cover"><i class="fas fa-meteor"></i></div>
+                    <div class="track-info">
+                        <span class="track-genre">Cinematic · Orchestral</span>
+                        <h3 class="track-title">Gradient Descent</h3>
+                        <p class="track-desc">A slow orchestral build — strings climbing the loss surface toward a moment of clarity.</p>
+                        <div class="track-controls">
+                            <button class="track-play" aria-label="Play"><i class="fas fa-play"></i></button>
+                            <div class="track-progress"><div class="track-progress-fill"></div></div>
+                            <span class="track-time">0:00 / 3:28</span>
+                        </div>
+                        <div class="track-wave">
+                            <span></span><span></span><span></span><span></span><span></span>
+                            <span></span><span></span><span></span><span></span><span></span>
+                            <span></span><span></span><span></span><span></span><span></span>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="track-card" style="--cover: linear-gradient(135deg, #ec4899, #fbbf24);" data-duration="186">
+                    <div class="track-cover"><i class="fas fa-feather"></i></div>
+                    <div class="track-info">
+                        <span class="track-genre">Acoustic · Ambient</span>
+                        <h3 class="track-title">Soft Priors</h3>
+                        <p class="track-desc">Acoustic guitar layered with whispered choirs — gentle, Bayesian, and unhurried.</p>
+                        <div class="track-controls">
+                            <button class="track-play" aria-label="Play"><i class="fas fa-play"></i></button>
+                            <div class="track-progress"><div class="track-progress-fill"></div></div>
+                            <span class="track-time">0:00 / 3:06</span>
+                        </div>
+                        <div class="track-wave">
+                            <span></span><span></span><span></span><span></span><span></span>
+                            <span></span><span></span><span></span><span></span><span></span>
+                            <span></span><span></span><span></span><span></span><span></span>
+                        </div>
+                    </div>
+                </article>
+            </div>
+
+            <p style="text-align:center; color: var(--c-text-faint); font-size: 0.85rem; margin-top: 2rem;">
+                <i class="fas fa-info-circle"></i> Demo player. Replace each track's <code style="color:var(--c-magenta);">data-src</code> attribute with your audio file URL to enable real playback.
+            </p>
+        </div>
+    </section>
+
+    <!-- Creations -->
+    <section class="section creative-area" id="creations" data-area="creations">
+        <div class="container">
+            <div class="section-title">
+                <span class="label">The Creative Lab</span>
+                <h2>Other Creations</h2>
+                <p>Small experiments — generative visuals, code-art, and quiet thoughts that wanted a home.</p>
+            </div>
+
+            <div class="creations-grid">
+                <div class="creation-card" style="--accent-glow: linear-gradient(135deg, #8b5cf6, #ec4899);">
+                    <div class="creation-icon"><i class="fas fa-shapes"></i></div>
+                    <h3>Generative Geometries</h3>
+                    <p>Procedural patterns built with R and p5.js — exploring how simple rules grow into surprising forms.</p>
+                    <span class="creation-tag">Code · Art</span>
+                </div>
+
+                <div class="creation-card creation-quote" style="--accent-glow: linear-gradient(135deg, #ec4899, #fbbf24);">
+                    <div class="creation-icon"><i class="fas fa-feather-alt"></i></div>
+                    <h3>Notes from the Margins</h3>
+                    <p class="creation-text">"Every dataset is a love letter from the world — written in numbers, waiting for someone curious enough to read it."</p>
+                    <span class="creation-author">— from a notebook, 2024</span>
+                </div>
+
+                <div class="creation-card" style="--accent-glow: linear-gradient(135deg, #14b8a6, #34d399);">
+                    <div class="creation-icon"><i class="fas fa-seedling"></i></div>
+                    <h3>Field Notes</h3>
+                    <p>A growing journal of small observations from walks — the way starlings move, how light leaves a leaf.</p>
+                    <span class="creation-tag">Writing</span>
+                </div>
+
+                <div class="creation-card" style="--accent-glow: linear-gradient(135deg, #fbbf24, #f97316);">
+                    <div class="creation-icon"><i class="fas fa-wand-magic-sparkles"></i></div>
+                    <h3>AI Visual Studies</h3>
+                    <p>Diffusion experiments translating equations into dreamscapes — a visual diary of the models I teach.</p>
+                    <span class="creation-tag">AI · Visuals</span>
+                </div>
+
+                <div class="creation-card" style="--accent-glow: linear-gradient(135deg, #0ea5e9, #8b5cf6);">
+                    <div class="creation-icon"><i class="fas fa-chart-line"></i></div>
+                    <h3>Data Poetry</h3>
+                    <p>Visualizations turned into haiku — where each chart whispers something the abstract can't quite say.</p>
+                    <span class="creation-tag">Data · Verse</span>
+                </div>
+
+                <div class="creation-card" style="--accent-glow: linear-gradient(135deg, #34d399, #0ea5e9);">
+                    <div class="creation-icon"><i class="fas fa-microphone-lines"></i></div>
+                    <h3>Conversations with Curiosity</h3>
+                    <p>A slow-burn podcast idea — letting researchers, artists, and dreamers meet at the same table.</p>
+                    <span class="creation-tag">Coming Soon</span>
+                </div>
+
+                <div class="creation-card" style="--accent-glow: linear-gradient(135deg, #f97316, #ec4899);">
+                    <div class="creation-icon"><i class="fas fa-book-open"></i></div>
+                    <h3>Statistics, Softly</h3>
+                    <p>A long-form attempt to teach forecasting like one teaches a song — by feel first, formulas second.</p>
+                    <span class="creation-tag">Writing · WIP</span>
+                </div>
+
+                <div class="creation-card creation-quote" style="--accent-glow: linear-gradient(135deg, #14b8a6, #8b5cf6);">
+                    <div class="creation-icon"><i class="fas fa-quote-right"></i></div>
+                    <h3>A Quiet Reminder</h3>
+                    <p class="creation-text">"Curiosity is the only variable I refuse to differentiate away."</p>
+                    <span class="creation-author">— field journal</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox" role="dialog" aria-modal="true">
+        <button class="lightbox-close" id="lightboxClose" aria-label="Close"><i class="fas fa-times"></i></button>
+        <button class="lightbox-nav lightbox-prev" id="lightboxPrev" aria-label="Previous"><i class="fas fa-chevron-left"></i></button>
+        <button class="lightbox-nav lightbox-next" id="lightboxNext" aria-label="Next"><i class="fas fa-chevron-right"></i></button>
+        <div class="lightbox-content">
+            <div class="lightbox-img" id="lightboxImg"></div>
+            <div class="lightbox-meta">
+                <h3 id="lightboxTitle">Title</h3>
+                <p id="lightboxMeta">Meta</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer-c">
+        <h4>Made with curiosity, code & coffee.</h4>
+        <p>Have a creative project in mind? Let's talk.</p>
+        <a href="index.html#contact" class="footer-back">
+            <i class="fas fa-envelope"></i>
+            Reach Out
+        </a>
+        <p class="footer-copy">&copy; 2025 Dr. Mohammed Elseidi · Creative Universe</p>
+    </footer>
+
+    <script>
+        // Mobile nav
+        function toggleNav() {
+            document.getElementById('navLinks').classList.toggle('active');
+        }
+
+        // Smooth scroll for anchors
+        document.querySelectorAll('.nav-anchor').forEach(a => {
+            a.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    const top = target.getBoundingClientRect().top + window.scrollY - 120;
+                    window.scrollTo({ top, behavior: 'smooth' });
+                    document.getElementById('navLinks').classList.remove('active');
+                }
+            });
+        });
+
+        // Stars
+        (function buildStars() {
+            const wrap = document.getElementById('stars');
+            for (let i = 0; i < 60; i++) {
+                const s = document.createElement('i');
+                s.style.top = Math.random() * 100 + '%';
+                s.style.left = Math.random() * 100 + '%';
+                s.style.animationDelay = (Math.random() * 4) + 's';
+                s.style.animationDuration = (3 + Math.random() * 4) + 's';
+                wrap.appendChild(s);
+            }
+        })();
+
+        // Animated stat counters
+        (function animateCounters() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (!entry.isIntersecting) return;
+                    const el = entry.target;
+                    const target = parseInt(el.dataset.count || '0', 10);
+                    if (!target) return;
+                    const duration = 1500;
+                    const start = performance.now();
+                    function step(now) {
+                        const p = Math.min((now - start) / duration, 1);
+                        el.textContent = Math.floor(p * target);
+                        if (p < 1) requestAnimationFrame(step);
+                        else el.textContent = target;
+                    }
+                    requestAnimationFrame(step);
+                    observer.unobserve(el);
+                });
+            }, { threshold: 0.4 });
+            document.querySelectorAll('.hero-stat-num[data-count]').forEach(el => observer.observe(el));
+        })();
+
+        // Tabs filter
+        (function tabs() {
+            const buttons = document.querySelectorAll('.tab-btn');
+            const areas = document.querySelectorAll('.creative-area');
+            buttons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    buttons.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    const filter = btn.dataset.filter;
+                    areas.forEach(a => {
+                        a.classList.toggle('hidden', filter !== 'all' && a.dataset.area !== filter);
+                    });
+                });
+            });
+        })();
+
+        // Lightbox
+        (function lightbox() {
+            const cards = Array.from(document.querySelectorAll('.photo-card'));
+            const box = document.getElementById('lightbox');
+            const img = document.getElementById('lightboxImg');
+            const title = document.getElementById('lightboxTitle');
+            const meta = document.getElementById('lightboxMeta');
+            const closeBtn = document.getElementById('lightboxClose');
+            const prevBtn = document.getElementById('lightboxPrev');
+            const nextBtn = document.getElementById('lightboxNext');
+            let current = 0;
+
+            function show(i) {
+                current = (i + cards.length) % cards.length;
+                const card = cards[current];
+                img.style.backgroundImage = `url('${card.dataset.img}')`;
+                title.textContent = card.dataset.title || '';
+                meta.textContent = card.dataset.meta || '';
+                box.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+
+            function close() {
+                box.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+
+            cards.forEach((c, i) => c.addEventListener('click', (e) => {
+                e.preventDefault();
+                show(i);
+            }));
+
+            closeBtn.addEventListener('click', close);
+            prevBtn.addEventListener('click', () => show(current - 1));
+            nextBtn.addEventListener('click', () => show(current + 1));
+            box.addEventListener('click', (e) => { if (e.target === box) close(); });
+            document.addEventListener('keydown', (e) => {
+                if (!box.classList.contains('active')) return;
+                if (e.key === 'Escape') close();
+                if (e.key === 'ArrowLeft') show(current - 1);
+                if (e.key === 'ArrowRight') show(current + 1);
+            });
+        })();
+
+        // Audio players (simulated; if audio src is added via data-src it plays for real)
+        (function players() {
+            const cards = document.querySelectorAll('.track-card');
+            let active = null;
+            let raf = null;
+
+            function format(s) {
+                const m = Math.floor(s / 60);
+                const sec = Math.floor(s % 60).toString().padStart(2, '0');
+                return `${m}:${sec}`;
+            }
+
+            cards.forEach(card => {
+                const playBtn = card.querySelector('.track-play');
+                const fill = card.querySelector('.track-progress-fill');
+                const progress = card.querySelector('.track-progress');
+                const timeEl = card.querySelector('.track-time');
+                const totalText = (timeEl.textContent.split('/')[1] || '').trim();
+                const total = parseInt(card.dataset.duration, 10) || 200;
+                let position = 0;
+                let lastTick = null;
+                let playing = false;
+
+                function tick(now) {
+                    if (!playing) return;
+                    if (lastTick == null) lastTick = now;
+                    const dt = (now - lastTick) / 1000;
+                    lastTick = now;
+                    position = Math.min(position + dt, total);
+                    fill.style.transform = `scaleX(${position / total})`;
+                    timeEl.textContent = `${format(position)} / ${totalText}`;
+                    if (position >= total) {
+                        stop();
+                        return;
+                    }
+                    raf = requestAnimationFrame(tick);
+                }
+
+                function play() {
+                    if (active && active !== card) {
+                        active.dispatchEvent(new CustomEvent('stop'));
+                    }
+                    playing = true;
+                    lastTick = null;
+                    card.classList.add('playing');
+                    playBtn.innerHTML = '<i class="fas fa-pause"></i>';
+                    active = card;
+                    raf = requestAnimationFrame(tick);
+                }
+
+                function pause() {
+                    playing = false;
+                    if (raf) cancelAnimationFrame(raf);
+                    card.classList.remove('playing');
+                    playBtn.innerHTML = '<i class="fas fa-play"></i>';
+                }
+
+                function stop() {
+                    pause();
+                    position = 0;
+                    fill.style.transform = 'scaleX(0)';
+                    timeEl.textContent = `0:00 / ${totalText}`;
+                }
+
+                playBtn.addEventListener('click', () => {
+                    if (playing) pause();
+                    else play();
+                });
+
+                progress.addEventListener('click', (e) => {
+                    const rect = progress.getBoundingClientRect();
+                    const ratio = (e.clientX - rect.left) / rect.width;
+                    position = Math.max(0, Math.min(1, ratio)) * total;
+                    fill.style.transform = `scaleX(${position / total})`;
+                    timeEl.textContent = `${format(position)} / ${totalText}`;
+                });
+
+                card.addEventListener('stop', stop);
+            });
+        })();
+    </script>
+</body>
+</html>
