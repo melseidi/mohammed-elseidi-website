@@ -1338,6 +1338,83 @@
             gap: 2rem;
         }
 
+        /* ===== Forecast Lab promo ===== */
+        .lab-grid {
+            display: grid;
+            grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+            gap: 2.5rem;
+            align-items: center;
+        }
+
+        .lab-copy h3 {
+            font-size: 1.6rem;
+            color: var(--dark);
+            margin-bottom: 1rem;
+            line-height: 1.3;
+        }
+
+        .lab-copy p {
+            color: var(--text-light);
+            margin-bottom: 1.25rem;
+        }
+
+        .lab-points {
+            list-style: none;
+            margin-bottom: 1.75rem;
+        }
+
+        .lab-points li {
+            display: flex;
+            gap: 0.75rem;
+            align-items: flex-start;
+            margin-bottom: 0.75rem;
+            font-size: 0.95rem;
+        }
+
+        .lab-points i {
+            color: var(--primary);
+            margin-top: 0.3rem;
+            flex: none;
+        }
+
+        .lab-models {
+            display: grid;
+            gap: 1.25rem;
+        }
+
+        .lab-model {
+            background: var(--white);
+            border-radius: 18px;
+            padding: 1.5rem;
+            border: 1px solid rgba(13, 148, 136, 0.15);
+            box-shadow: var(--shadow);
+            border-left: 5px solid var(--primary);
+        }
+
+        .lab-model.alt { border-left-color: #eb6834; }
+
+        .lab-model h4 {
+            font-size: 1.15rem;
+            color: var(--dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .lab-model p {
+            font-size: 0.92rem;
+            color: var(--text-light);
+            margin-bottom: 0.6rem;
+        }
+
+        .lab-model .journal {
+            font-size: 0.8rem;
+            color: var(--text-light);
+            font-style: italic;
+        }
+
+        @media (max-width: 900px) {
+            .lab-grid { grid-template-columns: 1fr; gap: 2rem; }
+        }
+
         .card {
             background: var(--white);
             border-radius: 20px;
@@ -2117,6 +2194,7 @@
                 <li><a href="#editorial">Editorial</a></li>
                 <li><a href="#education">Education</a></li>
                 <li><a href="#seminars">Seminars</a></li>
+                <li><a href="#lab">Forecast Lab</a></li>
                 <li><a href="#publications">Publications</a></li>
                 <li><a href="#awards">Awards</a></li>
                 <li><a href="#media">Media</a></li>
@@ -2891,6 +2969,66 @@
     </div>
 
     <!-- Publications Section -->
+    <!-- Forecast Lab Section -->
+    <section class="section" id="lab">
+        <div class="container">
+            <div class="section-header">
+                <h2>Forecast Lab</h2>
+                <p>Run my published forecasting models on your own data, free and without an account</p>
+            </div>
+
+            <div class="lab-grid">
+                <div class="lab-copy">
+                    <h3>Upload a time series. Get a forecast, intervals and diagnostics.</h3>
+                    <p>
+                        Both of my hybrid frameworks are implemented end to end in JavaScript and run entirely
+                        inside your web browser. Drop in a CSV, choose a model, and the decomposition and the
+                        neural network are fitted on your own machine.
+                    </p>
+                    <ul class="lab-points">
+                        <li><i class="fas fa-lock"></i>
+                            <span><strong>Nothing is uploaded.</strong> Your data never leaves your device —
+                            there is no server to send it to.</span></li>
+                        <li><i class="fas fa-chart-column"></i>
+                            <span><strong>Full output.</strong> Point forecasts with prediction intervals,
+                            seasonal-trend decomposition, residual diagnostics and a downloadable CSV.</span></li>
+                        <li><i class="fas fa-scale-balanced"></i>
+                            <span><strong>Honest evaluation.</strong> Every run is scored on a hold-out sample
+                            against a seasonal-naive benchmark.</span></li>
+                        <li><i class="fas fa-graduation-cap"></i>
+                            <span><strong>Built for teaching.</strong> Automatic seasonality detection and
+                            example series make it a ready-made classroom demonstration.</span></li>
+                    </ul>
+                    <a href="forecast-lab.html" class="btn btn-primary">
+                        <i class="fas fa-flask"></i> Open the Forecast Lab
+                    </a>
+                </div>
+
+                <div class="lab-models">
+                    <div class="lab-model">
+                        <h4>MSTL-NNAR</h4>
+                        <p>
+                            Multiple seasonal-trend decomposition using LOESS, followed by a neural network
+                            autoregression on the seasonally adjusted series — built for data with more than
+                            one seasonal cycle.
+                        </p>
+                        <p class="journal">Elseidi, M. (2024). Stochastic Environmental Research and Risk
+                            Assessment, 38(7), 2613–2632.</p>
+                    </div>
+                    <div class="lab-model alt">
+                        <h4>STR-NBEATS</h4>
+                        <p>
+                            Seasonal-trend decomposition by regression, which lets the seasonal shape evolve,
+                            combined with an N-BEATS deep stack that forecasts every step of the horizon at once.
+                        </p>
+                        <p class="journal">Elseidi, M. (2025). Modeling Earth Systems and Environment,
+                            11(4), 255.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <section class="section section-dark" id="publications">
         <div class="container">
             <div class="section-header">

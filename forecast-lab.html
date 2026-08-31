@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forecast Lab | Dr. Mohammed Elseidi — MSTL-NNAR &amp; STR-NBEATS</title>
+    <meta name="description" content="Run Dr. Mohammed Elseidi's published hybrid forecasting models — MSTL-NNAR and STR-NBEATS — on your own time series. Upload a CSV and get forecasts, prediction intervals, decomposition and accuracy diagnostics. Everything runs in your browser; your data is never uploaded.">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="assets/lab.css">
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="nav-container">
+        <a href="index.html" class="nav-logo">Dr. Mohammed Elseidi</a>
+        <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false">
+            <span></span><span></span><span></span>
+        </button>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="index.html#about">About</a></li>
+            <li><a href="index.html#seminars">Seminars</a></li>
+            <li><a href="index.html#publications">Publications</a></li>
+            <li><a href="forecast-lab.html" class="active">Forecast Lab</a></li>
+            <li><a href="index.html#contact">Contact</a></li>
+        </ul>
+    </div>
+</nav>
+
+<header class="lab-hero">
+    <div class="lab-hero-inner">
+        <h1>Forecast Lab: <span>run the models on your own data</span></h1>
+        <p>
+            Two peer-reviewed hybrid frameworks — <strong>MSTL-NNAR</strong> and <strong>STR-NBEATS</strong> —
+            implemented end to end in JavaScript. Load a time series, pick a model, and get a forecast with
+            prediction intervals, a full seasonal-trend decomposition and hold-out accuracy against a
+            seasonal-naive benchmark.
+        </p>
+        <div class="hero-chips">
+            <span class="hero-chip"><i class="fas fa-lock"></i> Your data never leaves this browser</span>
+            <span class="hero-chip"><i class="fas fa-microchip"></i> Models train locally on your device</span>
+            <span class="hero-chip"><i class="fas fa-book"></i> SERRA (2024) &amp; MESE (2025)</span>
+            <span class="hero-chip"><i class="fas fa-file-csv"></i> CSV, TSV or Excel</span>
+        </div>
+    </div>
+</header>
+
+<main class="lab-shell">
+    <!-- ================= Control rail ================= -->
+    <aside class="lab-rail">
+
+        <!-- Step 1: data -->
+        <section class="card" aria-labelledby="step1h">
+            <div class="card-head"><h2 id="step1h"><span class="step">1</span> Your data</h2></div>
+
+            <div class="tabs" role="tablist" aria-label="Data input method">
+                <button role="tab" id="tabUpload" aria-selected="true" aria-controls="paneUpload">Upload</button>
+                <button role="tab" id="tabPaste" aria-selected="false" aria-controls="panePaste">Paste</button>
+                <button role="tab" id="tabDemo" aria-selected="false" aria-controls="paneDemo">Examples</button>
+            </div>
+
+            <div id="paneUpload" role="tabpanel" aria-labelledby="tabUpload">
+                <div class="dropzone" id="dropzone" tabindex="0" role="button"
+                     aria-label="Choose a data file, or drop one here">
+                    <i class="fas fa-cloud-arrow-up" aria-hidden="true"></i>
+                    <strong>Drop a file or click to browse</strong>
+                    <span>.csv · .tsv · .txt · .xlsx — up to ~50,000 rows</span>
+                </div>
+                <input type="file" id="fileInput" accept=".csv,.tsv,.txt,.xlsx,.xls" class="sr-only">
+            </div>
+
+            <div id="panePaste" role="tabpanel" aria-labelledby="tabPaste" hidden>
+                <label class="field">
+                    <span>Paste columns of data</span>
+                    <textarea id="pasteArea" placeholder="date,value&#10;2024-01-01,12.4&#10;2024-01-02,13.1&#10;..."></textarea>
+                </label>
+                <button class="btn btn-ghost btn-sm btn-block" id="pasteLoad">
+                    <i class="fas fa-arrow-right-to-bracket"></i> Load pasted data
+                </button>
+            </div>
+
+            <div id="paneDemo" role="tabpanel" aria-labelledby="tabDemo" hidden>
+                <p class="hint" style="margin-top:0;margin-bottom:0.7rem;">
+                    Simulated series with realistic structure, for trying the models out.
+                </p>
+                <div style="display:flex;flex-direction:column;gap:0.5rem;">
+                    <button class="btn btn-ghost btn-sm" data-demo="wind">
+                        <i class="fas fa-wind"></i> Hourly wind speed — 60 days
+                    </button>
+                    <button class="btn btn-ghost btn-sm" data-demo="temp">
+                        <i class="fas fa-temperature-half"></i> Daily temperature — 4 years
+                    </button>
+                    <button class="btn btn-ghost btn-sm" data-demo="monthly">
+                        <i class="fas fa-chart-line"></i> Monthly demand — 15 years
+                    </button>
+                    <button class="btn btn-ghost btn-sm" data-demo="halfhour">
+                        <i class="fas fa-bolt"></i> Half-hourly electricity — 40 days
+                    </button>
+                </div>
+            </div>
+
+            <div id="columnPicker" hidden style="margin-top:1rem;">
+                <div class="field-row">
+                    <label class="field"><span>Time column</span>
+                        <select id="colDate"></select>
+                    </label>
+                    <label class="field"><span>Value column</span>
+                        <select id="colValue"></select>
+                    </label>
+                </div>
+                <p class="hint" id="fileNote"></p>
+            </div>
+        </section>
+
+        <!-- Step 2: model -->
+        <section class="card" aria-labelledby="step2h">
+            <div class="card-head"><h2 id="step2h"><span class="step">2</span> Model</h2></div>
+
+            <label class="model-option">
+                <input type="radio" name="model" value="mstl-nnar" checked>
+                <div class="box">
+                    <div class="name"><span class="swatch" style="background:var(--series-a)"></span> MSTL-NNAR</div>
+                    <div class="desc">Multiple seasonal-trend decomposition, then a neural-network
+                        autoregression on the seasonally adjusted series. Strong on multi-seasonal data.</div>
+                    <div class="cite">Elseidi (2024), Stoch Environ Res Risk Assess 38(7)</div>
+                </div>
+            </label>
+
+            <label class="model-option">
+                <input type="radio" name="model" value="str-nbeats">
+                <div class="box">
+                    <div class="name"><span class="swatch" style="background:var(--series-b)"></span> STR-NBEATS</div>
+                    <div class="desc">Regularised seasonal-trend regression with an evolving seasonal
+                        profile, then an N-BEATS deep stack forecasting all steps at once.</div>
+                    <div class="cite">Elseidi (2025), Model Earth Syst Environ 11(4)</div>
+                </div>
+            </label>
+
+            <label style="display:flex;align-items:center;gap:0.5rem;font-size:0.88rem;margin-top:0.3rem;cursor:pointer;">
+                <input type="checkbox" id="compareBoth"> Run both and compare
+            </label>
+        </section>
+
+        <!-- Step 3: settings -->
+        <section class="card" aria-labelledby="step3h">
+            <div class="card-head"><h2 id="step3h"><span class="step">3</span> Settings</h2></div>
+
+            <div class="field-row">
+                <label class="field"><span>Forecast horizon</span>
+                    <input type="number" id="horizon" min="1" max="2000" value="24">
+                </label>
+                <label class="field"><span>Hold-out size</span>
+                    <input type="number" id="testSize" min="0" max="2000" value="24">
+                </label>
+            </div>
+            <p class="hint" style="margin-top:-0.6rem;margin-bottom:0.9rem;">
+                The hold-out is hidden from the model, forecast, then scored. Set it to 0 to skip evaluation
+                and halve the run time.
+            </p>
+
+            <label class="field"><span>Seasonal periods</span></label>
+            <div class="chips" id="periodChips" style="margin-top:-0.6rem;">
+                <span class="hint">Load data to detect seasonality.</span>
+            </div>
+            <div style="display:flex;gap:0.5rem;margin-top:0.6rem;">
+                <input type="number" id="customPeriod" placeholder="Add period, e.g. 12" min="2" style="flex:1;"
+                       aria-label="Add a seasonal period">
+                <button class="btn btn-ghost btn-sm" id="addPeriod" aria-label="Add this seasonal period">
+                    <i class="fas fa-plus" aria-hidden="true"></i>
+                </button>
+            </div>
+
+            <label style="display:flex;align-items:center;gap:0.5rem;font-size:0.88rem;margin-top:0.9rem;cursor:pointer;">
+                <input type="checkbox" id="logTransform">
+                Log-transform first
+            </label>
+            <p class="hint" style="margin-bottom:0.2rem;">
+                Use when the seasonal swing grows with the level of the series. Needs strictly positive values.
+            </p>
+
+            <label class="field" style="margin-top:1rem;"><span>Training effort</span>
+                <select id="preset">
+                    <option value="fast">Fast — quick look</option>
+                    <option value="balanced" selected>Balanced — recommended</option>
+                    <option value="thorough">Thorough — slowest, most accurate</option>
+                </select>
+            </label>
+
+            <details class="advanced">
+                <summary>Advanced parameters</summary>
+                <div class="body">
+                    <p class="hint" style="margin-top:0;">MSTL-NNAR</p>
+                    <div class="field-row">
+                        <label class="field"><span>Lags (p)</span><input type="number" id="pLags" min="1" max="200" value="0" placeholder="auto"></label>
+                        <label class="field"><span>Seasonal lags (P)</span><input type="number" id="pSeas" min="0" max="5" value="1"></label>
+                    </div>
+                    <div class="field-row">
+                        <label class="field"><span>Hidden units</span><input type="number" id="hidden" min="1" max="64" value="0" placeholder="auto"></label>
+                        <label class="field"><span>Networks averaged</span><input type="number" id="repeats" min="1" max="40" value="0" placeholder="auto"></label>
+                    </div>
+                    <p class="hint">STR-NBEATS</p>
+                    <div class="field-row">
+                        <label class="field"><span>Lookback</span><input type="number" id="lookback" min="4" max="4000" value="0" placeholder="auto"></label>
+                        <label class="field"><span>Hidden width</span><input type="number" id="width" min="8" max="256" value="0" placeholder="auto"></label>
+                    </div>
+                    <div class="field-row">
+                        <label class="field"><span>Max epochs</span><input type="number" id="epochs" min="10" max="1000" value="0" placeholder="auto"></label>
+                        <label class="field"><span>Random seed</span><input type="number" id="seed" min="1" max="99999" value="42"></label>
+                    </div>
+                    <label class="field"><span>Interval level</span>
+                        <select id="level">
+                            <option value="0.8">80%</option>
+                            <option value="0.9">90%</option>
+                            <option value="0.95" selected>95%</option>
+                        </select>
+                    </label>
+                </div>
+            </details>
+
+            <button class="btn btn-primary btn-block" id="runBtn" disabled style="margin-top:1rem;">
+                <i class="fas fa-play"></i> Run forecast
+            </button>
+
+            <div class="progress-wrap" id="progressWrap" hidden>
+                <div class="progress-bar"><div id="progressFill"></div></div>
+                <div class="progress-label" id="progressLabel"></div>
+                <button class="btn btn-ghost btn-sm btn-block" id="cancelBtn" style="margin-top:0.5rem;">Cancel</button>
+            </div>
+        </section>
+    </aside>
+
+    <!-- ================= Results ================= -->
+    <div class="lab-main" id="labMain">
+        <div class="card" id="emptyState">
+            <div class="empty-state">
+                <i class="fas fa-chart-area" aria-hidden="true"></i>
+                <h3>Load a series to begin</h3>
+                <p>
+                    Upload a CSV with a date column and a numeric column, paste two columns straight from a
+                    spreadsheet, or start from one of the example series. Nothing is sent anywhere —
+                    the models are compiled into this page and train on your own machine.
+                </p>
+            </div>
+        </div>
+    </div>
+</main>
+
+<section class="lab-notes">
+    <div class="lab-notes-inner">
+        <h2>How a run works</h2>
+        <div class="notes-grid">
+            <div class="note-col">
+                <h3>1 · Read and inspect</h3>
+                <p>
+                    The file is parsed in the page — delimiter, header row, date format and decimal
+                    convention are all detected from the data itself. Gaps are filled by linear
+                    interpolation before fitting, and the number filled is reported.
+                </p>
+
+                <h3>2 · Find the seasonality</h3>
+                <p>
+                    Candidate periods come from the detected sampling frequency (24 and 168 for hourly
+                    data, 7 and 365 for daily, and so on). Each is scored by the seasonal-strength
+                    measure of Wang, Smith &amp; Hyndman, and accepted one at a time on the strength
+                    that <em>remains</em> once the cycles already chosen are removed. That is what
+                    stops a pure 12-month cycle from also being modelled at 24 months. The bar rises
+                    with the length of the period, because a long cycle fitted to a short series
+                    explains a good share of the variance by chance alone.
+                </p>
+
+                <h3>3 · Decompose</h3>
+                <p>
+                    <strong>MSTL</strong> applies STL repeatedly, peeling off the shortest cycle
+                    first and iterating so the components settle. <strong>STR</strong> instead
+                    solves one penalised least-squares problem for the trend and every seasonal
+                    component at once, which lets the seasonal shape drift slowly over the sample;
+                    it is solved matrix-free with preconditioned conjugate gradients.
+                </p>
+            </div>
+
+            <div class="note-col">
+                <h3>4 · Model what is left</h3>
+                <p>
+                    The seasonal parts are extrapolated forward and the seasonally adjusted series
+                    is handed to the learner. <strong>NNAR</strong> is a single-hidden-layer network
+                    on lagged values, trained from several random starts and averaged, forecasting
+                    one step at a time and feeding its own output back. <strong>N-BEATS</strong> is
+                    a stack of fully connected blocks — each removes a backcast from the residual
+                    and adds a forecast to the total — with polynomial trend and Fourier seasonality
+                    bases, producing the whole horizon in one shot.
+                </p>
+
+                <h3>5 · Score and report</h3>
+                <p>
+                    With a hold-out set, the model is fitted on the earlier part only, asked for the
+                    hold-out window, and scored against a seasonal-naive benchmark. It is then
+                    refitted on the whole series for the forecast you take away. MSTL-NNAR intervals
+                    come from bootstrapping residuals through the recursive path; STR-NBEATS uses the
+                    empirical spread of its validation errors at each step of the horizon.
+                </p>
+
+                <h3>What this is, and is not</h3>
+                <p>
+                    These are faithful browser re-implementations of the two published frameworks,
+                    written for exploration and teaching. They use fixed sensible defaults rather
+                    than the hyper-parameter searches behind the papers, and a compact N-BEATS rather
+                    than the full ensemble, so they will not reproduce the published figures exactly.
+                    Treat the output as a well-founded first pass, not as a replacement for a fitted
+                    study.
+                </p>
+                <p class="note-cite">
+                    Elseidi, M. (2024). MSTL-NNAR. <em>Stochastic Environmental Research and Risk
+                    Assessment</em>, 38(7), 2613–2632. ·
+                    Elseidi, M. (2025). STR-NBEATS. <em>Modeling Earth Systems and Environment</em>,
+                    11(4), 255.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer class="footer">
+    <p>
+        <strong>Forecast Lab</strong> — implementations of
+        <a href="https://link.springer.com/article/10.1007/s00477-024-02701-7" target="_blank" rel="noopener">MSTL-NNAR</a> and
+        <a href="https://link.springer.com/article/10.1007/s40808-025-02436-6" target="_blank" rel="noopener">STR-NBEATS</a>
+        by Dr. Mohammed Elseidi.
+    </p>
+    <p style="margin-top:0.6rem;font-size:0.82rem;opacity:0.75;">
+        Results are produced by browser-based re-implementations for exploration and teaching; they will not
+        reproduce the published results exactly. <a href="index.html">Back to the main site</a>
+    </p>
+</footer>
+
+<script src="assets/lab-charts.js"></script>
+<script src="assets/lab-ui.js"></script>
+</body>
+</html>
