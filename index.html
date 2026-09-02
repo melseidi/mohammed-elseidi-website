@@ -5,7 +5,62 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dr. Mohammed Elseidi | Associate Professor of Statistics & Data Science</title>
     <meta name="description" content="Dr. Mohammed Elseidi - Associate Professor of Statistics & Data Science | Director of Quality Assurance | Ph.D. from University of Padova. Specialized in time series forecasting, ML/AI, and environmental data science.">
+    <link rel="canonical" href="https://melseidi.github.io/mohammed-elseidi-website/">
+    <meta name="author" content="Dr. Mohammed Elseidi">
+    <meta name="theme-color" content="#0f172a">
+    <meta name="robots" content="index, follow">
+
+    <!-- Social sharing cards -->
+    <meta property="og:type" content="profile">
+    <meta property="og:title" content="Dr. Mohammed Elseidi | Associate Professor of Statistics &amp; Data Science">
+    <meta property="og:description" content="Time series forecasting researcher, creator of the MSTL-NNAR and STR-NBEATS hybrid frameworks. Associate Professor and Director of Quality Assurance, Umm Al Quwain University.">
+    <meta property="og:url" content="https://melseidi.github.io/mohammed-elseidi-website/">
+    <meta property="og:image" content="https://lh3.googleusercontent.com/d/1u844CxiXjzw21T0eF3ezoBTr9hEtj2N9">
+    <meta property="og:site_name" content="Dr. Mohammed Elseidi">
+    <meta property="profile:first_name" content="Mohammed">
+    <meta property="profile:last_name" content="Elseidi">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Dr. Mohammed Elseidi | Statistics &amp; Data Science">
+    <meta name="twitter:description" content="Time series forecasting, hybrid ML models, environmental data science. Try the models on your own data in the Forecast Lab.">
+    <meta name="twitter:image" content="https://lh3.googleusercontent.com/d/1u844CxiXjzw21T0eF3ezoBTr9hEtj2N9">
+
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="favicon.svg">
+
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Structured data so search engines understand who this page is about -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Mohammed Elseidi",
+      "honorificPrefix": "Dr.",
+      "givenName": "Mohammed",
+      "familyName": "Elseidi",
+      "jobTitle": "Associate Professor of Statistics & Data Science",
+      "description": "Associate Professor of Statistics and Data Science and Director of Quality Assurance at Umm Al Quwain University. Research in time series forecasting, hybrid machine-learning models and environmental data science.",
+      "url": "https://melseidi.github.io/mohammed-elseidi-website/",
+      "image": "https://lh3.googleusercontent.com/d/1u844CxiXjzw21T0eF3ezoBTr9hEtj2N9",
+      "email": "mailto:drmohammed.elseidi@uaqu.ac.ae",
+      "worksFor": {
+        "@type": "CollegeOrUniversity",
+        "name": "Umm Al Quwain University",
+        "address": { "@type": "PostalAddress", "addressCountry": "AE", "addressLocality": "Umm Al Quwain" }
+      },
+      "alumniOf": [
+        { "@type": "CollegeOrUniversity", "name": "University of Padova" },
+        { "@type": "CollegeOrUniversity", "name": "Mansoura University" }
+      ],
+      "knowsAbout": ["Time series forecasting", "Statistics", "Machine learning", "Seasonal-trend decomposition", "Environmental data science", "Quality assurance in higher education"],
+      "sameAs": [
+        "https://www.linkedin.com/in/mohammed-elseidi-7a3288154/",
+        "https://www.researchgate.net/profile/Mohammed-Elseidi-2",
+        "https://loop.frontiersin.org/people/2758882/overview"
+      ]
+    }
+    </script>
     <style>
         /* ===== Root Variables - Environmental/Data Science Theme ===== */
         :root {
@@ -58,6 +113,38 @@
             color: var(--secondary);
         }
 
+        /* Keyboard users get a clear focus ring; mouse users do not */
+        a:focus-visible, button:focus-visible, [tabindex]:focus-visible {
+            outline: 3px solid var(--secondary);
+            outline-offset: 3px;
+            border-radius: 4px;
+        }
+
+        .skip-link {
+            position: absolute;
+            top: -100px;
+            left: 1rem;
+            z-index: 2000;
+            background: var(--primary);
+            color: var(--white);
+            padding: 0.75rem 1.25rem;
+            border-radius: 0 0 10px 10px;
+            font-weight: 600;
+        }
+        .skip-link:focus { top: 0; color: var(--white); }
+
+        /* Anchored sections stop below the fixed navbar instead of under it */
+        section[id] { scroll-margin-top: 80px; }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+            html { scroll-behavior: auto; }
+        }
+
         /* ===== Navigation ===== */
         .navbar {
             position: fixed;
@@ -82,6 +169,8 @@
         .nav-logo {
             font-size: 1.25rem;
             font-weight: 700;
+            white-space: nowrap;
+            flex: none;
             background: var(--gradient-3);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -98,9 +187,10 @@
 
         .nav-links a {
             color: var(--white);
-            padding: 0.5rem 1rem;
+            padding: 0.5rem 0.85rem;
             border-radius: 25px;
             font-size: 0.85rem;
+            white-space: nowrap;
             font-weight: 500;
             transition: all 0.3s ease;
         }
@@ -115,7 +205,15 @@
             flex-direction: column;
             cursor: pointer;
             gap: 5px;
+            background: none;
+            border: 0;
+            padding: 0.5rem;
+            margin: -0.5rem;
         }
+        .nav-toggle span { transition: transform 0.25s ease, opacity 0.25s ease; }
+        .nav-toggle[aria-expanded="true"] span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+        .nav-toggle[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+        .nav-toggle[aria-expanded="true"] span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
 
         .nav-toggle span {
             width: 25px;
@@ -221,7 +319,12 @@
             width: 100%;
             height: 100%;
             pointer-events: none;
+            z-index: 0;
         }
+
+        /* The animated background is decoration: it sits behind the copy and
+           is toned down so the headline, not the maths, is what reads first. */
+        .bg-animation { opacity: 0.55; pointer-events: none; }
 
         .formula-box {
             position: absolute;
@@ -230,7 +333,7 @@
             border-radius: 15px;
             padding: 18px 25px;
             font-family: 'Times New Roman', serif;
-            font-size: 1.6rem;
+            font-size: 1.3rem;
             font-weight: bold;
             color: #4ade80;
             backdrop-filter: blur(8px);
@@ -885,6 +988,9 @@
             gap: 2rem;
         }
 
+        .seminar-card--wide { grid-column: span 2; }
+        @media (max-width: 820px) { .seminar-card--wide { grid-column: auto; } }
+
         .seminar-card {
             background: var(--white);
             border-radius: 20px;
@@ -1101,7 +1207,7 @@
             gap: 4rem;
             align-items: center;
             position: relative;
-            z-index: 1;
+            z-index: 2;
         }
 
         .hero-content {
@@ -1244,6 +1350,8 @@
             0%, 100% { transform: translateY(0); }
             50% { transform: translateY(-15px); }
         }
+
+        .hero-image img.is-fallback { object-fit: contain; background: var(--dark-light); padding: 40px; }
 
         .hero-image::before {
             content: '';
@@ -1836,7 +1944,12 @@
         .contact-card a {
             color: var(--text-light);
             font-size: 0.95rem;
+            display: inline-block;
+            padding: 0.4rem 0;
+            word-break: break-word;
         }
+        .contact-card a:hover { color: var(--primary); }
+        #media a:not(.btn), #awards a:not(.btn) { display: inline-block; padding: 0.35rem 0; }
 
         /* ===== Footer ===== */
         .footer {
@@ -1862,6 +1975,8 @@
         .footer-links a {
             color: rgba(255, 255, 255, 0.7);
             transition: color 0.3s ease;
+            display: inline-block;
+            padding: 0.5rem 0.25rem;
         }
 
         .footer-links a:hover {
@@ -1966,12 +2081,16 @@
 
             .nav-links.active {
                 display: flex;
+                max-height: calc(100vh - 70px);
+                overflow-y: auto;
+                box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
             }
 
             .nav-links a {
                 display: block;
-                padding: 1rem;
+                padding: 0.8rem 1rem;
                 text-align: center;
+                border-radius: 10px;
             }
 
             .nav-toggle {
@@ -2174,22 +2293,41 @@
                 grid-template-columns: 1fr;
             }
         }
+
+        /* Between laptop and tablet widths the full menu fits only when compact */
+        @media (max-width: 1320px) and (min-width: 1141px) {
+            .nav-logo { font-size: 1.1rem; }
+            .nav-links { gap: 0.15rem; }
+            .nav-links a { padding: 0.45rem 0.6rem; font-size: 0.8rem; }
+        }
+        /* Below that, use the menu button rather than a two-line nav */
+        @media (max-width: 1140px) {
+            .nav-links {
+                display: none; position: absolute; top: 100%; left: 0; right: 0;
+                background: var(--dark); flex-direction: column; padding: 1rem; gap: 0;
+            }
+            .nav-links.active { display: flex; max-height: calc(100vh - 70px); overflow-y: auto; box-shadow: 0 20px 40px rgba(0,0,0,0.35); }
+            .nav-links a { display: block; padding: 0.8rem 1rem; text-align: center; border-radius: 10px; }
+            .nav-toggle { display: flex; }
+        }
+
     </style>
 </head>
 <body>
     <!-- Navigation -->
-    <nav class="navbar">
+    <a class="skip-link" href="#main">Skip to content</a>
+    <nav class="navbar" aria-label="Main navigation">
         <div class="nav-container">
             <a href="#" class="nav-logo">Dr. Mohammed Elseidi</a>
-            <div class="nav-toggle" onclick="toggleNav()">
+            <button class="nav-toggle" id="navToggle" type="button" aria-label="Open navigation menu"
+                    aria-expanded="false" aria-controls="navLinks">
                 <span></span>
                 <span></span>
                 <span></span>
-            </div>
+            </button>
             <ul class="nav-links" id="navLinks">
                 <li><a href="#about">About</a></li>
                 <li><a href="#experience">Experience</a></li>
-                <li><a href="#qa">Quality Assurance</a></li>
                 <li><a href="#leadership">Leadership</a></li>
                 <li><a href="#editorial">Editorial</a></li>
                 <li><a href="#education">Education</a></li>
@@ -2197,17 +2335,16 @@
                 <li><a href="#lab">Forecast Lab</a></li>
                 <li><a href="#publications">Publications</a></li>
                 <li><a href="#awards">Awards</a></li>
-                <li><a href="#media">Media</a></li>
-                <li><a href="#skills">Skills</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
         </div>
     </nav>
 
+    <main id="main">
     <!-- Hero Section -->
     <section class="hero" id="home">
         <!-- Animated Background -->
-        <div class="bg-animation">
+        <div class="bg-animation" aria-hidden="true">
             <!-- Glowing Orbs -->
             <div class="orb orb-1"></div>
             <div class="orb orb-2"></div>
@@ -2439,7 +2576,7 @@
             </div>
 
             <!-- Decomposition Labels -->
-            <div class="formula-boxes" style="z-index: 5;">
+            <div class="formula-boxes" aria-hidden="true">
                 <div class="decomp-box">TREND</div>
                 <div class="decomp-box">SEASONAL</div>
                 <div class="decomp-box">RESIDUAL</div>
@@ -2498,7 +2635,10 @@
                 </div>
             </div>
             <div class="hero-image">
-                <img src="https://lh3.googleusercontent.com/d/1u844CxiXjzw21T0eF3ezoBTr9hEtj2N9" alt="Dr. Mohammed Elseidi - Associate Professor">
+                <img src="https://lh3.googleusercontent.com/d/1u844CxiXjzw21T0eF3ezoBTr9hEtj2N9"
+                     alt="Portrait of Dr. Mohammed Elseidi" width="350" height="350"
+                     decoding="async" fetchpriority="high"
+                     onerror="this.onerror=null;this.src='favicon.svg';this.classList.add('is-fallback');">
             </div>
         </div>
     </section>
@@ -2836,13 +2976,14 @@
             </div>
             <div class="seminars-grid">
                 <!-- YouTube Seminar - AI Tools in Academic Publishing -->
-                <div class="seminar-card" style="grid-column: span 2;">
+                <div class="seminar-card seminar-card--wide">
                     <div class="seminar-preview" style="height: auto; aspect-ratio: 16/9; pointer-events: auto;">
                         <iframe
                             width="100%"
                             height="100%"
                             src="https://www.youtube.com/embed/d_oFJswEADQ?rel=0"
                             title="Leveraging AI Tools in Academic Publishing"
+                            loading="lazy"
                             frameborder="0"
                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                             allowfullscreen
@@ -2892,7 +3033,7 @@
                             <i class="fas fa-file-pdf"></i>
                             <span>MSTL-NNAR Model Presentation</span>
                         </div>
-                        <div class="preview-overlay" onclick="openPdfModal('seminar1', 'MSTL-NNAR: Future Forecasting Using Machine Learning')">
+                        <div class="preview-overlay" data-seminar="seminar1" onclick="openPdfModal('seminar1', 'MSTL-NNAR: Future Forecasting Using Machine Learning')">
                             <span class="view-btn"><i class="fas fa-eye"></i> View Presentation</span>
                         </div>
                     </div>
@@ -2913,7 +3054,7 @@
                             <i class="fas fa-file-powerpoint"></i>
                             <span>Time Series Decomposition</span>
                         </div>
-                        <div class="preview-overlay" onclick="openPdfModal('seminar2', 'Advanced Time Series Decomposition Methods')">
+                        <div class="preview-overlay" data-seminar="seminar2" onclick="openPdfModal('seminar2', 'Advanced Time Series Decomposition Methods')">
                             <span class="view-btn"><i class="fas fa-eye"></i> View Presentation</span>
                         </div>
                     </div>
@@ -2934,7 +3075,7 @@
                             <i class="fas fa-chart-line"></i>
                             <span>Environmental Forecasting</span>
                         </div>
-                        <div class="preview-overlay" onclick="openPdfModal('seminar3', 'Hybrid Models for Environmental Forecasting')">
+                        <div class="preview-overlay" data-seminar="seminar3" onclick="openPdfModal('seminar3', 'Hybrid Models for Environmental Forecasting')">
                             <span class="view-btn"><i class="fas fa-eye"></i> View Presentation</span>
                         </div>
                     </div>
@@ -2950,20 +3091,20 @@
             </div>
 
             <p style="text-align: center; margin-top: 2rem; color: var(--text-light); font-size: 0.9rem;">
-                <i class="fas fa-info-circle"></i> Click on any presentation to view. Presentations are view-only and protected.
+                <i class="fas fa-info-circle" aria-hidden="true"></i> Slides for the seminars above are available on request.
             </p>
         </div>
     </section>
 
     <!-- PDF Modal Viewer -->
-    <div class="pdf-modal" id="pdfModal">
+    <div class="pdf-modal" id="pdfModal" role="dialog" aria-modal="true" aria-labelledby="pdfModalTitle">
         <div class="pdf-modal-content">
             <div class="pdf-modal-header">
                 <h3 id="pdfModalTitle">Presentation Title</h3>
-                <button class="pdf-modal-close" onclick="closePdfModal()"><i class="fas fa-times"></i></button>
+                <button class="pdf-modal-close" onclick="closePdfModal()" aria-label="Close presentation"><i class="fas fa-times" aria-hidden="true"></i></button>
             </div>
             <div class="pdf-modal-body" oncontextmenu="return false;">
-                <iframe id="pdfViewer" src="" allow="autoplay"></iframe>
+                <iframe id="pdfViewer" title="Presentation viewer" allow="autoplay"></iframe>
             </div>
         </div>
     </div>
@@ -3047,14 +3188,14 @@
 
             <h3 style="color: var(--accent-light); margin: 2rem 0 1.5rem;"><i class="fas fa-calendar-alt"></i> 2025</h3>
 
-            <a href="https://growingscience.com/beta/ijds/7703-from-classical-models-to-artificial-intelligence-models-prospects-for-crime-prediction-in-the-era-of-big-data.html" target="_blank" class="pub-card q1" style="display: block; text-decoration: none;">
+            <a href="https://growingscience.com/beta/ijds/7703-from-classical-models-to-artificial-intelligence-models-prospects-for-crime-prediction-in-the-era-of-big-data.html" target="_blank" rel="noopener noreferrer" class="pub-card q1" style="display: block; text-decoration: none;">
                 <span class="pub-badge">Q1 in AI</span>
                 <h3>From classical models to artificial intelligence models: Prospects for crime prediction in the era of big data</h3>
                 <p class="pub-journal">International Journal of Data and Network Science, 9(4), 803-812</p>
                 <p class="pub-year"><strong>Elseidi, M.</strong> (2025)</p>
             </a>
 
-            <a href="https://link.springer.com/article/10.1007/s40808-025-02436-6" target="_blank" class="pub-card q1" style="display: block; text-decoration: none;">
+            <a href="https://link.springer.com/article/10.1007/s40808-025-02436-6" target="_blank" rel="noopener noreferrer" class="pub-card q1" style="display: block; text-decoration: none;">
                 <span class="pub-badge">Top 10, Q1 Stats, Scopus</span>
                 <h3>STR-NBEATS: A novel hybrid framework integrating time series decomposition with deep learning for enhanced temperature forecasting</h3>
                 <p class="pub-journal">Modeling Earth Systems and Environment, 11(4), 255</p>
@@ -3063,14 +3204,14 @@
 
             <h3 style="color: var(--accent-light); margin: 2rem 0 1.5rem;"><i class="fas fa-calendar-alt"></i> 2024</h3>
 
-            <a href="https://link.springer.com/article/10.1007/s00477-024-02701-7" target="_blank" class="pub-card q1" style="display: block; text-decoration: none;">
+            <a href="https://link.springer.com/article/10.1007/s00477-024-02701-7" target="_blank" rel="noopener noreferrer" class="pub-card q1" style="display: block; text-decoration: none;">
                 <span class="pub-badge">Top 10, Q1 Stats, WoS</span>
                 <h3>MSTL-NNAR: A new hybrid model of machine learning and time series decomposition for wind speed forecasting</h3>
                 <p class="pub-journal">Stochastic Environmental Research and Risk Assessment, 38(7), 2613-2632</p>
                 <p class="pub-year"><strong>Elseidi, M.</strong> (2024)</p>
             </a>
 
-            <a href="https://link.springer.com/article/10.1007/s40808-023-01874-4" target="_blank" class="pub-card q1" style="display: block; text-decoration: none;">
+            <a href="https://link.springer.com/article/10.1007/s40808-023-01874-4" target="_blank" rel="noopener noreferrer" class="pub-card q1" style="display: block; text-decoration: none;">
                 <span class="pub-badge">Top 10, Q1 Stats, Scopus</span>
                 <h3>A hybrid Facebook Prophet-ARIMA framework for forecasting high-frequency temperature data</h3>
                 <p class="pub-journal">Modeling Earth Systems and Environment, 10(2), 1855-1867</p>
@@ -3079,13 +3220,13 @@
 
             <h3 style="color: var(--accent-light); margin: 2rem 0 1.5rem;"><i class="fas fa-calendar-alt"></i> 2023</h3>
 
-            <a href="https://www.inderscienceonline.com/doi/abs/10.1504/IJCEE.2023.132144" target="_blank" class="pub-card" style="display: block; text-decoration: none;">
+            <a href="https://www.inderscienceonline.com/doi/abs/10.1504/IJCEE.2023.132144" target="_blank" rel="noopener noreferrer" class="pub-card" style="display: block; text-decoration: none;">
                 <h3>Quantile regression-based seasonal adjustment</h3>
                 <p class="pub-journal">International Journal of Computational Economics and Econometrics, 13(3), 270-304</p>
                 <p class="pub-year"><strong>Caporin, M., & Elseidi, M.</strong> (2023)</p>
             </a>
 
-            <a href="https://link.springer.com/article/10.1007/s40808-022-01632-y" target="_blank" class="pub-card q1" style="display: block; text-decoration: none;">
+            <a href="https://link.springer.com/article/10.1007/s40808-022-01632-y" target="_blank" rel="noopener noreferrer" class="pub-card q1" style="display: block; text-decoration: none;">
                 <span class="pub-badge">Top 10, Q1 Stats, Scopus</span>
                 <h3>Forecasting temperature data with complex seasonality using time series methods</h3>
                 <p class="pub-journal">Modeling Earth Systems and Environment, 9(2), 2553-2567</p>
@@ -3119,8 +3260,8 @@
                 <p class="org">Greenpeace MENA, Ajman University, and UAE Universities Climate Network</p>
                 <p class="date">Project: "Building and Forecasting a Hybrid Well-being Index for the UAE"</p>
                 <p style="margin-top: 1rem;">
-                    <a href="https://www.khaleejtimes.com/uae/uae-wellbeing-economy-award-winners-2025-solar-panels-gdp" target="_blank" style="color: var(--accent-light); margin-right: 1rem;"><i class="fas fa-external-link-alt"></i> Khaleej Times</a>
-                    <a href="https://www.wam.ae/ar/article/bj4hsp6-%D8%BA%D8%B1%D9%8A%D9%86%D8%A8%D9%8A%D8%B3-%D8%A7%D9%84%D8%B4%D8%B1%D9%82-%D8%A7%D9%84%D8%A3%D9%88%D8%B3%D8%B7-%D8%AA%D9%83%D8%B1%D9%85-%D8%B4%D8%A8%D8%A7%D8%A8-%D8%A7%D9%84%D9%85%D8%A8%D8%AA%D9%83%D8%B1%D9%8A%D9%86-%D9%85%D8%AC%D8%A7%D9%84" target="_blank" style="color: var(--accent-light);"><i class="fas fa-external-link-alt"></i> WAM News</a>
+                    <a href="https://www.khaleejtimes.com/uae/uae-wellbeing-economy-award-winners-2025-solar-panels-gdp" target="_blank" rel="noopener noreferrer" style="color: var(--accent-light); margin-right: 1rem;"><i class="fas fa-external-link-alt"></i> Khaleej Times</a>
+                    <a href="https://www.wam.ae/ar/article/bj4hsp6-%D8%BA%D8%B1%D9%8A%D9%86%D8%A8%D9%8A%D8%B3-%D8%A7%D9%84%D8%B4%D8%B1%D9%82-%D8%A7%D9%84%D8%A3%D9%88%D8%B3%D8%B7-%D8%AA%D9%83%D8%B1%D9%85-%D8%B4%D8%A8%D8%A7%D8%A8-%D8%A7%D9%84%D9%85%D8%A8%D8%AA%D9%83%D8%B1%D9%8A%D9%86-%D9%85%D8%AC%D8%A7%D9%84" target="_blank" rel="noopener noreferrer" style="color: var(--accent-light);"><i class="fas fa-external-link-alt"></i> WAM News</a>
                 </p>
             </div>
             <div class="award-card">
@@ -3156,7 +3297,7 @@
                 <div class="media-content">
                     <h3>Emirates News Agency (WAM)</h3>
                     <p class="date">April 23, 2025</p>
-                    <p>Featured for a scientific seminar on future forecasting using machine learning, where I presented the MSTL-NNAR model. <a href="https://www.wam.ae/ar/article/b2suyng" target="_blank">[Official Coverage]</a></p>
+                    <p>Featured for a scientific seminar on future forecasting using machine learning, where I presented the MSTL-NNAR model. <a href="https://www.wam.ae/ar/article/b2suyng" target="_blank" rel="noopener noreferrer">[Official Coverage]</a></p>
                 </div>
             </div>
             <div class="media-card">
@@ -3164,7 +3305,7 @@
                 <div class="media-content">
                     <h3>Khaleej Times</h3>
                     <p class="date">2025</p>
-                    <p>Coverage of UAE Wellbeing Economy Award winners. <a href="https://www.khaleejtimes.com/uae/uae-wellbeing-economy-award-winners-2025-solar-panels-gdp" target="_blank">[Read Article]</a></p>
+                    <p>Coverage of UAE Wellbeing Economy Award winners. <a href="https://www.khaleejtimes.com/uae/uae-wellbeing-economy-award-winners-2025-solar-panels-gdp" target="_blank" rel="noopener noreferrer">[Read Article]</a></p>
                 </div>
             </div>
         </div>
@@ -3275,21 +3416,23 @@
                 <div class="contact-card">
                     <div class="contact-icon"><i class="fab fa-linkedin-in"></i></div>
                     <h3>LinkedIn</h3>
-                    <a href="https://www.linkedin.com/in/mohammed-elseidi-7a3288154/" target="_blank">Connect</a>
+                    <a href="https://www.linkedin.com/in/mohammed-elseidi-7a3288154/" target="_blank" rel="noopener noreferrer">Connect</a>
                 </div>
                 <div class="contact-card">
                     <div class="contact-icon"><i class="fab fa-researchgate"></i></div>
                     <h3>ResearchGate</h3>
-                    <a href="https://www.researchgate.net/profile/Mohammed-Elseidi-2" target="_blank">View Profile</a>
+                    <a href="https://www.researchgate.net/profile/Mohammed-Elseidi-2" target="_blank" rel="noopener noreferrer">View Profile</a>
                 </div>
                 <div class="contact-card">
                     <div class="contact-icon"><i class="fas fa-globe"></i></div>
                     <h3>Frontiers Loop</h3>
-                    <a href="https://loop.frontiersin.org/people/2758882/overview" target="_blank">View Profile</a>
+                    <a href="https://loop.frontiersin.org/people/2758882/overview" target="_blank" rel="noopener noreferrer">View Profile</a>
                 </div>
             </div>
         </div>
     </section>
+
+    </main>
 
     <!-- Footer -->
     <footer class="footer">
@@ -3297,40 +3440,71 @@
             <div class="footer-links">
                 <a href="#about">About</a>
                 <a href="#experience">Experience</a>
-                <a href="#publications">Publications</a>
+                <a href="#qa">Quality Assurance</a>
+                <a href="#leadership">Leadership</a>
+                <a href="#editorial">Editorial</a>
                 <a href="#education">Education</a>
+                <a href="#seminars">Seminars</a>
+                <a href="forecast-lab.html">Forecast Lab</a>
+                <a href="#publications">Publications</a>
+                <a href="#awards">Awards</a>
+                <a href="#media">Media</a>
+                <a href="#skills">Skills</a>
                 <a href="#contact">Contact</a>
             </div>
             <div class="social-links">
-                <a href="https://www.linkedin.com/in/mohammed-elseidi-7a3288154/" target="_blank" class="social-link"><i class="fab fa-linkedin-in"></i></a>
-                <a href="https://www.researchgate.net/profile/Mohammed-Elseidi-2" target="_blank" class="social-link"><i class="fab fa-researchgate"></i></a>
-                <a href="https://loop.frontiersin.org/people/2758882/overview" target="_blank" class="social-link"><i class="fas fa-globe"></i></a>
-                <a href="mailto:drmohammed.elseidi@uaqu.ac.ae" class="social-link"><i class="fas fa-envelope"></i></a>
+                <a href="https://www.linkedin.com/in/mohammed-elseidi-7a3288154/" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="LinkedIn profile"><i class="fab fa-linkedin-in" aria-hidden="true"></i></a>
+                <a href="https://www.researchgate.net/profile/Mohammed-Elseidi-2" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="ResearchGate profile"><i class="fab fa-researchgate" aria-hidden="true"></i></a>
+                <a href="https://loop.frontiersin.org/people/2758882/overview" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Frontiers Loop profile"><i class="fas fa-globe" aria-hidden="true"></i></a>
+                <a href="mailto:drmohammed.elseidi@uaqu.ac.ae" class="social-link" aria-label="Send an email"><i class="fas fa-envelope" aria-hidden="true"></i></a>
             </div>
-            <p class="copyright">&copy; 2025 Dr. Mohammed Elseidi. All rights reserved.</p>
+            <p class="copyright">&copy; <span id="copyYear">2026</span> Dr. Mohammed Elseidi. All rights reserved.</p>
         </div>
     </footer>
 
     <script>
-        function toggleNav() {
-            document.getElementById('navLinks').classList.toggle('active');
-        }
+        // Google Drive embed links for seminar slides. Leave a placeholder and the
+        // card simply shows no viewer button.
+        const pdfLinks = {
+            'seminar1': 'YOUR_GOOGLE_DRIVE_PDF_EMBED_LINK_1',
+            'seminar2': 'YOUR_GOOGLE_DRIVE_PDF_EMBED_LINK_2',
+            'seminar3': 'YOUR_GOOGLE_DRIVE_PDF_EMBED_LINK_3'
+        };
 
-        // Smooth scroll for navigation
+        const navToggle = document.getElementById('navToggle');
+        const navLinks = document.getElementById('navLinks');
+
+        function setNav(open) {
+            navLinks.classList.toggle('active', open);
+            navToggle.setAttribute('aria-expanded', String(open));
+            navToggle.setAttribute('aria-label', open ? 'Close navigation menu' : 'Open navigation menu');
+        }
+        navToggle.addEventListener('click', () => setNav(!navLinks.classList.contains('active')));
+        document.addEventListener('keydown', (e) => { if (e.key === 'Escape') setNav(false); });
+
+        // Smooth scroll for in-page links; keep the URL hash in sync so links can be shared
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+                if (href.length < 2) return;
+                const target = document.querySelector(href);
+                if (!target) return;
                 e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                    // Close mobile menu
-                    document.getElementById('navLinks').classList.remove('active');
-                }
+                const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+                target.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
+                if (href === '#main') { target.setAttribute('tabindex', '-1'); target.focus({ preventScroll: true }); }
+                else history.replaceState(null, '', href);
+                setNav(false);
             });
         });
+
+        // Seminar cards only offer a viewer once a real presentation link exists
+        document.querySelectorAll('.preview-overlay[data-seminar]').forEach(overlay => {
+            const link = pdfLinks[overlay.getAttribute('data-seminar')];
+            if (!link || /^YOUR_/.test(link)) overlay.remove();
+        });
+
+        document.getElementById('copyYear').textContent = new Date().getFullYear();
 
         // Navbar background on scroll
         window.addEventListener('scroll', function() {
@@ -3344,11 +3518,6 @@
 
         // PDF Modal Functions
         // Store your Google Drive PDF links here (use the /preview link format)
-        const pdfLinks = {
-            'seminar1': 'YOUR_GOOGLE_DRIVE_PDF_EMBED_LINK_1',
-            'seminar2': 'YOUR_GOOGLE_DRIVE_PDF_EMBED_LINK_2',
-            'seminar3': 'YOUR_GOOGLE_DRIVE_PDF_EMBED_LINK_3'
-        };
 
         function openPdfModal(seminarId, title) {
             const modal = document.getElementById('pdfModal');
