@@ -2635,10 +2635,13 @@
                 </div>
             </div>
             <div class="hero-image">
-                <img src="https://lh3.googleusercontent.com/d/1u844CxiXjzw21T0eF3ezoBTr9hEtj2N9"
+                <!-- Portrait: served from the repo once assets/profile.jpg exists; until
+                     then it falls back to the Google Drive copy, then to the site icon. -->
+                <img src="assets/profile.jpg"
                      alt="Portrait of Dr. Mohammed Elseidi" width="350" height="350"
                      decoding="async" fetchpriority="high"
-                     onerror="this.onerror=null;this.src='favicon.svg';this.classList.add('is-fallback');">
+                     data-fallback="https://lh3.googleusercontent.com/d/1u844CxiXjzw21T0eF3ezoBTr9hEtj2N9"
+                     onerror="if(this.dataset.fallback){this.src=this.dataset.fallback;delete this.dataset.fallback;}else{this.onerror=null;this.src='favicon.svg';this.classList.add('is-fallback');}">
             </div>
         </div>
     </section>
