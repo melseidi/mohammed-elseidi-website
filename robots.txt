@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://melseidi.github.io/mohammed-elseidi-website/sitemap.xml
