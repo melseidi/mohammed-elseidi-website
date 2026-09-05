@@ -6,7 +6,7 @@
 (function (root) {
     'use strict';
 
-    var INK = '#0f172a', MUTED = '#64748b', GRID = '#e2e8f0', SURFACE = '#ffffff';
+    var INK = '#0f172a', MUTED = '#6b7383', GRID = '#e8e4dc', SURFACE = '#ffffff';
 
     function dpr() { return Math.max(1, Math.min(3, root.devicePixelRatio || 1)); }
 
@@ -91,7 +91,7 @@
 
             // grid + y axis
             var ticks = niceTicks(min, max, 5);
-            ctx.font = '11px system-ui, -apple-system, "Segoe UI", sans-serif';
+            ctx.font = '11px "JetBrains Mono", ui-monospace, Menlo, monospace';
             ctx.textBaseline = 'middle';
             ctx.textAlign = 'right';
             ctx.strokeStyle = GRID;
@@ -145,7 +145,7 @@
                 ctx.restore();
                 if (spec.markerLabel) {
                     ctx.save();
-                    ctx.font = '10px system-ui, sans-serif';
+                    ctx.font = '10px "JetBrains Mono", ui-monospace, Menlo, monospace';
                     ctx.fillStyle = '#94a3b8';
                     ctx.textAlign = mx > padL + plotW * 0.7 ? 'right' : 'left';
                     ctx.textBaseline = 'top';
@@ -287,7 +287,7 @@
             values.forEach(function (v) { maxAbs = Math.max(maxAbs, Math.abs(v) * 1.15); });
             var yAt = function (v) { return padT + plotH * (1 - (v + maxAbs) / (2 * maxAbs)); };
 
-            ctx.font = '11px system-ui, sans-serif';
+            ctx.font = '11px "JetBrains Mono", ui-monospace, Menlo, monospace';
             ctx.fillStyle = MUTED; ctx.textAlign = 'right'; ctx.textBaseline = 'middle';
             [-maxAbs / 2, 0, maxAbs / 2].forEach(function (t) {
                 var y = Math.round(yAt(t)) + 0.5;

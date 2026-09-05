@@ -5,36 +5,44 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Page not found | Dr. Mohammed Elseidi</title>
     <meta name="robots" content="noindex">
-    <link rel="icon" href="favicon.svg" type="image/svg+xml">
+    <meta name="theme-color" content="#0b1220">
+    <link rel="icon" href="/mohammed-elseidi-website/favicon.svg" type="image/svg+xml">
+    <!-- Absolute path: GitHub Pages serves this file for any missing URL, at any depth -->
+    <link rel="stylesheet" href="/mohammed-elseidi-website/assets/site.css">
     <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        body {
-            min-height: 100vh; display: grid; place-items: center; padding: 2rem;
-            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; color: #fff;
-            background: linear-gradient(135deg, #0f172a 0%, #0f766e 100%);
-        }
-        main { max-width: 560px; text-align: center; }
-        .code { font-size: 5rem; font-weight: 800; line-height: 1; letter-spacing: -0.02em;
-                background: linear-gradient(45deg, #14b8a6, #0ea5e9); -webkit-background-clip: text;
-                background-clip: text; -webkit-text-fill-color: transparent; }
-        h1 { font-size: 1.6rem; margin: 1rem 0 0.75rem; }
-        p { color: rgba(255,255,255,0.78); line-height: 1.6; }
-        .links { display: flex; flex-wrap: wrap; gap: 0.75rem; justify-content: center; margin-top: 1.75rem; }
-        a { display: inline-flex; align-items: center; padding: 0.75rem 1.4rem; border-radius: 50px;
-            font-weight: 600; text-decoration: none; color: #fff; border: 2px solid rgba(255,255,255,0.3); }
-        a.primary { background: linear-gradient(45deg, #14b8a6, #0ea5e9); border-color: transparent; }
-        a:hover { border-color: #14b8a6; }
-        a:focus-visible { outline: 3px solid #0ea5e9; outline-offset: 3px; }
+        body { min-height: 100svh; display: grid; place-items: center; padding: 2rem; background: #0b1220; color: #f3f1ec; overflow: hidden; }
+        .art { position: fixed; inset: 0; z-index: 0; pointer-events: none; opacity: 0.9;
+               background-image: linear-gradient(rgba(255,255,255,0.045) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.045) 1px, transparent 1px);
+               background-size: 48px 48px;
+               -webkit-mask-image: radial-gradient(60% 60% at 50% 50%, #000 20%, transparent 100%); mask-image: radial-gradient(60% 60% at 50% 50%, #000 20%, transparent 100%); }
+        .art svg { position: absolute; left: 0; right: 0; bottom: 0; width: 100%; height: 45%; }
+        main { position: relative; z-index: 1; max-width: 34rem; text-align: center; }
+        .code { font-family: var(--font-mono, ui-monospace, monospace); font-size: 0.8rem; letter-spacing: 0.2em; color: #2dd4bf; margin-bottom: 1rem; }
+        h1 { font-family: var(--font-display, Georgia, serif); font-weight: 500; font-size: clamp(2.4rem, 1.6rem + 3vw, 4rem); line-height: 1.05; color: #f3f1ec; margin-bottom: 1rem; letter-spacing: -0.015em; }
+        h1 em { font-style: italic; color: #2dd4bf; font-weight: 400; }
+        p { color: rgba(243, 241, 236, 0.74); line-height: 1.6; max-width: 44ch; margin: 0 auto; }
+        .links { display: flex; flex-wrap: wrap; gap: 0.75rem; justify-content: center; margin-top: 1.9rem; }
+        .btn-primary { background: #2dd4bf; color: #0b1220; }
+        .btn-primary:hover { background: #5eead4; color: #0b1220; }
+        .btn-secondary { color: #f3f1ec; border-color: rgba(255,255,255,0.18); }
+        .btn-secondary:hover { color: #fff; border-color: rgba(255,255,255,0.4); background: rgba(255,255,255,0.06); }
     </style>
 </head>
 <body>
+    <div class="art" aria-hidden="true">
+        <svg viewBox="0 0 1200 300" preserveAspectRatio="none">
+            <path d="M0,200 C100,150 200,260 300,200 S500,120 600,180 S800,240 900,170 S1100,120 1200,160" fill="none" stroke="rgba(243,241,236,0.35)" stroke-width="1.5"/>
+            <path d="M700,180 C800,120 900,220 1000,150 S1150,120 1200,90" fill="none" stroke="#2dd4bf" stroke-width="2" stroke-dasharray="6 5"/>
+            <path d="M700,180 C800,80 900,180 1000,90 S1150,50 1200,20 L1200,180 C1150,190 1100,220 1000,210 S900,260 700,180 Z" fill="rgba(45,212,191,0.10)"/>
+        </svg>
+    </div>
     <main>
-        <div class="code" aria-hidden="true">404</div>
-        <h1>That page isn't here</h1>
+        <div class="code">ERROR 404 · OUT OF SAMPLE</div>
+        <h1>That page isn’t <em>in the data.</em></h1>
         <p>The address may have changed, or the link you followed is out of date. The forecast for this URL is, sadly, a flat zero.</p>
         <div class="links">
-            <a class="primary" href="/mohammed-elseidi-website/">Back to the homepage</a>
-            <a href="/mohammed-elseidi-website/forecast-lab.html">Open the Forecast Lab</a>
+            <a class="btn btn-primary" href="/mohammed-elseidi-website/">Back to the homepage</a>
+            <a class="btn btn-secondary" href="/mohammed-elseidi-website/forecast-lab.html">Open the Forecast Lab</a>
         </div>
     </main>
 </body>

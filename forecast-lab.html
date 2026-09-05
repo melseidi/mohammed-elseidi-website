@@ -7,7 +7,7 @@
     <meta name="description" content="Run Dr. Mohammed Elseidi's published hybrid forecasting models — MSTL-NNAR and STR-NBEATS — on your own time series. Upload a CSV and get forecasts, prediction intervals, decomposition and accuracy diagnostics. Everything runs in your browser; your data is never uploaded.">
     <link rel="canonical" href="https://melseidi.github.io/mohammed-elseidi-website/forecast-lab.html">
     <meta name="author" content="Dr. Mohammed Elseidi">
-    <meta name="theme-color" content="#0f172a">
+    <meta name="theme-color" content="#0b1220">
     <meta property="og:type" content="website">
     <meta property="og:title" content="Forecast Lab — run MSTL-NNAR and STR-NBEATS on your own data">
     <meta property="og:description" content="Upload a time series and run two peer-reviewed hybrid forecasting models in your browser. Forecasts, prediction intervals, decomposition and diagnostics; nothing is uploaded.">
@@ -18,34 +18,42 @@
     <meta name="twitter:description" content="Run published hybrid forecasting models on your own data. Everything stays on your device.">
     <link rel="icon" href="favicon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="favicon.svg">
-    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta name="color-scheme" content="light">
+    <link rel="preload" href="assets/fonts/fraunces-latin.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="assets/site.css">
     <link rel="stylesheet" href="assets/lab.css">
 </head>
 <body>
 
 <a class="skip-link" href="#labMain">Skip to results</a>
-<nav class="navbar" aria-label="Main navigation">
-    <div class="nav-container">
-        <a href="index.html" class="nav-logo">Dr. Mohammed Elseidi</a>
-        <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false">
-            <span></span><span></span><span></span>
+<header class="nav" id="nav">
+    <div class="nav-inner">
+        <a href="index.html" class="nav-logo" aria-label="Dr. Mohammed Elseidi, home page">
+            <span class="mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l5-6 4 3 5-7 4 3"/><path d="M17 7h4v4"/></svg></span>
+            <span>Mohammed Elseidi</span>
+        </a>
+        <button class="nav-toggle" id="navToggle" type="button" aria-label="Open navigation menu" aria-expanded="false" aria-controls="navLinks">
+            <svg class="i i-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16"/><path d="M4 18h16"/><path d="M4 6h16"/></svg>
+            <svg class="i i-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
         </button>
-        <ul class="nav-links" id="navLinks">
-            <li><a href="index.html#about">About</a></li>
-            <li><a href="index.html#experience">Experience</a></li>
-            <li><a href="index.html#seminars">Seminars</a></li>
-            <li><a href="forecast-lab.html" class="active" aria-current="page">Forecast Lab</a></li>
-            <li><a href="index.html#publications">Publications</a></li>
-            <li><a href="index.html#awards">Awards</a></li>
-            <li><a href="index.html#contact">Contact</a></li>
-        </ul>
+        <nav class="nav-links" id="navLinks" aria-label="Main navigation">
+            <a href="index.html#about">About</a>
+            <a href="index.html#publications">Research</a>
+            <a href="forecast-lab.html" class="is-active" aria-current="page">Forecast Lab</a>
+            <a href="index.html#experience">Career</a>
+            <a href="index.html#seminars">Talks</a>
+            <a href="index.html#contact">Contact</a>
+        </nav>
+        <a href="index.html" class="btn btn-secondary btn-sm nav-cta">Back to profile</a>
     </div>
-</nav>
+</header>
 
-<header class="lab-hero">
-    <div class="lab-hero-inner">
-        <h1>Forecast Lab: <span>run the models on your own data</span></h1>
+<main id="labPage">
+<section class="lab-hero bg-ink" data-nav-dark aria-labelledby="labTitle">
+    <div class="container-wide lab-hero-inner">
+        <p class="eyebrow">Interactive · runs in your browser</p>
+        <h1 id="labTitle">Forecast Lab <span>Run the models on your own data.</span></h1>
         <p>
             Two peer-reviewed hybrid frameworks — <strong>MSTL-NNAR</strong> and <strong>STR-NBEATS</strong> —
             implemented end to end in JavaScript. Load a time series, pick a model, and get a forecast with
@@ -53,15 +61,15 @@
             seasonal-naive benchmark.
         </p>
         <div class="hero-chips">
-            <span class="hero-chip"><i class="fas fa-lock"></i> Your data never leaves this browser</span>
-            <span class="hero-chip"><i class="fas fa-microchip"></i> Models train locally on your device</span>
-            <span class="hero-chip"><i class="fas fa-book"></i> SERRA (2024) &amp; MESE (2025)</span>
-            <span class="hero-chip"><i class="fas fa-file-csv"></i> CSV, TSV or Excel</span>
+            <span class="hero-chip"><i class="fas fa-lock" aria-hidden="true"></i> Your data never leaves this browser</span>
+            <span class="hero-chip"><i class="fas fa-microchip" aria-hidden="true"></i> Models train locally on your device</span>
+            <span class="hero-chip"><i class="fas fa-book" aria-hidden="true"></i> SERRA (2024) &amp; MESE (2025)</span>
+            <span class="hero-chip"><i class="fas fa-file-csv" aria-hidden="true"></i> CSV, TSV or Excel</span>
         </div>
     </div>
-</header>
+</section>
 
-<main class="lab-shell">
+<div class="lab-shell">
     <!-- ================= Control rail ================= -->
     <aside class="lab-rail">
 
@@ -82,7 +90,7 @@
                     <strong>Drop a file or click to browse</strong>
                     <span>.csv · .tsv · .txt · .xlsx — up to ~50,000 rows</span>
                 </div>
-                <input type="file" id="fileInput" accept=".csv,.tsv,.txt,.xlsx,.xls" class="sr-only">
+                <input type="file" id="fileInput" accept=".csv,.tsv,.txt,.xlsx,.xls" class="sr-only" aria-label="Choose a data file">
             </div>
 
             <div id="panePaste" role="tabpanel" aria-labelledby="tabPaste" hidden>
@@ -259,11 +267,12 @@
             </div>
         </div>
     </div>
-</main>
+</div>
 
-<section class="lab-notes">
+<section class="lab-notes" aria-labelledby="notesTitle">
     <div class="lab-notes-inner">
-        <h2>How a run works</h2>
+        <p class="eyebrow">Method</p>
+        <h2 id="notesTitle">How a run works</h2>
         <div class="notes-grid">
             <div class="note-col">
                 <h3>1 · Read and inspect</h3>
@@ -334,20 +343,41 @@
         </div>
     </div>
 </section>
+</main>
 
-<footer class="footer">
-    <p>
-        <strong>Forecast Lab</strong> — implementations of
-        <a href="https://link.springer.com/article/10.1007/s00477-024-02701-7" target="_blank" rel="noopener">MSTL-NNAR</a> and
-        <a href="https://link.springer.com/article/10.1007/s40808-025-02436-6" target="_blank" rel="noopener">STR-NBEATS</a>
-        by Dr. Mohammed Elseidi.
-    </p>
-    <p style="margin-top:0.6rem;font-size:0.82rem;opacity:0.75;">
-        Results are produced by browser-based re-implementations for exploration and teaching; they will not
-        reproduce the published results exactly. <a href="index.html">Back to the main site</a>
-    </p>
+<footer class="site-footer lab-footer">
+    <div class="container footer-bottom" style="margin-top:0;padding-top:0;border-top:0;display:grid;gap:0.75rem;">
+        <p style="font-size:0.9rem;color:var(--text-2-on-dark);">
+            <strong style="color:var(--text-on-dark)">Forecast Lab</strong> — browser implementations of
+            <a href="https://link.springer.com/article/10.1007/s00477-024-02701-7" target="_blank" rel="noopener">MSTL-NNAR</a> and
+            <a href="https://link.springer.com/article/10.1007/s40808-025-02436-6" target="_blank" rel="noopener">STR-NBEATS</a>
+            by Dr. Mohammed Elseidi. Results are produced by re-implementations written for exploration and teaching; they will not
+            reproduce the published figures exactly.
+        </p>
+        <p><a href="index.html">&larr; Back to the main site</a> <span class="mono" style="margin-left:1rem;">&copy; <span id="copyYear">2026</span> Dr. Mohammed Elseidi</span></p>
+    </div>
 </footer>
 
+<script>
+(function () {
+    var nav = document.getElementById('nav'), toggle = document.getElementById('navToggle'), menu = document.getElementById('navLinks');
+    function onScroll() { nav.classList.toggle('is-solid', window.scrollY > 8); }
+    window.addEventListener('scroll', onScroll, { passive: true }); onScroll();
+    if ('IntersectionObserver' in window) {
+        new IntersectionObserver(function (entries) {
+            nav.classList.toggle('on-dark', entries.some(function (en) { return en.isIntersecting; }));
+        }, { rootMargin: '-56px 0px -' + (window.innerHeight - 104) + 'px 0px' }).observe(document.querySelector('[data-nav-dark]'));
+    }
+    function setMenu(open) {
+        menu.classList.toggle('is-open', open); nav.classList.toggle('is-open', open);
+        document.body.classList.toggle('nav-open', open);
+        toggle.setAttribute('aria-label', open ? 'Close navigation menu' : 'Open navigation menu');
+    }
+    toggle.addEventListener('click', function () { setMenu(!menu.classList.contains('is-open')); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && menu.classList.contains('is-open')) { setMenu(false); toggle.focus(); } });
+    var y = document.getElementById('copyYear'); if (y) y.textContent = new Date().getFullYear();
+})();
+</script>
 <script src="assets/lab-charts.js"></script>
 <script src="assets/lab-ui.js"></script>
 </body>
