@@ -12,15 +12,20 @@
     <meta property="og:title" content="Forecast Lab — run MSTL-NNAR and STR-NBEATS on your own data">
     <meta property="og:description" content="Upload a time series and run two peer-reviewed hybrid forecasting models in your browser. Forecasts, prediction intervals, decomposition and diagnostics; nothing is uploaded.">
     <meta property="og:url" content="https://melseidi.github.io/mohammed-elseidi-website/forecast-lab.html">
+    <meta property="og:image" content="https://melseidi.github.io/mohammed-elseidi-website/assets/profile.jpg">
     <meta property="og:site_name" content="Dr. Mohammed Elseidi">
     <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="Forecast Lab — MSTL-NNAR &amp; STR-NBEATS in the browser">
     <meta name="twitter:description" content="Run published hybrid forecasting models on your own data. Everything stays on your device.">
+    <meta name="twitter:image" content="https://melseidi.github.io/mohammed-elseidi-website/assets/profile.jpg">
     <link rel="icon" href="favicon.svg" type="image/svg+xml">
-    <link rel="apple-touch-icon" href="favicon.svg">
+    <link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
     <meta name="color-scheme" content="light">
     <link rel="preload" href="assets/fonts/fraunces-latin.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="assets/fonts/fraunces-italic-latin.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="assets/fonts/jetbrains-mono-latin.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="stylesheet" href="assets/site.css">
     <link rel="stylesheet" href="assets/lab.css">
 </head>
@@ -38,12 +43,13 @@
             <svg class="i i-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
         </button>
         <nav class="nav-links" id="navLinks" aria-label="Main navigation">
-            <a href="index.html#about">About</a>
-            <a href="index.html#publications">Research</a>
-            <a href="forecast-lab.html" class="is-active" aria-current="page">Forecast Lab</a>
-            <a href="index.html#experience">Career</a>
-            <a href="index.html#seminars">Talks</a>
-            <a href="index.html#contact">Contact</a>
+            <a href="index.html#about" data-num="01">About</a>
+            <a href="index.html#publications" data-num="02">Research</a>
+            <a href="forecast-lab.html" class="is-active" aria-current="page" data-num="03">Forecast Lab</a>
+            <a href="index.html#experience" data-num="04">Career</a>
+            <a href="index.html#leadership" data-num="06">Service</a>
+            <a href="index.html#seminars" data-num="07">Talks</a>
+            <a href="index.html#contact" data-num="09">Contact</a>
         </nav>
         <a href="index.html" class="btn btn-secondary btn-sm nav-cta">Back to profile</a>
     </div>
@@ -90,7 +96,7 @@
                     <strong>Drop a file or click to browse</strong>
                     <span>.csv · .tsv · .txt · .xlsx — up to ~50,000 rows</span>
                 </div>
-                <input type="file" id="fileInput" accept=".csv,.tsv,.txt,.xlsx,.xls" class="sr-only" aria-label="Choose a data file">
+                <input type="file" id="fileInput" accept=".csv,.tsv,.txt,.xlsx,.xls" class="sr-only" aria-label="Choose a data file" tabindex="-1">
             </div>
 
             <div id="panePaste" role="tabpanel" aria-labelledby="tabPaste" hidden>
@@ -182,8 +188,8 @@
                 and halve the run time.
             </p>
 
-            <label class="field"><span>Seasonal periods</span></label>
-            <div class="chips" id="periodChips" style="margin-top:-0.6rem;">
+            <p class="field" id="periodsLabel"><span>Seasonal periods</span></p>
+            <div class="chips" id="periodChips" role="group" aria-labelledby="periodsLabel" style="margin-top:-0.6rem;">
                 <span class="hint">Load data to detect seasonality.</span>
             </div>
             <div style="display:flex;gap:0.5rem;margin-top:0.6rem;">
@@ -205,8 +211,8 @@
             <label class="field" style="margin-top:1rem;"><span>Training effort</span>
                 <select id="preset">
                     <option value="fast">Fast — quick look</option>
-                    <option value="balanced" selected>Balanced — recommended</option>
-                    <option value="thorough">Thorough — slowest, most accurate</option>
+                    <option value="balanced" selected>Balanced (recommended)</option>
+                    <option value="thorough">Thorough — most accurate</option>
                 </select>
             </label>
 
@@ -247,7 +253,7 @@
 
             <div class="progress-wrap" id="progressWrap" hidden>
                 <div class="progress-bar"><div id="progressFill"></div></div>
-                <div class="progress-label" id="progressLabel"></div>
+                <div class="progress-label" id="progressLabel" role="status" aria-live="polite"></div>
                 <button class="btn btn-ghost btn-sm btn-block" id="cancelBtn" style="margin-top:0.5rem;">Cancel</button>
             </div>
         </section>
@@ -354,26 +360,29 @@
             by Dr. Mohammed Elseidi. Results are produced by re-implementations written for exploration and teaching; they will not
             reproduce the published figures exactly.
         </p>
-        <p><a href="index.html">&larr; Back to the main site</a> <span class="mono" style="margin-left:1rem;">&copy; <span id="copyYear">2026</span> Dr. Mohammed Elseidi</span></p>
+        <p><a href="index.html"><i class="fas fa-arrow-left" aria-hidden="true"></i> Back to the main site</a> <span class="mono" style="margin-left:1rem;">&copy; <span id="copyYear">2026</span> Dr. Mohammed Elseidi</span></p>
     </div>
 </footer>
 
 <script>
 (function () {
     var nav = document.getElementById('nav'), toggle = document.getElementById('navToggle'), menu = document.getElementById('navLinks');
-    function onScroll() { nav.classList.toggle('is-solid', window.scrollY > 8); }
-    window.addEventListener('scroll', onScroll, { passive: true }); onScroll();
-    if ('IntersectionObserver' in window) {
-        new IntersectionObserver(function (entries) {
-            nav.classList.toggle('on-dark', entries.some(function (en) { return en.isIntersecting; }));
-        }, { rootMargin: '-56px 0px -' + (window.innerHeight - 104) + 'px 0px' }).observe(document.querySelector('[data-nav-dark]'));
+    var dark = document.querySelector('[data-nav-dark]');
+    function onScroll() {
+        nav.classList.toggle('is-solid', window.scrollY > 8);
+        var r = dark.getBoundingClientRect();
+        nav.classList.toggle('on-dark', r.top < 104 && r.bottom > 56);
     }
+    window.addEventListener('scroll', onScroll, { passive: true }); window.addEventListener('resize', onScroll); onScroll();
     function setMenu(open) {
         menu.classList.toggle('is-open', open); nav.classList.toggle('is-open', open);
         document.body.classList.toggle('nav-open', open);
+        document.querySelectorAll('main, .site-footer').forEach(function (el) { el.inert = open; });
+        toggle.setAttribute('aria-expanded', String(open));
         toggle.setAttribute('aria-label', open ? 'Close navigation menu' : 'Open navigation menu');
     }
     toggle.addEventListener('click', function () { setMenu(!menu.classList.contains('is-open')); });
+    window.matchMedia('(min-width: 1024px)').addEventListener('change', function (e) { if (e.matches) setMenu(false); });
     document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && menu.classList.contains('is-open')) { setMenu(false); toggle.focus(); } });
     var y = document.getElementById('copyYear'); if (y) y.textContent = new Date().getFullYear();
 })();

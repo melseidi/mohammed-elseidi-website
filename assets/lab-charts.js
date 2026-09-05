@@ -312,9 +312,10 @@
             ctx.stroke();
 
             ctx.fillStyle = MUTED; ctx.textAlign = 'center'; ctx.textBaseline = 'top';
-            [1, Math.round(values.length / 2), values.length].forEach(function (lag) {
+            [1, Math.round(values.length / 2), values.length].forEach(function (lag, k) {
                 var x = padL + plotW * (lag - 0.5) / values.length;
-                ctx.fillText('lag ' + lag, x, padT + plotH + 6);
+                ctx.textAlign = k === 0 ? 'left' : k === 2 ? 'right' : 'center';
+                ctx.fillText('lag ' + lag, k === 0 ? x - bw / 2 : k === 2 ? x + bw / 2 : x, padT + plotH + 6);
             });
         }
         if (root.ResizeObserver) new ResizeObserver(draw).observe(wrap); else root.addEventListener('resize', draw);

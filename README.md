@@ -3,8 +3,12 @@
 Personal academic website of Dr. Mohammed Elseidi — Associate Professor of Statistics &
 Data Science and Director of Quality Assurance, Umm Al Quwain University.
 
-A static site, served straight from this repository by GitHub Pages. No build step, no
-backend, no third-party requests: fonts are self-hosted and icons are inline SVG.
+A static site, served straight from this repository by GitHub Pages. No build step and no
+backend. Fonts are self-hosted and icons are inline SVG, so the only third-party request on a
+normal page load is the poster image for the recorded YouTube talk (`i.ytimg.com`, loaded
+lazily); the YouTube player (on play), the Google Drive copy of the portrait (only if
+`assets/profile.jpg` fails to load) and SheetJS (only for `.xlsx` uploads in the Lab) are
+fetched on demand.
 
 ## Pages
 
@@ -23,6 +27,7 @@ backend, no third-party requests: fonts are self-hosted and icons are inline SVG
 | `assets/home.css` | Components used only on `index.html`: hero with the forecast-fan artwork, about, publications list, Lab feature band, career lists, awards, service blocks, talks & press, toolkit, contact, slides modal |
 | `assets/lab.css` | Forecast Lab styles on top of `site.css`, including a CSS-mask icon shim for the `<i class="fas fa-…">` tags the Lab's JavaScript emits |
 | `assets/fonts/` | Self-hosted latin subsets (woff2) of **Fraunces** (display), **Inter** (text) and **JetBrains Mono** (numbers, dates, labels), all from the Google Fonts catalogue |
+| `assets/profile.jpg` | 400×400 portrait used in the hero and as the social-sharing image; the home page falls back to a Google Drive copy, then to `favicon.svg`, if it fails to load |
 
 Conventions worth knowing before editing:
 
