@@ -27,7 +27,9 @@ fetched on demand.
 | `assets/home.css` | Components used only on `index.html`: hero with the forecast-fan artwork, about, publications list, Lab feature band, career lists, awards, service blocks, talks & press, toolkit, contact, slides modal |
 | `assets/lab.css` | Forecast Lab styles on top of `site.css`, including a CSS-mask icon shim for the `<i class="fas fa-…">` tags the Lab's JavaScript emits |
 | `assets/fonts/` | Self-hosted latin subsets (woff2) of **Fraunces** (display), **Inter** (text) and **JetBrains Mono** (numbers, dates, labels), all from the Google Fonts catalogue |
-| `assets/profile.jpg` | 400×400 portrait used in the hero and as the social-sharing image; the home page falls back to a Google Drive copy, then to `favicon.svg`, if it fails to load |
+| `assets/profile.jpg` | 400×400 portrait used in the hero; the home page falls back to a Google Drive copy, then to `favicon.svg`, if it fails to load |
+| `assets/og-card.jpg` | 1200×630 link-preview card (Open Graph / Twitter `summary_large_image`) shown when a page is shared on LinkedIn, X or WhatsApp |
+| `site.webmanifest` | Web app manifest so the site can be installed to a home screen; icons are `favicon.svg`, `apple-touch-icon.png` and `assets/icon-512.png` |
 
 Conventions worth knowing before editing:
 
@@ -43,7 +45,16 @@ Conventions worth knowing before editing:
   presses play, which keeps the home page light.
 - Seminar slide viewers appear automatically once a real link replaces the placeholder in the
   `slideLinks` object at the bottom of `index.html`.
-- The site prints as a clean CV (`@media print` rules in `site.css` and `home.css`).
+- The site prints as a clean CV (`@media print` rules in `site.css` and `home.css`); the
+  *Download CV (PDF)* button in the hero simply opens the print dialog.
+- Publications carry topic filters, DOI links and a *Cite* dialog (APA and BibTeX with one-click
+  copy). The citation data lives in the `PUBS` object at the bottom of `index.html`, and the five
+  DOI-bearing papers are also described as `ScholarlyArticle` structured data in the `<head>`.
+  "Try the model" links open the Forecast Lab with that framework preselected
+  (`forecast-lab.html#model=mstl-nnar` or `#model=str-nbeats`).
+- The Lab band ends with a "how the frameworks work" illustration drawn on three canvases from
+  simulated data (observed series → trend / seasonal / remainder → forecast with intervals). It
+  animates only while on screen and draws a static frame when the visitor prefers reduced motion.
 
 ## Forecast Lab
 

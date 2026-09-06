@@ -1410,6 +1410,13 @@
             else downloadPng(t.closest('.result-block'), 'forecast-lab-' + t.getAttribute('data-png'));
         });
 
+        // A link such as forecast-lab.html#model=str-nbeats preselects that framework
+        var pre = /model=(mstl-nnar|str-nbeats)/.exec(location.hash + location.search);
+        if (pre) {
+            var radio = document.querySelector('input[name="model"][value="' + pre[1] + '"]');
+            if (radio) { radio.checked = true; radio.dispatchEvent(new Event('change', { bubbles: true })); }
+        }
+
         selectTab('tabUpload');
     }
 

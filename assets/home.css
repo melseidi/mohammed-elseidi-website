@@ -452,3 +452,78 @@ html.js:not(.no-io) .reveal:not(.is-visible) .impact-row .bar > i { transform: s
     .pub, .award, .service-block, .talk, .press, .lab-model { box-shadow: none; break-inside: avoid; }
     .pub-year { position: static; }
 }
+
+/* ==========================================================================
+   Enhancements: publication tools, "how it works" visual, citation dialog,
+   reading progress, copy button
+   ========================================================================== */
+
+/* ----- Reading progress along the very top edge ----- */
+.progress { position: fixed; top: 0; left: 0; right: 0; height: 2px; z-index: 1001; pointer-events: none; }
+.progress span { display: block; height: 100%; background: var(--teal-bright); transform: scaleX(0); transform-origin: left; }
+.nav.is-solid:not(.on-dark) ~ .progress span, html.on-paper .progress span { background: var(--teal); }
+
+/* ----- Publications: filters, topic tags and the action row ----- */
+.pub-tools { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; margin-bottom: 1.75rem; color: var(--text-3); }
+.pub-tools > .i { font-size: 0.95rem; margin-right: 0.15rem; }
+.pub-filter { cursor: pointer; transition: background-color var(--dur) var(--ease-out), border-color var(--dur) var(--ease-out), color var(--dur) var(--ease-out); }
+.pub-filter:hover { border-color: var(--teal); color: var(--teal-deep); }
+.pub-filter[aria-pressed="true"] { background: var(--ink); border-color: var(--ink); color: #fff; }
+.pub-count { margin-left: auto; font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-3); }
+.pub.is-hidden, .pub-group.is-hidden { display: none; }
+.pub-empty { padding: 1rem 0; }
+.pub-tags { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-top: 0.6rem; }
+.pub-tags li { font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: 0.04em; color: var(--text-3); padding: 0.15rem 0.5rem; border-radius: 999px; border: 1px solid var(--line); background: var(--paper); }
+.pub-title a { color: inherit; }
+.pub-title a:hover { color: var(--teal-deep); }
+article.pub:hover { border-color: var(--teal-soft-2); box-shadow: var(--shadow); transform: translateY(-2px); }
+a.pub-arrow:hover, article.pub:hover .pub-arrow { background: var(--teal); border-color: var(--teal); color: #fff; }
+.pub-extra a, .pub-extra .pub-cite { color: var(--teal-deep); }
+.pub-extra .pub-cite {
+    display: inline-flex; align-items: center; gap: 0.35rem; font-weight: 600; font-size: inherit;
+    padding: 0.2rem 0.55rem; margin: -0.2rem 0; border-radius: 7px; border: 1px solid var(--line-strong); background: var(--white);
+    transition: background-color var(--dur) var(--ease-out), border-color var(--dur) var(--ease-out), color var(--dur) var(--ease-out);
+}
+.pub-extra .pub-cite:hover { background: var(--teal); border-color: var(--teal); color: #fff; }
+.pub-extra .i { font-size: 0.95em; }
+
+/* ----- Lab band: how the frameworks work ----- */
+.lab-how { position: relative; margin-top: clamp(3rem, 6vw, 4.5rem); padding-top: clamp(2rem, 4vw, 3rem); border-top: 1px solid var(--line-strong); }
+.lab-how-head { max-width: 60ch; margin-bottom: 1.75rem; }
+.lab-how-head h3 { font-family: var(--font-display); font-weight: 500; font-size: clamp(1.5rem, 1.2rem + 1vw, 2rem); margin: 0.75rem 0 0.6rem; letter-spacing: -0.01em; }
+.lab-how-head .muted { font-size: 0.95rem; }
+.lab-how-grid { display: grid; gap: 2rem; align-items: start; }
+@media (min-width: 960px) { .lab-how-grid { grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.75fr); gap: 3rem; } }
+.decomp { background: var(--white); border: 1px solid var(--line); border-radius: var(--radius-lg); padding: 1.25rem 1.4rem; box-shadow: var(--shadow-sm); }
+.decomp .panel + .panel { margin-top: 1rem; padding-top: 1rem; border-top: 1px dashed var(--line); }
+.decomp .panel-title { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.4rem 1rem; margin-bottom: 0.5rem; font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-3); }
+.decomp .panel-title > span:first-child { display: inline-flex; align-items: center; gap: 0.5rem; color: var(--text-2); }
+.decomp .step { display: inline-grid; place-items: center; width: 1.35rem; height: 1.35rem; border-radius: 50%; background: var(--teal); color: #fff; font-size: 0.65rem; }
+.decomp .legend { display: flex; flex-wrap: wrap; gap: 0.75rem; text-transform: none; letter-spacing: 0; font-size: 0.7rem; }
+.decomp .legend i { display: inline-block; width: 12px; height: 3px; border-radius: 2px; vertical-align: middle; margin-right: 4px; }
+.decomp canvas { width: 100%; height: auto; border-radius: var(--radius-sm); background: var(--paper); }
+.how-steps { display: grid; gap: 0.75rem; counter-reset: step; }
+.how-steps li { display: grid; grid-template-columns: 2.25rem minmax(0, 1fr); gap: 0.75rem; padding: 0.9rem 1rem; border: 1px solid var(--line); border-radius: var(--radius); background: rgba(255, 255, 255, 0.7); }
+.how-steps .mono { font-size: 0.72rem; color: var(--teal); letter-spacing: 0.08em; padding-top: 0.2rem; }
+.how-steps strong { display: block; margin-bottom: 0.15rem; }
+.how-steps p { font-size: 0.88rem; color: var(--text-2); }
+
+/* ----- Contact: copy address ----- */
+.contact-copy { margin-top: 1rem; }
+.btn.is-done { --btn-bg: var(--teal-bright); --btn-fg: var(--ink); --btn-bd: transparent; }
+
+/* ----- Citation dialog (reuses the slides modal shell) ----- */
+.modal.cite .modal-box { max-width: 720px; height: auto; max-height: 90vh; }
+.modal.cite .modal-head { align-items: flex-start; }
+.cite-head-text h3 { font-size: 1rem; line-height: 1.35; }
+.cite-meta { font-size: 0.8rem; color: var(--text-2-on-dark); margin-top: 0.25rem; }
+.cite-body { padding: 1.25rem 1.4rem 1.4rem; overflow: auto; display: grid; gap: 1.1rem; background: #fff; }
+.cite-label { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-bottom: 0.5rem; font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-3); }
+.cite-text { margin: 0; padding: 0.9rem 1rem; border-radius: var(--radius-sm); background: var(--paper); border: 1px solid var(--line); font-size: 0.88rem; line-height: 1.55; white-space: pre-wrap; overflow-wrap: anywhere; color: var(--text); }
+pre.cite-text { font-size: 0.8rem; }
+.cite-foot a { font-weight: 600; }
+
+@media print {
+    .progress, .pub-tools, .pub-extra, .lab-how, .contact-copy, .modal.cite { display: none !important; }
+    .pub-tags li { border-color: #ccc; }
+}
