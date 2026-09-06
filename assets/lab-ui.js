@@ -603,7 +603,7 @@
             box.className = 'card';
             $('labMain').insertBefore(box, $('labMain').firstChild);
         }
-        box.innerHTML = '<div class="alert alert-error"><i class="fas fa-triangle-exclamation"></i><div>' +
+        box.innerHTML = '<div class="alert alert-error" role="alert"><i class="fas fa-triangle-exclamation"></i><div>' +
                         escapeHtml(msg) + '</div></div>';
         box.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     }
@@ -754,7 +754,9 @@
         // charts are wired after the nodes are in the document so widths are real
         results.__mounted = true;
         mountCharts(results);
-        host.querySelector('.result-block').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        var first = host.querySelector('.result-block');
+        first.setAttribute('tabindex', '-1'); first.focus({ preventScroll: true });
+        first.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
 
     function colorOf(r, idx) {
@@ -938,9 +940,9 @@
                       note: 'sd ' + fmt(r.residualSd) });
         card.__panels = panels;
         panels.forEach(function (p) {
-            host.appendChild(el('<div class="sm-panel"><h4>' + escapeHtml(p.title) +
+            host.appendChild(el('<div class="sm-panel"><h3>' + escapeHtml(p.title) +
                 (p.note ? '<span class="sm-note">' + escapeHtml(p.note) + '</span>' : '') +
-                '</h4><div class="chart-wrap"><canvas></canvas></div></div>'));
+                '</h3><div class="chart-wrap"><canvas></canvas></div></div>'));
         });
         return card;
     }
@@ -991,7 +993,7 @@
         var card = el('<section class="card result-block"><div class="card-head">' +
             '<h2><i class="fas fa-list-ol" style="color:var(--primary)"></i> Forecast values</h2>' +
             '<button class="btn btn-primary btn-sm" data-csv="forecast"><i class="fas fa-download"></i> Download CSV</button></div>' +
-            '<div class="table-scroll" style="max-height:420px;overflow-y:auto;"><table class="data">' +
+            '<div class="table-scroll" tabindex="0" role="region" aria-label="Forecast values table"' + (h > 60 ? ' style="max-height:70vh;overflow-y:auto;"' : '') + '><table class="data">' +
             '<thead><tr>' + head + '</tr></thead><tbody>' + body + '</tbody></table></div></section>');
         return card;
     }
@@ -1317,14 +1319,6 @@
     }
 
     function init() {
-        // nav
-        var toggle = $('navToggle');
-        if (toggle) toggle.addEventListener('click', function () {
-            var links = $('navLinks');
-            links.classList.toggle('active');
-            toggle.setAttribute('aria-expanded', String(links.classList.contains('active')));
-        });
-
         ['tabUpload', 'tabPaste', 'tabDemo'].forEach(function (id) {
             $(id).addEventListener('click', function () { selectTab(id); });
         });
@@ -1415,13 +1409,6 @@
             if (t.hasAttribute('data-csv')) downloadForecastCsv();
             else downloadPng(t.closest('.result-block'), 'forecast-lab-' + t.getAttribute('data-png'));
         });
-
-        // A link such as forecast-lab.html#model=str-nbeats preselects that framework
-        var pre = /model=(mstl-nnar|str-nbeats)/.exec(location.hash + location.search);
-        if (pre) {
-            var radio = document.querySelector('input[name="model"][value="' + pre[1] + '"]');
-            if (radio) { radio.checked = true; radio.dispatchEvent(new Event('change', { bubbles: true })); }
-        }
 
         selectTab('tabUpload');
     }
