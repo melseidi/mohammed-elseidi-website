@@ -1,0 +1,13 @@
+{
+  "name": "Dr. Mohammed Elseidi",
+  "short_name": "M. Elseidi",
+  "description": "Associate Professor of Statistics & Data Science. Time series forecasting research, publications and the in-browser Forecast Lab.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#0f172a",
+  "theme_color": "#0f172a",
+  "icons": [
+    { "src": "favicon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+  ]
+}

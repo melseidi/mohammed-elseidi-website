@@ -9,9 +9,24 @@ A static site, served straight from this repository. No build step and no backen
 
 | File | What it is |
 |------|------------|
-| `index.html` | The main CV site — biography, experience, publications, seminars, awards |
+| `index.html` | The main CV site — biography, research, experience, publications, seminars, awards |
 | `forecast-lab.html` | **Forecast Lab** — run the MSTL-NNAR and STR-NBEATS models on your own data |
 | `dashboard.html` | UAQU OBEF results dashboard (standalone) |
+
+## Site features
+
+- **Research section** with a live canvas illustration of the decompose-then-forecast pipeline
+  (observed series → trend / seasonal / remainder → forecast with prediction intervals), drawn from
+  simulated data and paused while off screen.
+- **Publications tools**: topic filters, DOI links, "Try the model" links into the Forecast Lab, and a
+  *Cite* dialog that produces APA and BibTeX with one-click copy. Each paper is also described with
+  `ScholarlyArticle` structured data for search engines.
+- **Print-ready CV**: the *Download CV (PDF)* button opens the print dialog, where a print stylesheet
+  turns the page into a clean, black-on-white CV.
+- Reading-progress bar, section highlighting in the menu, scroll-in animations, back-to-top button and
+  count-up hero statistics. All motion respects the visitor's *reduce motion* preference.
+- YouTube embeds load only when played, so the page does not pull the player script on first visit.
+- Installable as a web app (`site.webmanifest`).
 
 ## Forecast Lab
 

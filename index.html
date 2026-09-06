@@ -26,7 +26,11 @@
 
     <link rel="icon" href="favicon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="favicon.svg">
+    <link rel="manifest" href="site.webmanifest">
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
     <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
@@ -58,6 +62,58 @@
         "https://www.linkedin.com/in/mohammed-elseidi-7a3288154/",
         "https://www.researchgate.net/profile/Mohammed-Elseidi-2",
         "https://loop.frontiersin.org/people/2758882/overview"
+      ]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "ScholarlyArticle",
+          "headline": "STR-NBEATS: A novel hybrid framework integrating time series decomposition with deep learning for enhanced temperature forecasting",
+          "author": { "@type": "Person", "name": "Mohammed Elseidi" },
+          "datePublished": "2025",
+          "isPartOf": { "@type": "Periodical", "name": "Modeling Earth Systems and Environment" },
+          "identifier": "https://doi.org/10.1007/s40808-025-02436-6",
+          "url": "https://link.springer.com/article/10.1007/s40808-025-02436-6"
+        },
+        {
+          "@type": "ScholarlyArticle",
+          "headline": "MSTL-NNAR: A new hybrid model of machine learning and time series decomposition for wind speed forecasting",
+          "author": { "@type": "Person", "name": "Mohammed Elseidi" },
+          "datePublished": "2024",
+          "isPartOf": { "@type": "Periodical", "name": "Stochastic Environmental Research and Risk Assessment" },
+          "identifier": "https://doi.org/10.1007/s00477-024-02701-7",
+          "url": "https://link.springer.com/article/10.1007/s00477-024-02701-7"
+        },
+        {
+          "@type": "ScholarlyArticle",
+          "headline": "A hybrid Facebook Prophet-ARIMA framework for forecasting high-frequency temperature data",
+          "author": { "@type": "Person", "name": "Mohammed Elseidi" },
+          "datePublished": "2024",
+          "isPartOf": { "@type": "Periodical", "name": "Modeling Earth Systems and Environment" },
+          "identifier": "https://doi.org/10.1007/s40808-023-01874-4",
+          "url": "https://link.springer.com/article/10.1007/s40808-023-01874-4"
+        },
+        {
+          "@type": "ScholarlyArticle",
+          "headline": "Quantile regression-based seasonal adjustment",
+          "author": [ { "@type": "Person", "name": "Massimiliano Caporin" }, { "@type": "Person", "name": "Mohammed Elseidi" } ],
+          "datePublished": "2023",
+          "isPartOf": { "@type": "Periodical", "name": "International Journal of Computational Economics and Econometrics" },
+          "identifier": "https://doi.org/10.1504/IJCEE.2023.132144",
+          "url": "https://www.inderscienceonline.com/doi/abs/10.1504/IJCEE.2023.132144"
+        },
+        {
+          "@type": "ScholarlyArticle",
+          "headline": "Forecasting temperature data with complex seasonality using time series methods",
+          "author": { "@type": "Person", "name": "Mohammed Elseidi" },
+          "datePublished": "2023",
+          "isPartOf": { "@type": "Periodical", "name": "Modeling Earth Systems and Environment" },
+          "identifier": "https://doi.org/10.1007/s40808-022-01632-y",
+          "url": "https://link.springer.com/article/10.1007/s40808-022-01632-y"
+        }
       ]
     }
     </script>
@@ -96,8 +152,9 @@
         }
 
         body {
-            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
             line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
             color: var(--text);
             background: var(--off-white);
             overflow-x: hidden;
@@ -1288,7 +1345,7 @@
 
         .hero-buttons {
             display: flex;
-            gap: 1rem;
+            gap: 0.75rem;
             flex-wrap: wrap;
         }
 
@@ -2294,11 +2351,15 @@
             }
         }
 
-        /* Between laptop and tablet widths the full menu fits only when compact */
+        /* Eleven menu items fit on one line only when compact */
+        @media (min-width: 1141px) {
+            .nav-links { gap: 0.2rem; flex-wrap: nowrap; }
+            .nav-links a { padding: 0.45rem 0.7rem; font-size: 0.82rem; }
+        }
         @media (max-width: 1320px) and (min-width: 1141px) {
             .nav-logo { font-size: 1.1rem; }
-            .nav-links { gap: 0.15rem; }
-            .nav-links a { padding: 0.45rem 0.6rem; font-size: 0.8rem; }
+            .nav-links { gap: 0.1rem; }
+            .nav-links a { padding: 0.45rem 0.55rem; font-size: 0.78rem; }
         }
         /* Below that, use the menu button rather than a two-line nav */
         @media (max-width: 1140px) {
@@ -2311,11 +2372,353 @@
             .nav-toggle { display: flex; }
         }
 
+
+        /* =====================================================================
+           Enhancements: navigation feedback, motion, research visual,
+           publication tools, print CV
+           ===================================================================== */
+
+        /* Reading progress along the top edge of the navbar */
+        .scroll-progress {
+            position: fixed; top: 0; left: 0; right: 0; height: 3px; z-index: 1001;
+            background: transparent; pointer-events: none;
+        }
+        .scroll-progress span {
+            display: block; height: 100%; width: 100%;
+            background: var(--gradient-1);
+            transform: scaleX(0); transform-origin: left;
+            transition: transform 0.1s linear;
+        }
+
+        /* Section currently on screen is marked in the menu */
+        .nav-links a.active {
+            background: rgba(20, 184, 166, 0.18);
+            color: var(--primary-light);
+            box-shadow: inset 0 0 0 1px rgba(20, 184, 166, 0.35);
+        }
+
+        /* Elements slide up as they scroll into view (JS adds .reveal only
+           when it can also remove it, so nothing is hidden without JS) */
+        .reveal { opacity: 0; transform: translateY(26px); }
+        .reveal.in { opacity: 1; transform: none; transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1); }
+        .reveal.in.d1 { transition-delay: 0.08s; }
+        .reveal.in.d2 { transition-delay: 0.16s; }
+        .reveal.in.d3 { transition-delay: 0.24s; }
+
+        /* Back to top */
+        .to-top {
+            position: fixed; right: 1.25rem; bottom: 1.25rem; z-index: 900;
+            width: 48px; height: 48px; border-radius: 50%; border: 0; cursor: pointer;
+            background: var(--gradient-3); color: var(--white); font-size: 1.1rem;
+            box-shadow: 0 8px 24px rgba(13, 148, 136, 0.35);
+            opacity: 0; visibility: hidden; transform: translateY(12px);
+            transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
+            display: inline-flex; align-items: center; justify-content: center;
+        }
+        .to-top.show { opacity: 1; visibility: visible; transform: none; }
+        .to-top:hover { transform: translateY(-3px); }
+
+        /* Hero stat numbers count up; keep their width stable while they do */
+        .stat-number { font-variant-numeric: tabular-nums; }
+
+        .btn-ghost {
+            background: rgba(255, 255, 255, 0.08);
+            color: var(--white);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            font: inherit; font-weight: 600;
+        }
+        .btn-ghost:hover { background: rgba(255, 255, 255, 0.16); border-color: var(--accent-light); color: var(--white); }
+
+        /* Highlighted "now" entries in timelines */
+        .timeline-item.is-current .timeline-dot { background: var(--gradient-1); box-shadow: 0 0 20px rgba(13, 148, 136, 0.5); }
+        .timeline-item.is-current .timeline-content { border-left: 3px solid var(--primary); }
+        .timeline-date--now { background: linear-gradient(135deg, #16a34a, #0d9488); }
+        .timeline-note { font-size: 0.85rem; color: var(--text-light); margin-top: 0.3rem; }
+
+        /* Light award card (used for the most recent honour) */
+        .award-card--light {
+            background: linear-gradient(135deg, rgba(34, 197, 94, 0.08), rgba(13, 148, 136, 0.06));
+            border: 1px solid rgba(13, 148, 136, 0.18);
+            border-left: 4px solid var(--accent);
+            color: var(--text);
+        }
+        .award-card--light h3 { color: var(--primary-dark); }
+        .award-card--light .org { color: var(--dark); opacity: 1; font-weight: 600; }
+        .award-card--light .date { color: var(--text-light); opacity: 1; }
+        .award-card--light .note { margin-top: 0.5rem; font-size: 0.9rem; color: var(--text-light); }
+
+        /* ===== Research section ===== */
+        .research-grid {
+            display: grid;
+            grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+            gap: 3rem;
+            align-items: start;
+        }
+        .research-visual {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 1.5rem;
+            position: sticky; top: 90px;
+        }
+        .research-visual .panel { margin-bottom: 1.1rem; }
+        .research-visual .panel:last-child { margin-bottom: 0; }
+        .research-visual .panel-title {
+            display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+            font-size: 0.78rem; letter-spacing: 1.2px; text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.65); margin-bottom: 0.4rem; font-weight: 600;
+        }
+        .research-visual .panel-title .step {
+            display: inline-flex; align-items: center; justify-content: center;
+            width: 22px; height: 22px; border-radius: 50%; font-size: 0.72rem;
+            background: var(--gradient-3); color: var(--white); margin-right: 0.5rem;
+        }
+        .research-visual .legend { display: flex; flex-wrap: wrap; gap: 0.8rem; font-size: 0.72rem; letter-spacing: 0; text-transform: none; }
+        .research-visual .legend i { display: inline-block; width: 14px; height: 3px; border-radius: 2px; vertical-align: middle; margin-right: 4px; }
+        .research-visual canvas { width: 100%; height: auto; display: block; border-radius: 10px; background: rgba(15, 23, 42, 0.55); }
+        .research-visual .caption { font-size: 0.8rem; color: rgba(255, 255, 255, 0.55); margin-top: 1rem; line-height: 1.5; }
+        .research-visual .caption strong { color: rgba(255, 255, 255, 0.85); }
+
+        .research-cards { display: grid; gap: 1.25rem; }
+        .research-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 1.4rem 1.5rem;
+            display: grid; grid-template-columns: 48px 1fr; gap: 1rem;
+            transition: transform 0.3s ease, background 0.3s ease, border-color 0.3s ease;
+        }
+        .research-card:hover { transform: translateY(-4px); background: rgba(255, 255, 255, 0.08); border-color: rgba(20, 184, 166, 0.4); }
+        .research-card .icon {
+            width: 48px; height: 48px; border-radius: 12px; background: var(--gradient-3);
+            display: flex; align-items: center; justify-content: center; color: var(--white); font-size: 1.2rem;
+        }
+        .research-card h3 { color: var(--white); font-size: 1.05rem; margin-bottom: 0.35rem; }
+        .research-card p { color: rgba(255, 255, 255, 0.72); font-size: 0.93rem; line-height: 1.6; }
+        .research-card .tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.7rem; }
+        .research-card .tags span {
+            font-size: 0.72rem; font-weight: 600; padding: 0.2rem 0.6rem; border-radius: 20px;
+            background: rgba(20, 184, 166, 0.15); color: var(--primary-light); border: 1px solid rgba(20, 184, 166, 0.3);
+        }
+        .research-steps {
+            display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.75rem; margin-top: 3rem;
+        }
+        .research-step {
+            position: relative; padding: 1rem 1rem 1rem 1.1rem;
+            border-radius: 14px; background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .research-step b { display: block; color: var(--accent-light); font-size: 0.75rem; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 0.3rem; }
+        .research-step span { color: rgba(255, 255, 255, 0.78); font-size: 0.88rem; line-height: 1.5; }
+        .research-step::after {
+            content: '\2192'; position: absolute; right: -0.85rem; top: 50%; transform: translateY(-50%);
+            color: var(--primary-light); font-size: 1.1rem; z-index: 1;
+        }
+        .research-step:last-child::after { content: none; }
+        @media (max-width: 1024px) {
+            .research-grid { grid-template-columns: 1fr; }
+            .research-visual { position: static; }
+            .research-steps { grid-template-columns: repeat(2, 1fr); }
+            .research-step::after { content: none; }
+        }
+        @media (max-width: 520px) {
+            .research-steps { grid-template-columns: 1fr; }
+            .research-visual { padding: 1rem; }
+            .research-visual .panel-title { flex-direction: column; align-items: flex-start; gap: 0.3rem; }
+        }
+
+        /* ===== Publications: tools ===== */
+        .pub-toolbar {
+            display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
+            gap: 1rem; margin-bottom: 2rem;
+        }
+        .pub-filters { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+        .pub-filter {
+            font: inherit; font-size: 0.82rem; font-weight: 600; cursor: pointer;
+            padding: 0.4rem 0.95rem; border-radius: 20px;
+            background: rgba(255, 255, 255, 0.06); color: rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.15); transition: all 0.2s ease;
+        }
+        .pub-filter:hover { border-color: var(--primary-light); color: var(--white); }
+        .pub-filter[aria-pressed="true"] { background: var(--gradient-3); color: var(--white); border-color: transparent; }
+        .pub-links { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+        .pub-links a {
+            font-size: 0.82rem; font-weight: 600; padding: 0.4rem 0.95rem; border-radius: 20px;
+            color: var(--primary-light); border: 1px solid rgba(20, 184, 166, 0.35); background: rgba(20, 184, 166, 0.08);
+        }
+        .pub-links a:hover { background: rgba(20, 184, 166, 0.2); color: var(--white); }
+        .pub-count { font-size: 0.85rem; color: rgba(255, 255, 255, 0.6); }
+
+        .pub-card { position: relative; }
+        .pub-card.is-hidden { display: none; }
+        .pub-top { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 0.75rem; margin-bottom: 0.6rem; }
+        .pub-top .pub-badge { margin-bottom: 0; }
+        .pub-tags { display: flex; flex-wrap: wrap; gap: 0.35rem; }
+        .pub-tags span {
+            font-size: 0.7rem; font-weight: 600; padding: 0.15rem 0.55rem; border-radius: 20px;
+            background: rgba(13, 148, 136, 0.08); color: var(--primary-dark); border: 1px solid rgba(13, 148, 136, 0.2);
+        }
+        .pub-card h3 a { color: inherit; }
+        .pub-card h3 a:hover { color: var(--primary); }
+        .pub-actions { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.9rem; }
+        .pub-btn {
+            display: inline-flex; align-items: center; gap: 0.4rem;
+            font: inherit; font-size: 0.8rem; font-weight: 600; cursor: pointer;
+            padding: 0.4rem 0.9rem; border-radius: 20px;
+            background: var(--off-white); color: var(--dark); border: 1px solid rgba(15, 23, 42, 0.12);
+            transition: all 0.2s ease;
+        }
+        .pub-btn:hover { background: var(--primary); color: var(--white); border-color: var(--primary); }
+        .pub-btn i { font-size: 0.75rem; }
+        .pub-year-heading { color: var(--accent-light); margin: 2rem 0 1.5rem; }
+        .pub-year-heading:first-of-type { margin-top: 0; }
+        .pub-empty { display: none; color: rgba(255, 255, 255, 0.7); text-align: center; padding: 2rem 0; }
+        .pub-empty.show { display: block; }
+
+        /* Citation dialog */
+        .cite-modal {
+            display: none; position: fixed; inset: 0; z-index: 3000;
+            background: rgba(15, 23, 42, 0.7); backdrop-filter: blur(6px);
+            align-items: center; justify-content: center; padding: 1rem;
+        }
+        .cite-modal.active { display: flex; }
+        .cite-box {
+            background: var(--white); color: var(--text); width: min(720px, 100%);
+            border-radius: 20px; box-shadow: 0 30px 80px rgba(0, 0, 0, 0.4);
+            max-height: 90vh; overflow: auto;
+        }
+        .cite-head {
+            display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem;
+            padding: 1.25rem 1.5rem; border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+        }
+        .cite-head h3 { font-size: 1.05rem; color: var(--dark); line-height: 1.4; }
+        .cite-head p { font-size: 0.85rem; color: var(--text-light); margin-top: 0.2rem; }
+        .cite-close {
+            flex: none; width: 36px; height: 36px; border-radius: 50%; border: 0; cursor: pointer;
+            background: var(--off-white); color: var(--dark); font-size: 1rem;
+        }
+        .cite-close:hover { background: var(--primary); color: var(--white); }
+        .cite-body { padding: 1.25rem 1.5rem 1.5rem; display: grid; gap: 1.25rem; }
+        .cite-block label { display: flex; align-items: center; justify-content: space-between; font-weight: 700; font-size: 0.85rem; color: var(--dark); margin-bottom: 0.5rem; }
+        .cite-block pre, .cite-block p.cite-text {
+            margin: 0; padding: 0.9rem 1rem; border-radius: 12px; background: var(--off-white);
+            border: 1px solid rgba(15, 23, 42, 0.08); font-size: 0.85rem; line-height: 1.55;
+            white-space: pre-wrap; word-break: break-word; overflow-wrap: anywhere;
+        }
+        .cite-block pre { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 0.8rem; }
+        .cite-copy {
+            font: inherit; font-size: 0.78rem; font-weight: 600; cursor: pointer;
+            padding: 0.3rem 0.8rem; border-radius: 20px; border: 1px solid rgba(15, 23, 42, 0.12);
+            background: var(--white); color: var(--dark); display: inline-flex; align-items: center; gap: 0.35rem;
+        }
+        .cite-copy:hover { background: var(--primary); color: var(--white); border-color: var(--primary); }
+        .cite-copy.done { background: var(--accent); color: var(--white); border-color: var(--accent); }
+        .cite-foot { padding: 0 1.5rem 1.25rem; font-size: 0.8rem; color: var(--text-light); }
+        .cite-foot a { font-weight: 600; }
+
+        /* Contact: copy the address in one click */
+        .contact-card a[href^="mailto"] { overflow-wrap: anywhere; }
+        .copy-btn {
+            display: inline-flex; align-items: center; gap: 0.35rem; margin-top: 0.4rem;
+            font: inherit; font-size: 0.78rem; font-weight: 600; cursor: pointer;
+            padding: 0.3rem 0.8rem; border-radius: 20px; border: 1px solid rgba(13, 148, 136, 0.3);
+            background: rgba(13, 148, 136, 0.06); color: var(--primary-dark);
+        }
+        .copy-btn:hover, .copy-btn.done { background: var(--primary); color: var(--white); border-color: var(--primary); }
+
+        /* Video loads only when asked for */
+        .yt-facade {
+            position: absolute; inset: 0; width: 100%; height: 100%; border: 0; padding: 0; cursor: pointer;
+            background: var(--dark); display: block; overflow: hidden;
+        }
+        .yt-facade img { width: 100%; height: 100%; object-fit: cover; opacity: 0.85; transition: transform 0.4s ease, opacity 0.3s ease; }
+        .yt-facade:hover img { transform: scale(1.04); opacity: 1; }
+        .yt-play {
+            position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
+            width: 74px; height: 52px; border-radius: 14px; background: #ef4444; color: var(--white);
+            display: flex; align-items: center; justify-content: center; font-size: 1.6rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4); transition: transform 0.2s ease, background 0.2s ease;
+        }
+        .yt-facade:hover .yt-play { transform: translate(-50%, -50%) scale(1.08); background: #dc2626; }
+        .yt-facade:focus-visible { outline: 3px solid var(--secondary); outline-offset: -3px; }
+        .seminar-preview.is-video { height: auto; aspect-ratio: 16 / 9; }
+        .seminar-preview.is-video iframe { position: absolute; inset: 0; pointer-events: auto; border-radius: 0; }
+
+        /* Small screens: three compact stats in one row, less hero height */
+        @media (max-width: 480px) {
+            .hero { padding-top: 90px; }
+            .hero-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.5rem; }
+            .stat-card { padding: 0.8rem 0.35rem; flex: none; }
+            .stat-number { font-size: 1.45rem; }
+            .stat-label { font-size: 0.62rem; letter-spacing: 0.5px; line-height: 1.3; }
+            .stat-label small { display: none; }
+            .hero-content .subtitle { font-size: 1.2rem; }
+            .hero-content p { font-size: 1rem; }
+            .to-top { right: 0.9rem; bottom: 0.9rem; width: 42px; height: 42px; }
+        }
+
+        /* ===== Print: the page becomes a clean CV ===== */
+        @media print {
+            @page { margin: 14mm; }
+            html { scroll-behavior: auto; }
+            body { background: #fff !important; color: #111 !important; font-size: 10.5pt; line-height: 1.45; }
+            *, *::before, *::after { animation: none !important; transition: none !important; box-shadow: none !important; text-shadow: none !important; }
+            .navbar, .skip-link, .scroll-progress, .to-top, .bg-animation, .hero-buttons, .hero-image::before, .hero-image::after,
+            .pub-toolbar, .pub-actions, .cite-modal, .pdf-modal, .copy-btn, .seminar-preview, .yt-facade,
+            .research-visual, .research-steps, .footer-links, .social-links, #lab, .card-icon, .contact-icon, .media-icon, .role-icon,
+            .membership-icon, .timeline-dot, .timeline::before, .section-header p, .section-header h2::after,
+            .btn, .print-hide { display: none !important; }
+            .reveal { opacity: 1 !important; transform: none !important; }
+            .hero { min-height: 0; padding: 0 0 1rem; background: none !important; display: block; page-break-after: avoid; }
+            .hero::before, .hero::after { display: none; }
+            .hero-container { grid-template-columns: 1fr 120px; gap: 1.5rem; align-items: center; text-align: left; }
+            .hero-image { order: 1; }
+            .hero-image img { width: 110px; height: 110px; border: 2px solid #0d9488; }
+            .hero-content, .hero-content p, .hero-content .subtitle { color: #111 !important; opacity: 1 !important; }
+            .hero-content h1 { font-size: 22pt; -webkit-text-fill-color: #111; background: none; margin-bottom: 0.25rem; }
+            .hero-content .subtitle { font-size: 12pt; margin-bottom: 0.25rem; }
+            .hero-badge { animation: none; background: none; color: #0f766e; padding: 0; font-size: 9pt; margin-bottom: 0.4rem; }
+            .hero-stats { gap: 0.6rem; margin: 0.5rem 0 0; }
+            .stat-card { padding: 0.35rem 0.6rem; border: 1px solid #ccc; background: none; }
+            .stat-number { font-size: 12pt; -webkit-text-fill-color: #0f766e; background: none; }
+            .stat-label { color: #333; opacity: 1; font-size: 7pt; }
+            .section { padding: 0.9rem 0 0.4rem; break-inside: auto; }
+            .section-header { text-align: left; margin-bottom: 0.6rem; border-bottom: 2px solid #0d9488; }
+            .section-header h2 { font-size: 14pt; color: #0f172a !important; margin-bottom: 0.2rem; }
+            .section-dark, .section-gradient, .section { background: none !important; color: #111 !important; }
+            .section-dark .section-header h2 { color: #0f172a !important; }
+            .cards-grid, .contact-grid, .skills-grid, .membership-grid, .research-cards, .seminars-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; }
+            .card, .card-dark, .research-card, .pub-card, .award-card, .media-card, .contact-card, .seminar-card, .timeline-content,
+            .skill-category, .membership-item, .lab-model {
+                background: none !important; color: #111 !important; border: 1px solid #d0d5dd !important; border-radius: 6px;
+                padding: 0.5rem 0.7rem; margin: 0 0 0.5rem; max-width: none; break-inside: avoid; transform: none !important;
+            }
+            .card h3, .card-dark h3, .research-card h3, .pub-card h3, .award-card h3, .media-card h3, .contact-card h3,
+            .seminar-card h3, .timeline-content h3, .skill-category h3, .role-content h4, .lab-model h4 { color: #0f172a !important; font-size: 10.5pt; }
+            .card p, .card-dark p, .research-card p, .award-card .org, .award-card .date, .award-card p, .media-card p,
+            .role-content p, .role-content .date, .membership-item span, .timeline-note, .lab-model p, .contact-card p, .contact-card a { color: #333 !important; opacity: 1 !important; }
+            .research-card { grid-template-columns: 1fr; }
+            .research-card .icon { display: none; }
+            .research-card .tags span, .pub-tags span, .skill-tag { border: 1px solid #bbb; background: none; color: #333; }
+            .timeline { max-width: none; }
+            .timeline-item, .timeline-item:nth-child(even) { padding: 0; justify-content: flex-start; margin-bottom: 0.4rem; }
+            .timeline-content, .timeline-item:nth-child(even) .timeline-content { margin: 0; width: 100%; }
+            .timeline-date, .pub-badge, .seminar-badge, .hero-badge { background: none !important; color: #0f766e !important; padding: 0; font-weight: 700; }
+            .pub-card h3 a { color: #0f172a; text-decoration: none; }
+            .pub-year-heading, #publications h3[style] { color: #0f766e !important; margin: 0.5rem 0 0.3rem !important; font-size: 11pt; }
+            .pub-doi { display: block !important; font-size: 8.5pt; color: #555; margin-top: 0.2rem; }
+            .two-col { grid-template-columns: 1fr 1fr; gap: 0 1.5rem; }
+            .role-list li { padding: 0.35rem 0; border-color: #ddd; }
+            .footer { background: none !important; color: #333 !important; padding: 0.5rem 0; }
+            .footer .copyright { color: #666; }
+            a { color: inherit; }
+        }
+        .pub-doi { display: none; }
     </style>
 </head>
 <body>
     <!-- Navigation -->
     <a class="skip-link" href="#main">Skip to content</a>
+    <div class="scroll-progress" aria-hidden="true"><span id="scrollProgress"></span></div>
     <nav class="navbar" aria-label="Main navigation">
         <div class="nav-container">
             <a href="#" class="nav-logo">Dr. Mohammed Elseidi</a>
@@ -2327,6 +2730,7 @@
             </button>
             <ul class="nav-links" id="navLinks">
                 <li><a href="#about">About</a></li>
+                <li><a href="#research">Research</a></li>
                 <li><a href="#experience">Experience</a></li>
                 <li><a href="#leadership">Leadership</a></li>
                 <li><a href="#editorial">Editorial</a></li>
@@ -2616,15 +3020,15 @@
 
                 <div class="hero-stats">
                     <div class="stat-card">
-                        <div class="stat-number">1.84</div>
+                        <div class="stat-number" data-count="1.84" data-decimals="2">1.84</div>
                         <div class="stat-label">FWCI Score</div>
                     </div>
                     <div class="stat-card">
-                        <div class="stat-number">5+</div>
+                        <div class="stat-number" data-count="5" data-suffix="+">5+</div>
                         <div class="stat-label">Q1 Publications<br><small style="font-size:0.75rem; opacity:0.9;">Top 10% in Stats & Probability</small></div>
                     </div>
                     <div class="stat-card">
-                        <div class="stat-number">84%</div>
+                        <div class="stat-number" data-count="84" data-suffix="%">84%</div>
                         <div class="stat-label">Above World Avg<br><small style="font-size:0.75rem; opacity:0.9;">Citation Impact</small></div>
                     </div>
                 </div>
@@ -2632,6 +3036,9 @@
                 <div class="hero-buttons">
                     <a href="#publications" class="btn btn-primary"><i class="fas fa-book"></i> View Publications</a>
                     <a href="#contact" class="btn btn-outline"><i class="fas fa-envelope"></i> Get in Touch</a>
+                    <button type="button" class="btn btn-ghost" id="printCv" title="Opens the print dialog: choose “Save as PDF” to download">
+                        <i class="fas fa-file-arrow-down" aria-hidden="true"></i> Download CV
+                    </button>
                 </div>
             </div>
             <div class="hero-image">
@@ -2688,6 +3095,81 @@
         </div>
     </section>
 
+    <!-- Research Section -->
+    <section class="section section-dark" id="research">
+        <div class="container">
+            <div class="section-header">
+                <h2>Research</h2>
+                <p>Decompose first, then learn: hybrid frameworks for time series with complex seasonality</p>
+            </div>
+
+            <div class="research-grid">
+                <div class="research-visual" id="researchVisual" aria-label="Animated illustration of the decompose-then-forecast pipeline">
+                    <div class="panel">
+                        <div class="panel-title"><span><span class="step">1</span>Observed series</span>
+                            <span class="legend"><span><i style="background:#e2e8f0"></i>data with two seasonal cycles</span></span></div>
+                        <canvas id="rvObserved" width="640" height="150" role="img" aria-label="A noisy time series with a slow trend and two overlapping seasonal cycles"></canvas>
+                    </div>
+                    <div class="panel">
+                        <div class="panel-title"><span><span class="step">2</span>Decomposition (MSTL / STR)</span>
+                            <span class="legend"><span><i style="background:#4ade80"></i>trend</span><span><i style="background:#38bdf8"></i>seasonal</span><span><i style="background:#f472b6"></i>remainder</span></span></div>
+                        <canvas id="rvComponents" width="640" height="210" role="img" aria-label="The same series split into a smooth trend, a repeating seasonal pattern and an irregular remainder"></canvas>
+                    </div>
+                    <div class="panel">
+                        <div class="panel-title"><span><span class="step">3</span>Neural network on the adjusted series, then recombine</span>
+                            <span class="legend"><span><i style="background:#14b8a6"></i>forecast</span><span><i style="background:rgba(20,184,166,0.3)"></i>80 / 95% intervals</span></span></div>
+                        <canvas id="rvForecast" width="640" height="150" role="img" aria-label="The series continued into the future by a forecast line surrounded by widening prediction intervals"></canvas>
+                    </div>
+                    <p class="caption"><strong>Why it works:</strong> once the seasonal cycles are stripped out, what remains is far easier for a
+                        neural network (NNAR or N-BEATS) to learn, and the cycles themselves are extrapolated by the decomposition. The
+                        illustration uses simulated data; run the real models on your own series in the <a href="#lab" style="color: var(--primary-light);">Forecast Lab</a>.</p>
+                </div>
+
+                <div class="research-cards">
+                    <article class="research-card">
+                        <div class="icon"><i class="fas fa-layer-group" aria-hidden="true"></i></div>
+                        <div>
+                            <h3>Seasonal-trend decomposition</h3>
+                            <p>Methods for series with several overlapping cycles: multiple STL, regression-based STR with evolving seasonal shapes, and a quantile-regression approach to seasonal adjustment that is robust to outliers and heavy tails.</p>
+                            <div class="tags"><span>MSTL</span><span>STR</span><span>Quantile regression</span><span>Complex seasonality</span></div>
+                        </div>
+                    </article>
+                    <article class="research-card">
+                        <div class="icon"><i class="fas fa-brain" aria-hidden="true"></i></div>
+                        <div>
+                            <h3>Hybrid statistical and machine-learning forecasting</h3>
+                            <p>Frameworks that pair a decomposition with a learner suited to what is left: MSTL-NNAR (neural network autoregression), STR-NBEATS (deep residual stacks) and Prophet-ARIMA. Each is benchmarked on hold-out data against classical baselines.</p>
+                            <div class="tags"><span>MSTL-NNAR</span><span>STR-NBEATS</span><span>Prophet-ARIMA</span><span>N-BEATS</span></div>
+                        </div>
+                    </article>
+                    <article class="research-card">
+                        <div class="icon"><i class="fas fa-wind" aria-hidden="true"></i></div>
+                        <div>
+                            <h3>Environmental and energy applications</h3>
+                            <p>High-frequency wind speed and temperature forecasting, where accurate short-term predictions support renewable-energy planning, climate monitoring and risk assessment.</p>
+                            <div class="tags"><span>Wind speed</span><span>Temperature</span><span>High-frequency data</span><span>Climate</span></div>
+                        </div>
+                    </article>
+                    <article class="research-card">
+                        <div class="icon"><i class="fas fa-people-group" aria-hidden="true"></i></div>
+                        <div>
+                            <h3>Data science for society and policy</h3>
+                            <p>Forecasting a hybrid well-being index for the UAE, tracking generative-AI adoption through daily Google Trends, and reviewing how AI models are reshaping crime prediction in the era of big data.</p>
+                            <div class="tags"><span>Well-being index</span><span>Google Trends</span><span>Generative AI</span><span>Crime prediction</span></div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+
+            <div class="research-steps" aria-label="The four steps every framework follows">
+                <div class="research-step"><b>Detect</b><span>Find the seasonal periods in the data, accepting only cycles that add explanatory power.</span></div>
+                <div class="research-step"><b>Decompose</b><span>Split the series into trend, one component per cycle, and a remainder.</span></div>
+                <div class="research-step"><b>Learn</b><span>Fit a neural network to the seasonally adjusted series, where the nonlinear structure lives.</span></div>
+                <div class="research-step"><b>Recombine &amp; test</b><span>Add the extrapolated cycles back and score the forecast on a hold-out window.</span></div>
+            </div>
+        </div>
+    </section>
+
     <!-- Work Experience Section -->
     <section class="section" id="experience">
         <div class="container">
@@ -2696,13 +3178,13 @@
                 <p>Academic and research positions</p>
             </div>
             <div class="timeline">
-                <div class="timeline-item">
-                    <div class="timeline-dot" style="background: var(--gradient-1); box-shadow: 0 0 20px rgba(13,148,136,0.5);"></div>
-                    <div class="timeline-content" style="border-left: 3px solid var(--primary);">
-                        <span class="timeline-date" style="color: var(--accent); font-weight: 700;">Jan 2026 - Present</span>
+                <div class="timeline-item is-current">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <span class="timeline-date timeline-date--now">Jan 2026 - Present</span>
                         <h3>Associate Professor of Applied Statistics</h3>
                         <p class="org">Mansoura University, Egypt</p>
-                        <p style="font-size: 0.85rem; color: var(--text-light); margin-top: 0.3rem;">Promoted via Scientific Excellence Track — 4 single-authored papers in Top 10% of WoS & Scopus</p>
+                        <p class="timeline-note">Promoted via Scientific Excellence Track — 4 single-authored papers in Top 10% of WoS &amp; Scopus</p>
                     </div>
                 </div>
                 <div class="timeline-item">
@@ -2749,10 +3231,10 @@
                 <p>Leading quality assurance, accreditation, and data governance</p>
             </div>
             <div class="timeline">
-                <div class="timeline-item">
-                    <div class="timeline-dot" style="background: var(--gradient-1); box-shadow: 0 0 20px rgba(13,148,136,0.5);"></div>
-                    <div class="timeline-content" style="border-left: 3px solid var(--primary);">
-                        <span class="timeline-date" style="color: var(--accent); font-weight: 700;">Jan 2026 - Present</span>
+                <div class="timeline-item is-current">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <span class="timeline-date timeline-date--now">Jan 2026 - Present</span>
                         <h3>Director of Quality Assurance</h3>
                         <p class="org">Umm Al Quwain University, UAE</p>
                     </div>
@@ -2980,18 +3462,13 @@
             <div class="seminars-grid">
                 <!-- YouTube Seminar - AI Tools in Academic Publishing -->
                 <div class="seminar-card seminar-card--wide">
-                    <div class="seminar-preview" style="height: auto; aspect-ratio: 16/9; pointer-events: auto;">
-                        <iframe
-                            width="100%"
-                            height="100%"
-                            src="https://www.youtube.com/embed/d_oFJswEADQ?rel=0"
-                            title="Leveraging AI Tools in Academic Publishing"
-                            loading="lazy"
-                            frameborder="0"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                            allowfullscreen
-                            style="border-radius: 12px; pointer-events: auto; position: relative; z-index: 10;">
-                        </iframe>
+                    <div class="seminar-preview is-video">
+                        <!-- The YouTube player (about 1 MB of script) is only fetched once someone presses play -->
+                        <button type="button" class="yt-facade" data-video="d_oFJswEADQ" data-title="Leveraging AI Tools in Academic Publishing"
+                                aria-label="Play video: Leveraging AI Tools in Academic Publishing">
+                            <img src="https://i.ytimg.com/vi/d_oFJswEADQ/hqdefault.jpg" alt="" width="480" height="360" loading="lazy" decoding="async">
+                            <span class="yt-play" aria-hidden="true"><i class="fab fa-youtube"></i></span>
+                        </button>
                     </div>
                     <div class="seminar-info">
                         <span class="seminar-badge" style="background: linear-gradient(135deg, #ef4444, #dc2626);"><i class="fab fa-youtube"></i> YouTube</span>
@@ -3180,63 +3657,134 @@
                 <p>FWCI of 1.84 — citation rate 84% above world average</p>
             </div>
 
-            <h3 style="color: var(--accent-light); margin-bottom: 1.5rem;"><i class="fas fa-calendar-alt"></i> 2026</h3>
+            <div class="pub-toolbar">
+                <div class="pub-filters" role="group" aria-label="Filter publications by topic">
+                    <button type="button" class="pub-filter" data-filter="all" aria-pressed="true">All</button>
+                    <button type="button" class="pub-filter" data-filter="forecasting" aria-pressed="false">Forecasting models</button>
+                    <button type="button" class="pub-filter" data-filter="decomposition" aria-pressed="false">Decomposition</button>
+                    <button type="button" class="pub-filter" data-filter="society" aria-pressed="false">AI &amp; society</button>
+                </div>
+                <div class="pub-links">
+                    <span class="pub-count" id="pubCount"></span>
+                    <a href="https://www.researchgate.net/profile/Mohammed-Elseidi-2" target="_blank" rel="noopener noreferrer"><i class="fab fa-researchgate" aria-hidden="true"></i> ResearchGate</a>
+                </div>
+            </div>
 
-            <div class="pub-card q1" style="border-left-color: var(--accent);">
-                <span class="pub-badge" style="background: linear-gradient(135deg, #f59e0b, #d97706);">Top 2%, Arts & Humanities</span>
+            <div id="pubList">
+            <h3 class="pub-year-heading" data-year="2026"><i class="fas fa-calendar-alt" aria-hidden="true"></i> 2026</h3>
+
+            <article class="pub-card q1" data-pub="elseidi2026genai" data-topics="society" style="border-left-color: var(--accent);">
+                <div class="pub-top">
+                    <span class="pub-badge" style="background: linear-gradient(135deg, #f59e0b, #d97706);">Top 2%, Arts &amp; Humanities</span>
+                    <span class="pub-tags"><span>Generative AI</span><span>Google Trends</span><span>UAE</span></span>
+                </div>
                 <h3>Tracking Generative AI Adoption in a Culturally Dynamic Setting: Daily Google Trends Evidence from the UAE</h3>
                 <p class="pub-journal">Scientific Culture, 12(1)</p>
                 <p class="pub-year"><strong>Elseidi, M.</strong> (2026)</p>
-            </div>
+                <div class="pub-actions">
+                    <button type="button" class="pub-btn" data-cite="elseidi2026genai"><i class="fas fa-quote-right" aria-hidden="true"></i> Cite</button>
+                </div>
+            </article>
 
-            <h3 style="color: var(--accent-light); margin: 2rem 0 1.5rem;"><i class="fas fa-calendar-alt"></i> 2025</h3>
+            <h3 class="pub-year-heading" data-year="2025"><i class="fas fa-calendar-alt" aria-hidden="true"></i> 2025</h3>
 
-            <a href="https://growingscience.com/beta/ijds/7703-from-classical-models-to-artificial-intelligence-models-prospects-for-crime-prediction-in-the-era-of-big-data.html" target="_blank" rel="noopener noreferrer" class="pub-card q1" style="display: block; text-decoration: none;">
-                <span class="pub-badge">Q1 in AI</span>
-                <h3>From classical models to artificial intelligence models: Prospects for crime prediction in the era of big data</h3>
+            <article class="pub-card q1" data-pub="elseidi2025crime" data-topics="society">
+                <div class="pub-top">
+                    <span class="pub-badge">Q1 in AI</span>
+                    <span class="pub-tags"><span>Artificial intelligence</span><span>Crime prediction</span><span>Big data</span></span>
+                </div>
+                <h3><a href="https://growingscience.com/beta/ijds/7703-from-classical-models-to-artificial-intelligence-models-prospects-for-crime-prediction-in-the-era-of-big-data.html" target="_blank" rel="noopener noreferrer">From classical models to artificial intelligence models: Prospects for crime prediction in the era of big data</a></h3>
                 <p class="pub-journal">International Journal of Data and Network Science, 9(4), 803-812</p>
                 <p class="pub-year"><strong>Elseidi, M.</strong> (2025)</p>
-            </a>
+                <div class="pub-actions">
+                    <a class="pub-btn" href="https://growingscience.com/beta/ijds/7703-from-classical-models-to-artificial-intelligence-models-prospects-for-crime-prediction-in-the-era-of-big-data.html" target="_blank" rel="noopener noreferrer"><i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i> Read paper</a>
+                    <button type="button" class="pub-btn" data-cite="elseidi2025crime"><i class="fas fa-quote-right" aria-hidden="true"></i> Cite</button>
+                </div>
+            </article>
 
-            <a href="https://link.springer.com/article/10.1007/s40808-025-02436-6" target="_blank" rel="noopener noreferrer" class="pub-card q1" style="display: block; text-decoration: none;">
-                <span class="pub-badge">Top 10, Q1 Stats, Scopus</span>
-                <h3>STR-NBEATS: A novel hybrid framework integrating time series decomposition with deep learning for enhanced temperature forecasting</h3>
+            <article class="pub-card q1" data-pub="elseidi2025strnbeats" data-topics="forecasting decomposition">
+                <div class="pub-top">
+                    <span class="pub-badge">Top 10, Q1 Stats, Scopus</span>
+                    <span class="pub-tags"><span>Deep learning</span><span>STR</span><span>Temperature</span></span>
+                </div>
+                <h3><a href="https://doi.org/10.1007/s40808-025-02436-6" target="_blank" rel="noopener noreferrer">STR-NBEATS: A novel hybrid framework integrating time series decomposition with deep learning for enhanced temperature forecasting</a></h3>
                 <p class="pub-journal">Modeling Earth Systems and Environment, 11(4), 255</p>
                 <p class="pub-year"><strong>Elseidi, M.</strong> (2025)</p>
-            </a>
+                <span class="pub-doi">https://doi.org/10.1007/s40808-025-02436-6</span>
+                <div class="pub-actions">
+                    <a class="pub-btn" href="https://doi.org/10.1007/s40808-025-02436-6" target="_blank" rel="noopener noreferrer"><i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i> Read paper</a>
+                    <button type="button" class="pub-btn" data-cite="elseidi2025strnbeats"><i class="fas fa-quote-right" aria-hidden="true"></i> Cite</button>
+                    <a class="pub-btn" href="forecast-lab.html#model=str-nbeats"><i class="fas fa-flask" aria-hidden="true"></i> Try the model</a>
+                </div>
+            </article>
 
-            <h3 style="color: var(--accent-light); margin: 2rem 0 1.5rem;"><i class="fas fa-calendar-alt"></i> 2024</h3>
+            <h3 class="pub-year-heading" data-year="2024"><i class="fas fa-calendar-alt" aria-hidden="true"></i> 2024</h3>
 
-            <a href="https://link.springer.com/article/10.1007/s00477-024-02701-7" target="_blank" rel="noopener noreferrer" class="pub-card q1" style="display: block; text-decoration: none;">
-                <span class="pub-badge">Top 10, Q1 Stats, WoS</span>
-                <h3>MSTL-NNAR: A new hybrid model of machine learning and time series decomposition for wind speed forecasting</h3>
+            <article class="pub-card q1" data-pub="elseidi2024mstlnnar" data-topics="forecasting decomposition">
+                <div class="pub-top">
+                    <span class="pub-badge">Top 10, Q1 Stats, WoS</span>
+                    <span class="pub-tags"><span>Machine learning</span><span>MSTL</span><span>Wind speed</span></span>
+                </div>
+                <h3><a href="https://doi.org/10.1007/s00477-024-02701-7" target="_blank" rel="noopener noreferrer">MSTL-NNAR: A new hybrid model of machine learning and time series decomposition for wind speed forecasting</a></h3>
                 <p class="pub-journal">Stochastic Environmental Research and Risk Assessment, 38(7), 2613-2632</p>
                 <p class="pub-year"><strong>Elseidi, M.</strong> (2024)</p>
-            </a>
+                <span class="pub-doi">https://doi.org/10.1007/s00477-024-02701-7</span>
+                <div class="pub-actions">
+                    <a class="pub-btn" href="https://doi.org/10.1007/s00477-024-02701-7" target="_blank" rel="noopener noreferrer"><i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i> Read paper</a>
+                    <button type="button" class="pub-btn" data-cite="elseidi2024mstlnnar"><i class="fas fa-quote-right" aria-hidden="true"></i> Cite</button>
+                    <a class="pub-btn" href="forecast-lab.html#model=mstl-nnar"><i class="fas fa-flask" aria-hidden="true"></i> Try the model</a>
+                </div>
+            </article>
 
-            <a href="https://link.springer.com/article/10.1007/s40808-023-01874-4" target="_blank" rel="noopener noreferrer" class="pub-card q1" style="display: block; text-decoration: none;">
-                <span class="pub-badge">Top 10, Q1 Stats, Scopus</span>
-                <h3>A hybrid Facebook Prophet-ARIMA framework for forecasting high-frequency temperature data</h3>
+            <article class="pub-card q1" data-pub="elseidi2024prophet" data-topics="forecasting">
+                <div class="pub-top">
+                    <span class="pub-badge">Top 10, Q1 Stats, Scopus</span>
+                    <span class="pub-tags"><span>Prophet</span><span>ARIMA</span><span>High-frequency data</span></span>
+                </div>
+                <h3><a href="https://doi.org/10.1007/s40808-023-01874-4" target="_blank" rel="noopener noreferrer">A hybrid Facebook Prophet-ARIMA framework for forecasting high-frequency temperature data</a></h3>
                 <p class="pub-journal">Modeling Earth Systems and Environment, 10(2), 1855-1867</p>
                 <p class="pub-year"><strong>Elseidi, M.</strong> (2024)</p>
-            </a>
+                <span class="pub-doi">https://doi.org/10.1007/s40808-023-01874-4</span>
+                <div class="pub-actions">
+                    <a class="pub-btn" href="https://doi.org/10.1007/s40808-023-01874-4" target="_blank" rel="noopener noreferrer"><i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i> Read paper</a>
+                    <button type="button" class="pub-btn" data-cite="elseidi2024prophet"><i class="fas fa-quote-right" aria-hidden="true"></i> Cite</button>
+                </div>
+            </article>
 
-            <h3 style="color: var(--accent-light); margin: 2rem 0 1.5rem;"><i class="fas fa-calendar-alt"></i> 2023</h3>
+            <h3 class="pub-year-heading" data-year="2023"><i class="fas fa-calendar-alt" aria-hidden="true"></i> 2023</h3>
 
-            <a href="https://www.inderscienceonline.com/doi/abs/10.1504/IJCEE.2023.132144" target="_blank" rel="noopener noreferrer" class="pub-card" style="display: block; text-decoration: none;">
-                <h3>Quantile regression-based seasonal adjustment</h3>
+            <article class="pub-card" data-pub="caporin2023quantile" data-topics="decomposition">
+                <div class="pub-top">
+                    <span class="pub-tags"><span>Quantile regression</span><span>Seasonal adjustment</span><span>Econometrics</span></span>
+                </div>
+                <h3><a href="https://doi.org/10.1504/IJCEE.2023.132144" target="_blank" rel="noopener noreferrer">Quantile regression-based seasonal adjustment</a></h3>
                 <p class="pub-journal">International Journal of Computational Economics and Econometrics, 13(3), 270-304</p>
-                <p class="pub-year"><strong>Caporin, M., & Elseidi, M.</strong> (2023)</p>
-            </a>
+                <p class="pub-year"><strong>Caporin, M., &amp; Elseidi, M.</strong> (2023)</p>
+                <span class="pub-doi">https://doi.org/10.1504/IJCEE.2023.132144</span>
+                <div class="pub-actions">
+                    <a class="pub-btn" href="https://doi.org/10.1504/IJCEE.2023.132144" target="_blank" rel="noopener noreferrer"><i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i> Read paper</a>
+                    <button type="button" class="pub-btn" data-cite="caporin2023quantile"><i class="fas fa-quote-right" aria-hidden="true"></i> Cite</button>
+                </div>
+            </article>
 
-            <a href="https://link.springer.com/article/10.1007/s40808-022-01632-y" target="_blank" rel="noopener noreferrer" class="pub-card q1" style="display: block; text-decoration: none;">
-                <span class="pub-badge">Top 10, Q1 Stats, Scopus</span>
-                <h3>Forecasting temperature data with complex seasonality using time series methods</h3>
+            <article class="pub-card q1" data-pub="elseidi2023temperature" data-topics="forecasting decomposition">
+                <div class="pub-top">
+                    <span class="pub-badge">Top 10, Q1 Stats, Scopus</span>
+                    <span class="pub-tags"><span>Complex seasonality</span><span>Temperature</span><span>Time series</span></span>
+                </div>
+                <h3><a href="https://doi.org/10.1007/s40808-022-01632-y" target="_blank" rel="noopener noreferrer">Forecasting temperature data with complex seasonality using time series methods</a></h3>
                 <p class="pub-journal">Modeling Earth Systems and Environment, 9(2), 2553-2567</p>
                 <p class="pub-year"><strong>Elseidi, M.</strong> (2023)</p>
-            </a>
+                <span class="pub-doi">https://doi.org/10.1007/s40808-022-01632-y</span>
+                <div class="pub-actions">
+                    <a class="pub-btn" href="https://doi.org/10.1007/s40808-022-01632-y" target="_blank" rel="noopener noreferrer"><i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i> Read paper</a>
+                    <button type="button" class="pub-btn" data-cite="elseidi2023temperature"><i class="fas fa-quote-right" aria-hidden="true"></i> Cite</button>
+                </div>
+            </article>
+            </div>
+            <p class="pub-empty" id="pubEmpty">No publications match this filter.</p>
 
-            <h3 style="color: var(--accent-light); margin: 3rem 0 1.5rem;"><i class="fas fa-hourglass-half"></i> Manuscripts Under Peer Review</h3>
+            <h3 style="color: var(--accent-light); margin: 3rem 0 1.5rem;"><i class="fas fa-hourglass-half" aria-hidden="true"></i> Manuscripts Under Peer Review</h3>
 
             <div class="pub-card" style="border-left-color: var(--secondary); text-align: center;">
                 <div style="font-size: 3rem; font-weight: 800; color: var(--secondary);">4</div>
@@ -3252,11 +3800,11 @@
                 <h2>Honors & Awards</h2>
                 <p>Recognition for excellence in research</p>
             </div>
-            <div class="award-card" style="border-left: 4px solid var(--accent); background: linear-gradient(135deg, rgba(34,197,94,0.05), rgba(13,148,136,0.05));">
+            <div class="award-card award-card--light">
                 <h3><i class="fas fa-star"></i> Promotion — Associate Professor via Scientific Excellence Track</h3>
                 <p class="org">Supreme Council of Universities (SCU), Egypt</p>
                 <p class="date">January 27, 2026</p>
-                <p style="margin-top: 0.5rem; font-size: 0.9rem; color: var(--text-light);">Promoted based on 4 single-authored papers: 1 in Top 10% of Web of Science and 3 in Top 10% of Scopus journals in Statistics. Mansoura University with concurrent affiliation at Umm Al Quwain University, UAE.</p>
+                <p class="note">Promoted based on 4 single-authored papers: 1 in Top 10% of Web of Science and 3 in Top 10% of Scopus journals in Statistics. Mansoura University with concurrent affiliation at Umm Al Quwain University, UAE.</p>
             </div>
             <div class="award-card">
                 <h3><i class="fas fa-trophy"></i> Second Place, "Wellbeing Economy Award" 2024/2025</h3>
@@ -3404,7 +3952,8 @@
                 <div class="contact-card">
                     <div class="contact-icon"><i class="fas fa-envelope"></i></div>
                     <h3>Email</h3>
-                    <a href="mailto:drmohammed.elseidi@uaqu.ac.ae">drmohammed.elseidi@uaqu.ac.ae</a>
+                    <a href="mailto:drmohammed.elseidi@uaqu.ac.ae">drmohammed.elseidi@uaqu.ac.ae</a><br>
+                    <button type="button" class="copy-btn" data-copy="drmohammed.elseidi@uaqu.ac.ae"><i class="fas fa-copy" aria-hidden="true"></i> Copy address</button>
                 </div>
                 <div class="contact-card">
                     <div class="contact-icon"><i class="fas fa-phone"></i></div>
@@ -3464,6 +4013,32 @@
             <p class="copyright">&copy; <span id="copyYear">2026</span> Dr. Mohammed Elseidi. All rights reserved.</p>
         </div>
     </footer>
+
+    <button type="button" class="to-top" id="toTop" aria-label="Back to top"><i class="fas fa-arrow-up" aria-hidden="true"></i></button>
+
+    <!-- Citation dialog for the publications list -->
+    <div class="cite-modal" id="citeModal" role="dialog" aria-modal="true" aria-labelledby="citeTitle">
+        <div class="cite-box">
+            <div class="cite-head">
+                <div>
+                    <h3 id="citeTitle">Cite this paper</h3>
+                    <p id="citeMeta"></p>
+                </div>
+                <button type="button" class="cite-close" id="citeClose" aria-label="Close"><i class="fas fa-times" aria-hidden="true"></i></button>
+            </div>
+            <div class="cite-body">
+                <div class="cite-block">
+                    <label for="citeApa">APA <button type="button" class="cite-copy" data-target="citeApa"><i class="fas fa-copy" aria-hidden="true"></i> Copy</button></label>
+                    <p class="cite-text" id="citeApa"></p>
+                </div>
+                <div class="cite-block">
+                    <label for="citeBib">BibTeX <button type="button" class="cite-copy" data-target="citeBib"><i class="fas fa-copy" aria-hidden="true"></i> Copy</button></label>
+                    <pre id="citeBib"></pre>
+                </div>
+            </div>
+            <div class="cite-foot" id="citeFoot"></div>
+        </div>
+    </div>
 
     <script>
         // Google Drive embed links for seminar slides. Leave a placeholder and the
@@ -3579,6 +4154,325 @@
             e.preventDefault();
             return false;
         });
+
+        /* =====================================================================
+           Enhancements
+           ===================================================================== */
+        const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        // ---- Reading progress and back-to-top ------------------------------
+        const progressBar = document.getElementById('scrollProgress');
+        const toTop = document.getElementById('toTop');
+        function onScrollUi() {
+            const max = document.documentElement.scrollHeight - window.innerHeight;
+            progressBar.style.transform = 'scaleX(' + (max > 0 ? Math.min(1, window.scrollY / max) : 0) + ')';
+            toTop.classList.toggle('show', window.scrollY > 600);
+        }
+        window.addEventListener('scroll', onScrollUi, { passive: true });
+        window.addEventListener('resize', onScrollUi);
+        onScrollUi();
+        toTop.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: reduceMotion ? 'auto' : 'smooth' });
+            history.replaceState(null, '', location.pathname + location.search);
+        });
+
+        // ---- Menu follows the section on screen ----------------------------
+        const navAnchors = Array.from(document.querySelectorAll('.nav-links a[href^="#"]'));
+        const spied = navAnchors.map(a => document.querySelector(a.getAttribute('href'))).filter(Boolean);
+        if ('IntersectionObserver' in window && spied.length) {
+            const setActive = id => navAnchors.forEach(a => {
+                const on = a.getAttribute('href') === '#' + id;
+                a.classList.toggle('active', on);
+                if (on) a.setAttribute('aria-current', 'location'); else a.removeAttribute('aria-current');
+            });
+            const spy = new IntersectionObserver(entries => {
+                entries.forEach(en => { if (en.isIntersecting) setActive(en.target.id); });
+            }, { rootMargin: '-35% 0px -55% 0px', threshold: 0 });
+            spied.forEach(sec => spy.observe(sec));
+        }
+
+        // ---- Content slides in as it arrives on screen ---------------------
+        if ('IntersectionObserver' in window && !reduceMotion) {
+            const targets = document.querySelectorAll(
+                '.card, .timeline-item, .pub-card, .award-card, .media-card, .skill-category, ' +
+                '.membership-item, .contact-card, .seminar-card, .research-card, .research-step, .lab-model, .role-list li');
+            const groups = new Map();   // stagger siblings a little
+            targets.forEach(el => {
+                const parent = el.parentElement;
+                const n = groups.get(parent) || 0; groups.set(parent, n + 1);
+                el.classList.add('reveal');
+                if (n % 4) el.classList.add('d' + (n % 4));
+            });
+            const reveal = new IntersectionObserver(entries => {
+                entries.forEach(en => {
+                    if (!en.isIntersecting) return;
+                    const el = en.target;
+                    el.classList.add('in');
+                    reveal.unobserve(el);
+                    // once shown, drop the helper classes so hover transforms work again
+                    setTimeout(() => el.classList.remove('reveal', 'in', 'd1', 'd2', 'd3'), 1100);
+                });
+            }, { rootMargin: '0px 0px -8% 0px', threshold: 0.05 });
+            targets.forEach(el => reveal.observe(el));
+        }
+
+        // ---- Hero numbers count up -----------------------------------------
+        if (!reduceMotion) {
+            document.querySelectorAll('.stat-number[data-count]').forEach(el => {
+                const end = parseFloat(el.dataset.count), dec = parseInt(el.dataset.decimals || '0', 10), suffix = el.dataset.suffix || '';
+                const t0 = performance.now(), dur = 1400;
+                const tick = now => {
+                    const k = Math.min(1, (now - t0) / dur), eased = 1 - Math.pow(1 - k, 3);
+                    el.textContent = (end * eased).toFixed(dec) + suffix;
+                    if (k < 1) requestAnimationFrame(tick);
+                };
+                requestAnimationFrame(tick);
+            });
+        }
+
+        // ---- Print / save as PDF -------------------------------------------
+        document.getElementById('printCv').addEventListener('click', () => window.print());
+
+        // ---- YouTube loads on demand ---------------------------------------
+        document.querySelectorAll('.yt-facade').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const f = document.createElement('iframe');
+                f.src = 'https://www.youtube.com/embed/' + btn.dataset.video + '?rel=0&autoplay=1';
+                f.title = btn.dataset.title || 'Video';
+                f.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+                f.allowFullscreen = true;
+                f.setAttribute('frameborder', '0');
+                btn.replaceWith(f);
+            });
+        });
+
+        // ---- Copy helpers --------------------------------------------------
+        function copyText(text) {
+            if (navigator.clipboard && window.isSecureContext) return navigator.clipboard.writeText(text);
+            return new Promise((resolve, reject) => {
+                const ta = document.createElement('textarea');
+                ta.value = text; ta.setAttribute('readonly', ''); ta.style.position = 'fixed'; ta.style.opacity = '0';
+                document.body.appendChild(ta); ta.select();
+                try { document.execCommand('copy') ? resolve() : reject(); } catch (e) { reject(e); }
+                document.body.removeChild(ta);
+            });
+        }
+        function flash(btn, label) {
+            const html = btn.innerHTML;
+            btn.classList.add('done');
+            btn.innerHTML = '<i class="fas fa-check" aria-hidden="true"></i> ' + label;
+            setTimeout(() => { btn.classList.remove('done'); btn.innerHTML = html; }, 1800);
+        }
+        document.querySelectorAll('.copy-btn[data-copy]').forEach(btn => {
+            btn.addEventListener('click', () => copyText(btn.dataset.copy).then(() => flash(btn, 'Copied'), () => flash(btn, 'Select and copy')));
+        });
+
+        // ---- Publications: filter and cite ---------------------------------
+        const PUBS = {
+            elseidi2026genai: { authors: [['Elseidi', 'Mohammed']], year: 2026,
+                title: 'Tracking Generative AI Adoption in a Culturally Dynamic Setting: Daily Google Trends Evidence from the UAE',
+                journal: 'Scientific Culture', volume: '12', number: '1' },
+            elseidi2025crime: { authors: [['Elseidi', 'Mohammed']], year: 2025,
+                title: 'From classical models to artificial intelligence models: Prospects for crime prediction in the era of big data',
+                journal: 'International Journal of Data and Network Science', volume: '9', number: '4', pages: '803-812',
+                url: 'https://growingscience.com/beta/ijds/7703-from-classical-models-to-artificial-intelligence-models-prospects-for-crime-prediction-in-the-era-of-big-data.html' },
+            elseidi2025strnbeats: { authors: [['Elseidi', 'Mohammed']], year: 2025,
+                title: 'STR-NBEATS: A novel hybrid framework integrating time series decomposition with deep learning for enhanced temperature forecasting',
+                journal: 'Modeling Earth Systems and Environment', volume: '11', number: '4', pages: '255', doi: '10.1007/s40808-025-02436-6' },
+            elseidi2024mstlnnar: { authors: [['Elseidi', 'Mohammed']], year: 2024,
+                title: 'MSTL-NNAR: A new hybrid model of machine learning and time series decomposition for wind speed forecasting',
+                journal: 'Stochastic Environmental Research and Risk Assessment', volume: '38', number: '7', pages: '2613-2632', doi: '10.1007/s00477-024-02701-7' },
+            elseidi2024prophet: { authors: [['Elseidi', 'Mohammed']], year: 2024,
+                title: 'A hybrid Facebook Prophet-ARIMA framework for forecasting high-frequency temperature data',
+                journal: 'Modeling Earth Systems and Environment', volume: '10', number: '2', pages: '1855-1867', doi: '10.1007/s40808-023-01874-4' },
+            caporin2023quantile: { authors: [['Caporin', 'Massimiliano'], ['Elseidi', 'Mohammed']], year: 2023,
+                title: 'Quantile regression-based seasonal adjustment',
+                journal: 'International Journal of Computational Economics and Econometrics', volume: '13', number: '3', pages: '270-304', doi: '10.1504/IJCEE.2023.132144' },
+            elseidi2023temperature: { authors: [['Elseidi', 'Mohammed']], year: 2023,
+                title: 'Forecasting temperature data with complex seasonality using time series methods',
+                journal: 'Modeling Earth Systems and Environment', volume: '9', number: '2', pages: '2553-2567', doi: '10.1007/s40808-022-01632-y' }
+        };
+        function apaAuthors(list) {
+            const names = list.map(a => a[0] + ', ' + a[1].split(/[\s-]/).map(n => n[0] + '.').join(' '));
+            return names.length === 1 ? names[0] : names.slice(0, -1).join(', ') + ', & ' + names[names.length - 1];
+        }
+        function apa(p) {
+            let s = apaAuthors(p.authors) + ' (' + p.year + '). ' + p.title + '. ' + p.journal;
+            if (p.volume) s += ', ' + p.volume + (p.number ? '(' + p.number + ')' : '');
+            if (p.pages) s += ', ' + p.pages.replace('-', '–');
+            s += '.';
+            if (p.doi) s += ' https://doi.org/' + p.doi; else if (p.url) s += ' ' + p.url;
+            return s;
+        }
+        function bibtex(key, p) {
+            const f = [['author', p.authors.map(a => a[0] + ', ' + a[1]).join(' and ')], ['title', '{' + p.title + '}'],
+                ['journal', p.journal], ['year', String(p.year)], ['volume', p.volume], ['number', p.number],
+                ['pages', p.pages ? p.pages.replace('-', '--') : ''], ['doi', p.doi], ['url', p.doi ? '' : p.url]].filter(x => x[1]);
+            return '@article{' + key + ',\n' + f.map(x => '  ' + x[0].padEnd(8) + '= {' + x[1] + '}').join(',\n') + '\n}';
+        }
+        const citeModal = document.getElementById('citeModal');
+        let citeReturnTo = null;
+        function openCite(key, trigger) {
+            const p = PUBS[key]; if (!p) return;
+            document.getElementById('citeTitle').textContent = p.title;
+            document.getElementById('citeMeta').textContent = apaAuthors(p.authors) + ' · ' + p.journal + ' · ' + p.year;
+            document.getElementById('citeApa').textContent = apa(p);
+            document.getElementById('citeBib').textContent = bibtex(key, p);
+            const foot = document.getElementById('citeFoot');
+            foot.innerHTML = p.doi
+                ? 'DOI: <a href="https://doi.org/' + p.doi + '" target="_blank" rel="noopener noreferrer">' + p.doi + '</a>'
+                : (p.url ? 'Publisher page: <a href="' + p.url + '" target="_blank" rel="noopener noreferrer">open</a>' : 'In press: a DOI will be added once the article is online.');
+            citeReturnTo = trigger;
+            citeModal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+            document.getElementById('citeClose').focus();
+        }
+        function closeCite() {
+            if (!citeModal.classList.contains('active')) return;
+            citeModal.classList.remove('active');
+            document.body.style.overflow = '';
+            if (citeReturnTo) citeReturnTo.focus();
+        }
+        document.querySelectorAll('[data-cite]').forEach(b => b.addEventListener('click', () => openCite(b.dataset.cite, b)));
+        document.getElementById('citeClose').addEventListener('click', closeCite);
+        citeModal.addEventListener('click', e => { if (e.target === citeModal) closeCite(); });
+        document.addEventListener('keydown', e => { if (e.key === 'Escape') closeCite(); });
+        document.querySelectorAll('.cite-copy').forEach(btn => {
+            btn.addEventListener('click', () => copyText(document.getElementById(btn.dataset.target).textContent)
+                .then(() => flash(btn, 'Copied'), () => flash(btn, 'Select and copy')));
+        });
+
+        const pubCards = Array.from(document.querySelectorAll('#pubList .pub-card'));
+        const yearHeads = Array.from(document.querySelectorAll('#pubList .pub-year-heading'));
+        function filterPubs(topic) {
+            let shown = 0;
+            pubCards.forEach(c => {
+                const on = topic === 'all' || (c.dataset.topics || '').split(' ').includes(topic);
+                c.classList.toggle('is-hidden', !on); if (on) shown++;
+            });
+            yearHeads.forEach(h => {
+                const any = pubCards.some(c => !c.classList.contains('is-hidden') && c.closest('#pubList') && yearOf(c) === h.dataset.year);
+                h.style.display = any ? '' : 'none';
+            });
+            document.getElementById('pubEmpty').classList.toggle('show', shown === 0);
+            document.getElementById('pubCount').textContent = shown + ' of ' + pubCards.length + ' papers';
+            document.querySelectorAll('.pub-filter').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.filter === topic)));
+        }
+        function yearOf(card) { return String(PUBS[card.dataset.pub] ? PUBS[card.dataset.pub].year : ''); }
+        document.querySelectorAll('.pub-filter').forEach(b => b.addEventListener('click', () => filterPubs(b.dataset.filter)));
+        filterPubs('all');
+
+        // ---- Research: decompose-then-forecast, drawn live -----------------
+        (function researchVisual() {
+            const cv = { obs: document.getElementById('rvObserved'), comp: document.getElementById('rvComponents'), fc: document.getElementById('rvForecast') };
+            if (!cv.obs || !cv.obs.getContext) return;
+            const N = 200, H = 40, PHI = 0.55, SIG = 0.7;
+            let seed = 11;
+            const rnd = () => { seed = (seed * 1664525 + 1013904223) % 4294967296; return seed / 4294967296; };
+            const gauss = () => { let u = 0, v = 0; while (!u) u = rnd(); while (!v) v = rnd(); return Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * v); };
+            const trend = [], seas = [], rem = [], y = [];
+            let e = 0;
+            for (let t = 0; t < N + H; t++) {
+                trend.push(10 + 0.018 * t + 2.2 * Math.sin(t / 55 - 0.8));
+                seas.push(2.4 * Math.sin(2 * Math.PI * t / 24) + 0.6 * Math.sin(4 * Math.PI * t / 24) + 1.3 * Math.sin(2 * Math.PI * t / 84 + 1));
+                e = PHI * e + SIG * gauss(); rem.push(e);
+                y.push(trend[t] + seas[t] + rem[t]);
+            }
+            const fc = [], sd = [];
+            for (let h = 0; h < H; h++) {
+                fc.push(trend[N + h] + seas[N + h] + rem[N - 1] * Math.pow(PHI, h + 1));
+                sd.push(SIG * Math.sqrt((1 - Math.pow(PHI, 2 * (h + 1))) / (1 - PHI * PHI)));
+            }
+            const dpr = Math.min(2, window.devicePixelRatio || 1);
+            const ctxOf = c => {
+                const w = c.clientWidth || 640, ratio = c.getAttribute('height') / c.getAttribute('width');
+                if (c.width !== Math.round(w * dpr)) { c.width = Math.round(w * dpr); c.height = Math.round(w * ratio * dpr); }
+                const ctx = c.getContext('2d'); ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+                return { ctx, w, h: w * ratio };
+            };
+            const PAD = { l: 12, r: 12, t: 10, b: 10 };
+            function scaler(w, h, arrs, top, height) {
+                let lo = Infinity, hi = -Infinity;
+                arrs.forEach(a => a.forEach(v => { if (v < lo) lo = v; if (v > hi) hi = v; }));
+                const span = (hi - lo) || 1;
+                return { x: i => PAD.l + (w - PAD.l - PAD.r) * i / (N + H - 1),
+                         y: v => top + height - PAD.b - (height - PAD.t - PAD.b) * (v - lo) / span };
+            }
+            function path(ctx, sc, arr, from, upto, offset) {
+                ctx.beginPath();
+                for (let i = from; i < upto; i++) { const px = sc.x(i + (offset || 0)), py = sc.y(arr[i]); i === from ? ctx.moveTo(px, py) : ctx.lineTo(px, py); }
+            }
+            function stroke(ctx, color, width, dash) { ctx.strokeStyle = color; ctx.lineWidth = width; ctx.setLineDash(dash || []); ctx.lineJoin = 'round'; ctx.stroke(); ctx.setLineDash([]); }
+            function label(ctx, text, x, yy, color, align) { ctx.font = '600 11px Inter, system-ui, sans-serif'; ctx.fillStyle = color; ctx.textAlign = align || 'left'; ctx.fillText(text, x, yy); }
+            function cursor(ctx, x, h) { ctx.fillStyle = 'rgba(20,184,166,0.9)'; ctx.fillRect(x - 0.5, 0, 1.5, h); }
+
+            function drawObserved(p) {
+                const { ctx, w, h } = ctxOf(cv.obs); ctx.clearRect(0, 0, w, h);
+                const sc = scaler(w, h, [y.slice(0, N)], 0, h);
+                const upto = Math.max(2, Math.round(N * p));
+                path(ctx, sc, y, 0, upto); stroke(ctx, '#e2e8f0', 1.6);
+                if (p < 1) cursor(ctx, sc.x(upto - 1), h);
+                label(ctx, 'yₜ', PAD.l, 16, 'rgba(255,255,255,0.6)');
+            }
+            function drawComponents(p) {
+                const { ctx, w, h } = ctxOf(cv.comp); ctx.clearRect(0, 0, w, h);
+                const rows = [['trend', trend, '#4ade80'], ['seasonal', seas, '#38bdf8'], ['remainder', rem, '#f472b6']];
+                const rh = h / rows.length;
+                rows.forEach((r, k) => {
+                    const sc = scaler(w, h, [r[1].slice(0, N)], k * rh, rh);
+                    if (k) { ctx.strokeStyle = 'rgba(255,255,255,0.08)'; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(PAD.l, k * rh); ctx.lineTo(w - PAD.r, k * rh); ctx.stroke(); }
+                    const upto = Math.max(2, Math.round(N * p));
+                    path(ctx, sc, r[1], 0, upto); stroke(ctx, r[2], 1.5);
+                    label(ctx, r[0], PAD.l, k * rh + 14, r[2]);
+                });
+                if (p < 1) cursor(ctx, PAD.l + (w - PAD.l - PAD.r) * (Math.round(N * p) - 1) / (N + H - 1), h);
+            }
+            function drawForecast(p) {
+                const { ctx, w, h } = ctxOf(cv.fc); ctx.clearRect(0, 0, w, h);
+                const hi95 = fc.map((v, i) => v + 1.96 * sd[i]), lo95 = fc.map((v, i) => v - 1.96 * sd[i]);
+                const sc = scaler(w, h, [y.slice(0, N), hi95, lo95], 0, h);
+                const xNow = sc.x(N - 1);
+                // history
+                path(ctx, sc, y, 0, N); stroke(ctx, 'rgba(226,232,240,0.55)', 1.3);
+                // divider
+                ctx.strokeStyle = 'rgba(255,255,255,0.35)'; ctx.setLineDash([4, 4]); ctx.lineWidth = 1;
+                ctx.beginPath(); ctx.moveTo(xNow, PAD.t); ctx.lineTo(xNow, h - PAD.b); ctx.stroke(); ctx.setLineDash([]);
+                label(ctx, 'history', xNow - 6, 16, 'rgba(255,255,255,0.55)', 'right');
+                label(ctx, 'forecast', xNow + 6, 16, 'rgba(255,255,255,0.55)', 'left');
+                const upto = Math.max(1, Math.round(H * p));
+                [[1.96, 'rgba(20,184,166,0.16)'], [1.28, 'rgba(20,184,166,0.28)']].forEach(b => {
+                    ctx.beginPath();
+                    ctx.moveTo(xNow, sc.y(y[N - 1]));
+                    for (let i = 0; i < upto; i++) ctx.lineTo(sc.x(N + i), sc.y(fc[i] + b[0] * sd[i]));
+                    for (let i = upto - 1; i >= 0; i--) ctx.lineTo(sc.x(N + i), sc.y(fc[i] - b[0] * sd[i]));
+                    ctx.closePath(); ctx.fillStyle = b[1]; ctx.fill();
+                });
+                ctx.beginPath(); ctx.moveTo(xNow, sc.y(y[N - 1]));
+                for (let i = 0; i < upto; i++) ctx.lineTo(sc.x(N + i), sc.y(fc[i]));
+                stroke(ctx, '#14b8a6', 2.2);
+                if (p < 1) cursor(ctx, sc.x(N + upto - 1), h);
+            }
+            function frame(t) {   // t in [0,1): observed -> components -> forecast -> hold
+                const ease = k => Math.min(1, Math.max(0, k));
+                drawObserved(ease(t / 0.28));
+                drawComponents(t < 0.3 ? 0 : ease((t - 0.3) / 0.28));
+                drawForecast(t < 0.62 ? 0 : ease((t - 0.62) / 0.22));
+            }
+            const LOOP = 14000;
+            let running = false, start = 0, raf = 0;
+            function loop(now) {
+                if (!running) return;
+                frame(((now - start) % LOOP) / LOOP);
+                raf = requestAnimationFrame(loop);
+            }
+            function play() { if (running) return; running = true; start = performance.now(); raf = requestAnimationFrame(loop); }
+            function stop() { running = false; cancelAnimationFrame(raf); }
+            if (reduceMotion || !('IntersectionObserver' in window)) { frame(0.999); return; }
+            frame(0.999);
+            new IntersectionObserver(en => en.forEach(x => x.isIntersecting ? play() : stop()), { threshold: 0.15 })
+                .observe(document.getElementById('researchVisual'));
+            let rt; window.addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(() => { if (!running) frame(0.999); }, 150); });
+        })();
     </script>
 </body>
 </html>
