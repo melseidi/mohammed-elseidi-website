@@ -3,15 +3,47 @@
 Personal academic website of Dr. Mohammed Elseidi — Associate Professor of Statistics &
 Data Science and Director of Quality Assurance, Umm Al Quwain University.
 
-A static site, served straight from this repository. No build step and no backend.
+A static site, served straight from this repository by GitHub Pages. No build step and no
+backend. Fonts are self-hosted and icons are inline SVG, so the only third-party request on a
+normal page load is the poster image for the recorded YouTube talk (`i.ytimg.com`, loaded
+lazily); the YouTube player (on play), the Google Drive copy of the portrait (only if
+`assets/profile.jpg` fails to load) and SheetJS (only for `.xlsx` uploads in the Lab) are
+fetched on demand.
 
 ## Pages
 
 | File | What it is |
 |------|------------|
-| `index.html` | The main CV site — biography, experience, publications, seminars, awards |
+| `index.html` | The main CV site — about, publications, Forecast Lab feature, career, awards, service, talks & media, skills, contact |
 | `forecast-lab.html` | **Forecast Lab** — run the MSTL-NNAR and STR-NBEATS models on your own data |
-| `dashboard.html` | UAQU OBEF results dashboard (standalone) |
+| `404.html` | Not-found page (uses absolute `/mohammed-elseidi-website/` paths because GitHub Pages serves it at any depth) |
+| `dashboard.html` | UAQU OBEF results dashboard (standalone, its own styles) |
+
+## Design system
+
+| File | Contents |
+|------|----------|
+| `assets/site.css` | Shared foundation: `@font-face` rules, design tokens (colour, type, spacing, radii), base styles, navigation, buttons, badges, footer, scroll-reveal, reduced-motion and print rules |
+| `assets/home.css` | Components used only on `index.html`: hero with the forecast-fan artwork, about, publications list, Lab feature band, career lists, awards, service blocks, talks & press, toolkit, contact, slides modal |
+| `assets/lab.css` | Forecast Lab styles on top of `site.css`, including a CSS-mask icon shim for the `<i class="fas fa-…">` tags the Lab's JavaScript emits |
+| `assets/fonts/` | Self-hosted latin subsets (woff2) of **Fraunces** (display), **Inter** (text) and **JetBrains Mono** (numbers, dates, labels), all from the Google Fonts catalogue |
+| `assets/profile.jpg` | 400×400 portrait used in the hero and as the social-sharing image; the home page falls back to a Google Drive copy, then to `favicon.svg`, if it fails to load |
+
+Conventions worth knowing before editing:
+
+- Colours, type and spacing are CSS custom properties declared once in `assets/site.css`
+  (`--ink`, `--paper`, `--teal`, `--font-display`, …). Change a token there and every page follows.
+- Icons on the home page come from an inline SVG sprite at the top of `<body>` and are used as
+  `<svg class="i"><use href="#i-name"/></svg>`. The Lab keeps Font Awesome class names for
+  compatibility with `lab-ui.js`, but draws them from data-URI masks in `lab.css`.
+- Every section keeps its historical anchor id (`#about`, `#publications`, `#experience`, `#qa`,
+  `#education`, `#leadership`, `#editorial`, `#seminars`, `#media`, `#awards`, `#skills`, `#lab`,
+  `#contact`), so old links still work.
+- The YouTube recording is a click-to-load facade: the player is only embedded when a visitor
+  presses play, which keeps the home page light.
+- Seminar slide viewers appear automatically once a real link replaces the placeholder in the
+  `slideLinks` object at the bottom of `index.html`.
+- The site prints as a clean CV (`@media print` rules in `site.css` and `home.css`).
 
 ## Forecast Lab
 
@@ -33,10 +65,10 @@ the device — which is also why the page can be hosted on GitHub Pages unchange
 | `assets/lab-worker.js` | Web Worker wrapper so training never blocks the page (falls back to the main thread if workers are unavailable) |
 | `assets/lab-charts.js` | Canvas plotting — line charts with interval bands, crosshair tooltips, ACF bars |
 | `assets/lab-ui.js` | File parsing, seasonality detection, run orchestration, results rendering |
-| `assets/lab.css` | Styles, sharing the main site's palette |
+| `assets/lab.css` | Styles, sharing the main site's design system |
 
-No external JavaScript is required. Font Awesome is loaded from a CDN for icons, and SheetJS
-is fetched lazily only when someone drops in an `.xlsx` file.
+No external JavaScript is required. SheetJS is fetched lazily only when someone drops in an
+`.xlsx` file.
 
 ### What it does with a series
 
@@ -64,3 +96,7 @@ python3 -m http.server 8000
 
 Then open <http://localhost:8000/>. Serve over HTTP rather than opening the files directly —
 the Forecast Lab's Web Worker needs a real origin (it falls back to the main thread otherwise).
+
+To preview `404.html` exactly as GitHub Pages serves it (it uses absolute paths), run the
+server from the parent directory and open
+<http://localhost:8000/mohammed-elseidi-website/404.html>.
